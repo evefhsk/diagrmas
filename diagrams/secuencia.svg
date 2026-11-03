@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Diagrama UML B&N — ProA La Falda: secuencia -->
+        <svg width="1200" height="950" id="sequenceDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 950">
+          <defs>
+            <marker id="seqArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" />
+            </marker>
+            <marker id="seqReturnArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#000000" stroke-width="1.5" />
+            </marker>
+          </defs>
+
+          <!-- Lifeline Labels & Headers -->
+          <g transform="translate(150, 60)">
+            <rect x="-60" y="0" width="120" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Docente</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <g transform="translate(450, 60)">
+            <rect x="-70" y="0" width="140" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Interfaz Web (UI)</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <g transform="translate(750, 60)">
+            <rect x="-80" y="0" width="160" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">ControladorBitacora</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <g transform="translate(1050, 60)">
+            <rect x="-65" y="0" width="130" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Base de Datos</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <!-- Execution Specifications -->
+          <rect x="445" y="140" width="10" height="730" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="745" y="190" width="10" height="130" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="1045" y="240" width="10" height="50" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="745" y="510" width="10" height="340" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="1045" y="560" width="10" height="50" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+
+          <!-- Messages -->
+          <line x1="150" y1="150" x2="440" y2="150" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="295" y="142" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">1. Acceder al módulo de bitácora</text>
+
+          <line x1="455" y1="200" x2="740" y2="200" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="597" y="192" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">2. Solicitar materias del docente</text>
+
+          <line x1="755" y1="250" x2="1040" y2="250" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="897" y="242" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">3. getMaterias()</text>
+
+          <line x1="1040" y1="280" x2="760" y2="280" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="897" y="272" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">4. Lista materias</text>
+
+          <line x1="740" y1="310" x2="460" y2="310" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="597" y="302" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">5. Renderizar selector</text>
+
+          <line x1="150" y1="410" x2="440" y2="410" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="295" y="402" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">6. Carga tema, fecha y recursos</text>
+
+          <line x1="150" y1="460" x2="440" y2="460" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="295" y="452" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">7. Clic "Publicar"</text>
+
+          <line x1="455" y1="520" x2="740" y2="520" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="597" y="512" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">8. registrar(datos)</text>
+
+          <line x1="755" y1="570" x2="1040" y2="570" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="897" y="562" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">9. INSERT Bitacora</text>
+
+          <line x1="1040" y1="600" x2="760" y2="600" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="897" y="592" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">10. Confirmación</text>
+
+          <!-- ALT Fragment -->
+          <g transform="translate(130, 640)">
+            <rect x="0" y="0" width="670" height="180" fill="none" stroke="#000000" stroke-width="1.5" />
+            <path d="M 0 0 L 40 0 L 40 20 L 30 30 L 0 30 Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="8" y="18" font-family="'Fira Code', monospace" font-size="11" font-weight="600" fill="#000000">alt</text>
+            <text x="50" y="20" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Guardado OK</text>
+
+            <line x1="0" y1="90" x2="670" y2="90" stroke="#000000" stroke-width="1.5" stroke-dasharray="8 4" />
+            <text x="10" y="110" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Error de campos</text>
+          </g>
+
+          <line x1="740" y1="690" x2="460" y2="690" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="597" y="682" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">11. Notificar éxito</text>
+
+          <line x1="440" y1="715" x2="160" y2="715" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="295" y="707" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">12. Muestra msj confirmación</text>
+
+          <line x1="740" y1="770" x2="460" y2="770" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="597" y="762" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">14. Alerta validación</text>
+
+          <line x1="440" y1="800" x2="160" y2="800" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="295" y="792" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">13. Muestra error</text>
+        </svg>
