@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagramas UML B&N — ProA La Falda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body class="index-body">
+
+  <div class="index-hero">
+    <h1>Diagramas UML B&amp;N</h1>
+    <p>Ciclo de Regularidad Escolar — ProA La Falda (SP4 / SP5 · RUP).
+       Cada diagrama fue separado en su propia página; seleccioná una vista para abrirla.</p>
+  </div>
+
+  <!-- Las tarjetas se generan desde js/diagram-config.js -->
+  <main id="diagramGrid" class="diagram-grid"></main>
+
+  <footer class="index-footer">
+    Estructura: pages/*.html · css/*.css · js/*.js · diagrams/*.svg
+  </footer>
+
+  <script src="js/diagram-config.js"></script>
+  <script>
+    (function () {
+      const grid = document.getElementById('diagramGrid');
+      grid.innerHTML = NAV_ORDER.map(key => {
+        const cfg = DIAGRAM_CONFIGS[key];
+        return `
+        <article class="diagram-card">
+          <div class="card-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">${NAV_ICONS[key]}</svg>
+          </div>
+          <h2>${NAV_LABELS[key]}</h2>
+          <span class="card-tag">${cfg.label} · ${cfg.width}×${cfg.height}</span>
+          <p>${cfg.description}</p>
+          <div class="card-actions">
+            <a class="card-btn card-btn--primary" href="pages/${cfg.page}">Abrir vista</a>
+            <a class="card-btn" href="${cfg.svgFile}" download="${cfg.exportName}.svg">Descargar SVG</a>
+          </div>
+        </article>`;
+      }).join('');
+    })();
+  </script>
+</body>
+</html>
