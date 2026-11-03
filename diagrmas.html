@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagramas UML B&N — Ciclo de Regularidad Escolar (ProA La Falda)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; user-select: none; }
+    .state-card { transition: stroke 0.15s ease, stroke-width 0.15s ease; cursor: pointer; }
+    .state-card.active-state rect.state-outline { stroke: #000000 !important; stroke-width: 2.5px !important; stroke-dasharray: 6 3; }
+    .transition-path { transition: stroke 0.2s ease, stroke-width 0.2s ease; }
+    .transition-path.active-path { stroke: #000000 !important; stroke-width: 3px !important; stroke-dasharray: 6 4; }
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+  </style>
+</head>
+<body class="h-full bg-slate-900 text-slate-800 flex flex-col overflow-hidden">
+
+  <!-- Header -->
+  <header class="bg-slate-900 border-b border-slate-800 text-white px-4 py-2 flex items-center justify-between gap-4 shadow-sm z-20 shrink-0 h-14 select-none">
+    <div class="flex items-center gap-3 shrink-0">
+      <div class="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-slate-200 text-xs">UML</div>
+      <div class="flex flex-col justify-center">
+        <div class="flex items-center gap-2 whitespace-nowrap">
+          <span class="text-xs font-bold tracking-wide text-slate-100 uppercase">ProA La Falda</span>
+          <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">SP4 / SP5 &bull; RUP</span>
+        </div>
+        <p id="headerActiveViewLabel" class="text-[11px] text-slate-400 font-mono whitespace-nowrap leading-none mt-1">
+          VISTA: <span class="text-slate-200 font-semibold">Máquina de Estados</span>
+        </p>
+      </div>
+    </div>
+    <!-- Tabs -->
+    <nav class="flex items-center bg-slate-800 p-1 rounded-lg border border-slate-700 shrink-0 shadow-inner overflow-x-auto custom-scroll">
+      <button id="tabStatesBtn" type="button" class="px-3 py-1 rounded text-xs font-medium transition bg-slate-700 text-white shadow-sm flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <span>Estados</span>
+      </button>
+      <button id="tabCycleBtn" type="button" class="px-3 py-1 rounded text-xs font-medium transition text-slate-400 hover:text-slate-200 flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        <span>Ciclo Regularidad</span>
+      </button>
+      <button id="tabActivitiesBtn" type="button" class="px-3 py-1 rounded text-xs font-medium transition text-slate-400 hover:text-slate-200 flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+        <span>Actividades</span>
+      </button>
+      <button id="tabSequenceBtn" type="button" class="px-3 py-1 rounded text-xs font-medium transition text-slate-400 hover:text-slate-200 flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+        <span>Secuencia</span>
+      </button>
+      <button id="tabDeploymentBtn" type="button" class="px-3 py-1 rounded text-xs font-medium transition text-slate-400 hover:text-slate-200 flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        <span>Despliegue</span>
+      </button>
+      <button id="tabComponentsBtn" type="button" class="px-3 py-1 rounded text-xs font-medium transition text-slate-400 hover:text-slate-200 flex items-center gap-1.5 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z"/></svg>
+        <span>Componentes</span>
+      </button>
+    </nav>
+    <!-- Controls -->
+    <div class="flex items-center gap-2 shrink-0">
+      <div class="bg-slate-800 rounded p-1 flex items-center border border-slate-700 text-slate-300 text-xs">
+        <button id="zoomOutBtn" type="button" class="p-1 hover:bg-slate-700 rounded transition text-slate-300 hover:text-white"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg></button>
+        <span id="zoomLevelText" class="px-2 font-mono text-[11px] text-slate-300 min-w-[44px] text-center">100%</span>
+        <button id="zoomInBtn" type="button" class="p-1 hover:bg-slate-700 rounded transition text-slate-300 hover:text-white"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></button>
+        <div class="h-3 w-px bg-slate-700 mx-1"></div>
+        <button id="resetViewBtn" type="button" class="px-2 py-0.5 hover:bg-slate-700 rounded transition text-xs text-slate-300 hover:text-white">Ajustar Vista</button>
+      </div>
+      <button id="toggleSimulatorBtn" type="button" class="flex items-center gap-1 px-2.5 py-1.5 rounded text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition"><span>Simulador</span></button>
+      <button id="toggleInfoBtn" type="button" class="flex items-center gap-1 px-2.5 py-1.5 rounded text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition"><span>Especificación</span></button>
+      <button id="exportSvgBtn" type="button" class="flex items-center gap-1 px-2.5 py-1.5 rounded text-xs font-medium bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700 transition"><span>SVG</span></button>
+      <button id="exportPngBtn" type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium bg-slate-100 hover:bg-white text-slate-900 border border-slate-300 shadow-sm transition"><span class="font-bold">PNG 300 DPI</span></button>
+    </div>
+  </header>
+
+  <div class="flex-1 flex overflow-hidden relative">
+    
+    <div id="viewportContainer" class="flex-1 h-full bg-white relative overflow-hidden cursor-grab active:cursor-grabbing select-none">
+      
+      <div id="toastMessage" class="absolute top-4 left-1/2 -translate-x-1/2 z-30 transform transition-all duration-200 opacity-0 pointer-events-none -translate-y-2 bg-slate-900 text-white text-xs font-mono px-3 py-1.5 rounded border border-slate-700 shadow flex items-center gap-2">
+        <span id="toastIcon">&bull;</span>
+        <span id="toastText">Notificación</span>
+      </div>
+
+      <!-- TAB 1: ESTADOS -->
+      <div id="view-states" class="diagram-tab-pane absolute inset-0 w-full h-full block">
+        <svg id="umlDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="20 90 1750 540" class="w-full h-full transform origin-top-left transition-transform duration-75 block">
+          <defs>
+            <marker id="umlArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" /></marker>
+          </defs>
+          <g id="transitionsLayer">
+            <g class="transition-item"><path id="path-init-reg" class="transition-path" d="M 72 195 L 160 195" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#umlArrow)" /><rect x="76" y="152" width="76" height="24" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8" /><text x="114" y="168" font-family="'Fira Code', monospace" font-size="9" font-weight="600" fill="#000000" text-anchor="middle">matricular()</text></g>
+            <g class="transition-item"><path id="path-reg-alert" class="transition-path" d="M 410 195 L 760 195" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#umlArrow)" /><g transform="translate(455, 142)"><rect x="0" y="0" width="260" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1"/><text x="130" y="15" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000" text-anchor="middle">asentarInasistencia()</text><text x="130" y="29" font-family="'Fira Code', monospace" font-size="9" fill="#000000" text-anchor="middle">[3 &le; faltas &lt; 10] / emitirAlerta()</text></g></g>
+            <g class="transition-item"><path id="path-alert-crit" class="transition-path" d="M 1010 195 L 1360 195" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#umlArrow)" /><g transform="translate(1045, 134)"><rect x="0" y="0" width="280" height="48" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1"/><text x="140" y="14" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000" text-anchor="middle">asentarInasistencia()</text><text x="140" y="28" font-family="'Fira Code', monospace" font-size="8.8" fill="#000000" text-anchor="middle">[faltas == 10 o faltas == 20]</text><text x="140" y="41" font-family="'Fira Code', monospace" font-size="8.5" fill="#000000" text-anchor="middle">/ dispararConvocatoriaTutores()</text></g></g>
+            <g class="transition-item"><path id="path-crit-tea" class="transition-path" d="M 1495 270 L 1495 360 L 1180 360 L 1180 450" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#umlArrow)" /><g transform="translate(1215, 326)"><rect x="0" y="0" width="250" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1"/><text x="125" y="15" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000" text-anchor="middle">asentarInasistencia() [faltas &ge; 25]</text><text x="125" y="29" font-family="'Fira Code', monospace" font-size="9" fill="#000000" text-anchor="middle">/ registrarPaseTEA()</text></g></g>
+            <g class="transition-item"><path id="path-tea-final" class="transition-path" d="M 1320 525 L 1664 525" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#umlArrow)" /><g transform="translate(1375, 482)"><rect x="0" y="0" width="230" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1"/><text x="115" y="15" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000" text-anchor="middle">desvincularMatricula()</text><text x="115" y="29" font-family="'Fira Code', monospace" font-size="8.8" fill="#000000" text-anchor="middle">[sinPresentacionTEA]</text></g></g>
+            <g class="transition-item"><path id="path-tea-reinc" class="transition-path" d="M 1040 525 L 760 525" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#umlArrow)" /><g transform="translate(775, 482)"><rect x="0" y="0" width="250" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1"/><text x="125" y="15" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000" text-anchor="middle">acreditarPlanPedagogico()</text><text x="125" y="29" font-family="'Fira Code', monospace" font-size="9" fill="#000000" text-anchor="middle">[evaluacion &ge; 6] / levantarTEA()</text></g></g>
+            <g class="transition-item"><path id="path-reinc-reg" class="transition-path" d="M 480 525 L 70 525 L 70 235 L 160 235" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#umlArrow)" /><g transform="translate(130, 502)"><rect x="0" y="0" width="280" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1"/><text x="140" y="15" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000" text-anchor="middle">iniciarNuevoPeriodoLectivo()</text><text x="140" y="29" font-family="'Fira Code', monospace" font-size="9" fill="#000000" text-anchor="middle">/ reiniciarCuentaCorriente()</text></g></g>
+          </g>
+          <g id="nodesLayer">
+            <g id="node-initial" class="state-card" transform="translate(60, 195)"><circle cx="0" cy="0" r="12" fill="#000000" stroke="#000000" stroke-width="1"/><text x="0" y="26" font-family="'Inter', sans-serif" font-weight="600" font-size="9.5" fill="#000000" text-anchor="middle">Inicial</text></g>
+            <g id="node-regular" class="state-card" transform="translate(160, 120)" data-state-id="regular"><rect class="state-outline" width="250" height="150" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/><line x1="0" y1="36" x2="250" y2="36" stroke="#000000" stroke-width="1.2" /><text x="125" y="23" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#000000" text-anchor="middle">Regular</text><g transform="translate(14, 58)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000">do / computarPresentismo-Diario()</text><text x="0" y="44" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Cursado normal activo</text><text x="0" y="60" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Asistencia regular &gt; 85%</text></g></g>
+            <g id="node-alert" class="state-card" transform="translate(760, 120)" data-state-id="alert"><rect class="state-outline" width="250" height="150" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/><line x1="0" y1="36" x2="250" y2="36" stroke="#000000" stroke-width="1.2" /><text x="125" y="23" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#000000" text-anchor="middle">En Alerta Preventiva</text><g transform="translate(14, 58)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000">entry / emitirAlerta-Preceptoria()</text><text x="0" y="44" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Umbral: 3 a 5 faltas</text><text x="0" y="60" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Registro y aviso preventivo</text></g></g>
+            <g id="node-critical" class="state-card" transform="translate(1360, 120)" data-state-id="critical"><rect class="state-outline" width="270" height="150" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/><line x1="0" y1="36" x2="270" y2="36" stroke="#000000" stroke-width="1.2" /><text x="135" y="23" font-family="'Inter', sans-serif" font-weight="700" font-size="11.5" fill="#000000" text-anchor="middle">En Riesgo Crítico (Acta)</text><g transform="translate(14, 58)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000">entry / generarActa-Responsabilizacion()</text><text x="0" y="44" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Acumulación: 10 y 20 faltas</text><text x="0" y="60" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Suscripción obligatoria de Acta</text></g></g>
+            <g id="node-tea" class="state-card" transform="translate(1040, 450)" data-state-id="tea"><rect class="state-outline" width="280" height="150" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/><line x1="0" y1="36" x2="280" y2="36" stroke="#000000" stroke-width="1.2" /><text x="140" y="23" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#000000" text-anchor="middle">Trayectoria Escolar Asistida (TEA)</text><g transform="translate(14, 58)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000">entry / derivar-CoordinacionPedagogica()</text><text x="0" y="44" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; &ge; 25 faltas (Res. Min. 190/18)</text><text x="0" y="60" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Pérdida de cursado tradicional</text></g></g>
+            <g id="node-final" class="state-card" transform="translate(1680, 525)"><circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#000000" stroke-width="1.5"/><circle cx="0" cy="0" r="8" fill="#000000" /><text x="0" y="26" font-family="'Inter', sans-serif" font-weight="700" font-size="10" fill="#000000" text-anchor="middle">Final</text></g>
+            <g id="node-reinc" class="state-card" transform="translate(480, 450)" data-state-id="reinc"><rect class="state-outline" width="280" height="150" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.5"/><line x1="0" y1="36" x2="280" y2="36" stroke="#000000" stroke-width="1.2" /><text x="140" y="23" font-family="'Inter', sans-serif" font-weight="700" font-size="11.5" fill="#000000" text-anchor="middle">Regularizado / Reincorporado</text><g transform="translate(14, 58)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="9.5" font-weight="600" fill="#000000">entry / rehabilitar-CondicionRegular()</text><text x="0" y="44" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Plan de compensación acreditado</text><text x="0" y="60" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000">&bull; Habilitación para nuevo ciclo</text></g></g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- TAB NUEVA: CICLO REGULARIDAD -->
+      <div id="view-cycle" class="diagram-tab-pane absolute inset-0 w-full h-full hidden">
+        <svg id="cycleDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650" class="w-full h-full transform origin-top-left transition-transform duration-75 block">
+          <defs>
+            <marker id="cycleArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" /></marker>
+          </defs>
+          <g id="cycleTransitions">
+            <!-- Init -> Reg -->
+            <path d="M 52 160 L 200 160" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+            <text x="126" y="142" font-family="'Fira Code', monospace" font-size="10.5" font-weight="500" fill="#000000" text-anchor="middle">(Inscripción en</text>
+            <text x="126" y="155" font-family="'Fira Code', monospace" font-size="10.5" font-weight="500" fill="#000000" text-anchor="middle">Ciclo Lectivo)</text>
+
+            <!-- Reg -> Alerta (Forward) -->
+            <path d="M 400 145 L 650 145" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+            <rect x="420" y="120" width="210" height="20" fill="#ffffff" />
+            <text x="525" y="134" font-family="'Fira Code', monospace" font-size="11" font-weight="600" fill="#000000" text-anchor="middle">acumFaltas in [3, 5, 10, 20]</text>
+
+            <!-- Alerta -> Reg (Backward) -->
+            <path d="M 650 175 L 400 175" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+            <rect x="420" y="182" width="210" height="20" fill="#ffffff" />
+            <text x="525" y="196" font-family="'Fira Code', monospace" font-size="11" font-weight="600" fill="#000000" text-anchor="middle">(Firma de Acta / Justificación)</text>
+
+            <!-- Alerta -> TEA -->
+            <path d="M 780 200 L 780 300" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+            <rect x="785" y="240" width="160" height="20" fill="#ffffff" />
+            <text x="790" y="254" font-family="'Fira Code', monospace" font-size="11" font-weight="600" fill="#000000" text-anchor="start">acumFaltas &ge; 25.00</text>
+
+            <!-- TEA -> Plan Asistido -->
+            <path d="M 910 340 L 1000 300" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+            
+            <!-- Plan Asistido -> Acreditacion -->
+            <path d="M 1200 300 L 1280 300" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+
+            <!-- Acreditacion -> Final 1 -->
+            <path d="M 1480 300 L 1536 300" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+
+            <!-- TEA -> Desercion -->
+            <path d="M 910 380 L 1000 420" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+
+            <!-- Desercion -> Final 2 -->
+            <path d="M 1200 420 L 1266 420" fill="none" stroke="#000000" stroke-width="2" marker-end="url(#cycleArrow)" />
+          </g>
+
+          <g id="cycleNodes">
+            <!-- Initial -->
+            <g transform="translate(40, 160)">
+              <circle cx="0" cy="0" r="12" fill="#000000" stroke="#000000" stroke-width="1"/>
+              <text x="0" y="26" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#000000" text-anchor="middle">[*] Inicio</text>
+            </g>
+
+            <!-- Estudiante Regular -->
+            <g transform="translate(200, 120)">
+              <rect width="200" height="80" rx="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <text x="100" y="45" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#000000" text-anchor="middle">Estudiante Regular</text>
+            </g>
+
+            <!-- Regular con Alerta Preventiva -->
+            <g transform="translate(650, 120)">
+              <rect width="260" height="80" rx="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <text x="130" y="45" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#000000" text-anchor="middle">Regular con Alerta Preventiva</text>
+            </g>
+
+            <!-- En TEA -->
+            <g transform="translate(650, 300)">
+              <rect width="260" height="80" rx="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <text x="130" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#000000" text-anchor="middle">En Trayectoria Escolar</text>
+              <text x="130" y="58" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#000000" text-anchor="middle">Asistida (TEA)</text>
+            </g>
+
+            <!-- Plan Asistido Cumplido -->
+            <g transform="translate(1000, 260)">
+              <rect width="200" height="80" rx="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <text x="100" y="45" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#000000" text-anchor="middle">Plan Asistido Cumplido</text>
+            </g>
+
+            <!-- Acreditación de Saberes -->
+            <g transform="translate(1280, 260)">
+              <rect width="200" height="80" rx="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <text x="100" y="45" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#000000" text-anchor="middle">Acreditación de Saberes</text>
+            </g>
+
+            <!-- Deserción / Abandono -->
+            <g transform="translate(1000, 380)">
+              <rect width="200" height="80" rx="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <text x="100" y="45" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#000000" text-anchor="middle">Deserción / Abandono</text>
+            </g>
+
+            <!-- Final 1 -->
+            <g transform="translate(1550, 300)">
+              <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <circle cx="0" cy="0" r="8" fill="#000000" />
+              <text x="0" y="26" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#000000" text-anchor="middle">[*] Fin</text>
+            </g>
+
+            <!-- Final 2 -->
+            <g transform="translate(1280, 420)">
+              <circle cx="0" cy="0" r="14" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+              <circle cx="0" cy="0" r="8" fill="#000000" />
+              <text x="0" y="26" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#000000" text-anchor="middle">[*] Fin</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- TAB 2: ACTIVIDADES -->
+      <div id="view-activities" class="diagram-tab-pane absolute inset-0 w-full h-full hidden">
+        <svg id="activityDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1660" class="w-full h-full transform origin-top-left transition-transform duration-75 block">
+          <defs>
+            <marker id="actArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" /></marker>
+          </defs>
+          <g id="actSwimlanesGroup">
+            <rect x="50" y="40" width="650" height="1580" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+            <rect x="700" y="40" width="690" height="1580" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+            <rect x="50" y="40" width="650" height="46" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+            <text x="375" y="69" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle" letter-spacing="0.5">PRECEPTORA (Acciones Humanas / Actor)</text>
+            <rect x="700" y="40" width="690" height="46" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+            <text x="1045" y="69" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle" letter-spacing="0.5">SISTEMA (Autogestión Web / Procesamiento Automatizado)</text>
+            <line x1="700" y1="40" x2="700" y2="1620" stroke="#000000" stroke-width="1.8" stroke-dasharray="8 4" />
+          </g>
+          <g id="actFlowsGroup">
+            <path d="M 375 142 L 375 178" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 375 236 L 375 268 L 1045 268 L 1045 298" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1045 358 L 1045 392 L 375 392 L 375 422" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 375 480 L 375 524" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 375 566 L 375 628" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="382" y="582" width="138" height="22" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="451" y="597" font-family="'Fira Code', monospace" font-size="9" font-weight="600" fill="#000000" text-anchor="middle">[Sí: tardanza / retiro]</text>
+            <path d="M 405 545 L 610 545 L 610 935 L 405 935" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="430" y="524" width="165" height="22" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="512.5" y="539" font-family="'Fira Code', monospace" font-size="9" font-weight="600" fill="#000000" text-anchor="middle">[No: asistencia normal]</text>
+            <path d="M 375 686 L 375 715 L 1045 715 L 1045 744" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1015 765 L 825 765 L 825 818" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="755" y="742" width="130" height="20" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="820" y="756" font-family="'Fira Code', monospace" font-size="8.8" font-weight="600" fill="#000000" text-anchor="middle">[minutos &le; 20]</text>
+            <path d="M 1045 786 L 1045 818" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="975" y="792" width="140" height="20" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="1045" y="806" font-family="'Fira Code', monospace" font-size="8.8" font-weight="600" fill="#000000" text-anchor="middle">[20 &lt; minutos &lt; 40]</text>
+            <path d="M 1075 765 L 1265 765 L 1265 818" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="1200" y="742" width="130" height="20" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="1265" y="756" font-family="'Fira Code', monospace" font-size="8.8" font-weight="600" fill="#000000" text-anchor="middle">[minutos &ge; 40]</text>
+            <path d="M 825 872 L 825 898 L 1025 898 L 1033 905" fill="none" stroke="#000000" stroke-width="1.6" />
+            <path d="M 1045 872 L 1045 900" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1265 872 L 1265 898 L 1065 898 L 1057 905" fill="none" stroke="#000000" stroke-width="1.6" />
+            <path d="M 1045 924 L 1045 950 L 730 950 L 405 950 L 393 943" fill="none" stroke="#000000" stroke-width="1.6" />
+            <path d="M 375 956 L 375 994" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 375 1052 L 375 1084 L 1045 1084 L 1045 1114" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1045 1174 L 1045 1208" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1015 1229 L 830 1229 L 830 1278" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="735" y="1206" width="190" height="20" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="830" y="1220" font-family="'Fira Code', monospace" font-size="8.8" font-weight="600" fill="#000000" text-anchor="middle">[faltas == 10 || faltas == 20]</text>
+            <path d="M 1045 1250 L 1045 1378" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="945" y="1302" width="200" height="20" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="1045" y="1316" font-family="'Fira Code', monospace" font-size="8.8" font-weight="600" fill="#000000" text-anchor="middle">[sin umbral crítico alcanzado]</text>
+            <path d="M 1075 1229 L 1260 1229 L 1260 1278" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <rect x="1195" y="1206" width="130" height="20" rx="2" fill="#ffffff" stroke="#000000" stroke-width="0.8"/>
+            <text x="1260" y="1220" font-family="'Fira Code', monospace" font-size="8.8" font-weight="600" fill="#000000" text-anchor="middle">[faltas &ge; 25]</text>
+            <path d="M 830 1342 L 830 1390 L 1025 1390 L 1033 1390" fill="none" stroke="#000000" stroke-width="1.6" />
+            <path d="M 1260 1342 L 1260 1390 L 1065 1390 L 1057 1390" fill="none" stroke="#000000" stroke-width="1.6" />
+            <path d="M 1045 1402 L 1045 1438" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1045 1500 L 1045 1546" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+          </g>
+          <g id="actNodesGroup">
+            <g transform="translate(375, 128)"><circle cx="0" cy="0" r="14" fill="#000000" stroke="#000000" stroke-width="1" /><text x="0" y="-20" font-family="'Inter', sans-serif" font-weight="700" font-size="10.5" fill="#000000" text-anchor="middle">Inicio</text></g>
+            <g transform="translate(240, 178)"><rect width="270" height="58" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="135" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Seleccionar Curso, División y Turno</text></g>
+            <g transform="translate(895, 298)"><rect width="300" height="60" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="150" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Recuperar y desplegar nómina</text></g>
+            <g transform="translate(230, 422)"><rect width="290" height="58" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="145" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Marcar estado nominal de asistencia</text></g>
+            <g transform="translate(375, 545)"><polygon points="0,-21 30,0 0,21 -30,0" fill="#ffffff" stroke="#000000" stroke-width="1.8" /><text x="40" y="-20" font-family="'Inter', sans-serif" font-weight="700" font-size="10.5" fill="#000000" text-anchor="start">¿Existe tardanza o retiro?</text></g>
+            <g transform="translate(245, 628)"><rect width="260" height="58" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="130" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Ingresar minutos de demora</text></g>
+            <g transform="translate(1045, 765)"><polygon points="0,-21 30,0 0,21 -30,0" fill="#ffffff" stroke="#000000" stroke-width="1.8" /><text x="40" y="-20" font-family="'Inter', sans-serif" font-weight="700" font-size="10.5" fill="#000000" text-anchor="start">Cómputo Fraccionario</text></g>
+            <g transform="translate(735, 818)"><rect width="180" height="54" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="90" y="25" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#000000" text-anchor="middle">Asignar 0,25 de falta</text></g>
+            <g transform="translate(955, 818)"><rect width="180" height="54" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="90" y="25" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#000000" text-anchor="middle">Asignar 0,50 de falta</text></g>
+            <g transform="translate(1175, 818)"><rect width="180" height="54" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="90" y="25" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#000000" text-anchor="middle">Asignar 1,00 falta completa</text></g>
+            <g transform="translate(1045, 912)"><polygon points="0,-12 18,0 0,12 -18,0" fill="#ffffff" stroke="#000000" stroke-width="1.6" /></g>
+            <g transform="translate(375, 944)"><polygon points="0,-12 18,0 0,12 -18,0" fill="#ffffff" stroke="#000000" stroke-width="1.6" /></g>
+            <g transform="translate(230, 994)"><rect width="290" height="58" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="145" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Confirmar registro de asistencia</text></g>
+            <g transform="translate(885, 1114)"><rect width="320" height="60" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="160" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Actualizar cuenta corriente de inasistencias</text></g>
+            <g transform="translate(1045, 1229)"><polygon points="0,-21 30,0 0,21 -30,0" fill="#ffffff" stroke="#000000" stroke-width="1.8" /><text x="40" y="-20" font-family="'Inter', sans-serif" font-weight="700" font-size="10.5" fill="#000000" text-anchor="start">Evaluación de umbrales normativos</text></g>
+            <g transform="translate(710, 1278)"><rect width="240" height="64" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="120" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#000000" text-anchor="middle">Generar Acta de Responsabilización</text></g>
+            <g transform="translate(1140, 1278)"><rect width="240" height="64" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="120" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#000000" text-anchor="middle">Registrar pase a condición TEA</text></g>
+            <g transform="translate(1045, 1390)"><polygon points="0,-12 18,0 0,12 -18,0" fill="#ffffff" stroke="#000000" stroke-width="1.6" /></g>
+            <g transform="translate(875, 1438)"><rect width="340" height="62" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="170" y="28" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Persistir registros en la base de datos</text></g>
+            <g transform="translate(1045, 1566)"><circle cx="0" cy="0" r="16" fill="#ffffff" stroke="#000000" stroke-width="2"/><circle cx="0" cy="0" r="9" fill="#000000" /><text x="0" y="32" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#000000" text-anchor="middle">Fin de Actividad</text></g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- TAB 3: SECUENCIA -->
+      <div id="view-sequence" class="diagram-tab-pane absolute inset-0 w-full h-full hidden">
+        <svg id="sequenceDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 950" class="w-full h-full transform origin-top-left transition-transform duration-75 block">
+          <defs>
+            <marker id="seqArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" />
+            </marker>
+            <marker id="seqReturnArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#000000" stroke-width="1.5" />
+            </marker>
+          </defs>
+
+          <!-- Lifeline Labels & Headers -->
+          <g transform="translate(150, 60)">
+            <rect x="-60" y="0" width="120" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Docente</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <g transform="translate(450, 60)">
+            <rect x="-70" y="0" width="140" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Interfaz Web (UI)</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <g transform="translate(750, 60)">
+            <rect x="-80" y="0" width="160" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">ControladorBitacora</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <g transform="translate(1050, 60)">
+            <rect x="-65" y="0" width="130" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="0" y="24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Base de Datos</text>
+            <line x1="0" y1="40" x2="0" y2="850" stroke="#000000" stroke-width="1.2" stroke-dasharray="8 4" />
+          </g>
+
+          <!-- Execution Specifications -->
+          <rect x="445" y="140" width="10" height="730" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="745" y="190" width="10" height="130" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="1045" y="240" width="10" height="50" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="745" y="510" width="10" height="340" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+          <rect x="1045" y="560" width="10" height="50" fill="#ffffff" stroke="#000000" stroke-width="1.2" />
+
+          <!-- Messages -->
+          <line x1="150" y1="150" x2="440" y2="150" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="295" y="142" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">1. Acceder al módulo de bitácora</text>
+
+          <line x1="455" y1="200" x2="740" y2="200" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="597" y="192" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">2. Solicitar materias del docente</text>
+
+          <line x1="755" y1="250" x2="1040" y2="250" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="897" y="242" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">3. getMaterias()</text>
+
+          <line x1="1040" y1="280" x2="760" y2="280" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="897" y="272" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">4. Lista materias</text>
+
+          <line x1="740" y1="310" x2="460" y2="310" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="597" y="302" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">5. Renderizar selector</text>
+
+          <line x1="150" y1="410" x2="440" y2="410" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="295" y="402" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">6. Carga tema, fecha y recursos</text>
+
+          <line x1="150" y1="460" x2="440" y2="460" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="295" y="452" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">7. Clic "Publicar"</text>
+
+          <line x1="455" y1="520" x2="740" y2="520" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="597" y="512" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">8. registrar(datos)</text>
+
+          <line x1="755" y1="570" x2="1040" y2="570" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
+          <text x="897" y="562" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">9. INSERT Bitacora</text>
+
+          <line x1="1040" y1="600" x2="760" y2="600" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="897" y="592" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">10. Confirmación</text>
+
+          <!-- ALT Fragment -->
+          <g transform="translate(130, 640)">
+            <rect x="0" y="0" width="670" height="180" fill="none" stroke="#000000" stroke-width="1.5" />
+            <path d="M 0 0 L 40 0 L 40 20 L 30 30 L 0 30 Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
+            <text x="8" y="18" font-family="'Fira Code', monospace" font-size="11" font-weight="600" fill="#000000">alt</text>
+            <text x="50" y="20" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Guardado OK</text>
+            
+            <line x1="0" y1="90" x2="670" y2="90" stroke="#000000" stroke-width="1.5" stroke-dasharray="8 4" />
+            <text x="10" y="110" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Error de campos</text>
+          </g>
+
+          <line x1="740" y1="690" x2="460" y2="690" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="597" y="682" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">11. Notificar éxito</text>
+
+          <line x1="440" y1="715" x2="160" y2="715" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="295" y="707" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">12. Muestra msj confirmación</text>
+
+          <line x1="740" y1="770" x2="460" y2="770" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="597" y="762" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">14. Alerta validación</text>
+
+          <line x1="440" y1="800" x2="160" y2="800" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
+          <text x="295" y="792" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">13. Muestra error</text>
+        </svg>
+      </div>
+
+      <!-- TAB 4: DESPLIEGUE -->
+      <div id="view-deployment" class="diagram-tab-pane absolute inset-0 w-full h-full hidden">
+        <svg id="deploymentDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1960 720" class="w-full h-full transform origin-top-left transition-transform duration-75 block">
+          <defs>
+            <marker id="depArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" /></marker>
+            <g id="umlComponentIcon"><rect x="0" y="0" width="18" height="15" fill="#ffffff" stroke="#000000" stroke-width="1.2" /><rect x="-3" y="2.5" width="6" height="3" fill="#ffffff" stroke="#000000" stroke-width="1" /><rect x="-3" y="8.5" width="6" height="3" fill="#ffffff" stroke="#000000" stroke-width="1" /></g>
+            <g id="umlArtifactIcon"><path d="M 0 0 L 10 0 L 14 4 L 14 17 L 0 17 Z" fill="#ffffff" stroke="#000000" stroke-width="1.2" /><path d="M 10 0 L 10 4 L 14 4" fill="none" stroke="#000000" stroke-width="1.1" /></g>
+            <g id="umlDbIcon"><ellipse cx="9" cy="4" rx="9" ry="3" fill="#ffffff" stroke="#000000" stroke-width="1.2" /><path d="M 0 4 L 0 15 C 0 17.5 4 18.5 9 18.5 C 14 18.5 18 17.5 18 15 L 18 4" fill="#ffffff" stroke="#000000" stroke-width="1.2" /><path d="M 0 9.5 C 0 12 4 13 9 13 C 14 13 18 12 18 9.5" fill="none" stroke="#000000" stroke-width="1.1" /></g>
+          </defs>
+          <g id="depConnectionsGroup">
+            <g id="conn-client-server">
+              <line x1="450" y1="360" x2="680" y2="360" stroke="#000000" stroke-width="2" />
+              <circle cx="450" cy="360" r="3" fill="#000000" /><circle cx="680" cy="360" r="3" fill="#000000" />
+              <g transform="translate(485, 308)"><rect x="0" y="0" width="160" height="44" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="80" y="15" font-family="'Fira Code', monospace" font-size="9" font-weight="600" fill="#000000" text-anchor="middle">&laquo;protocol&raquo; HTTPS / TLS</text><text x="80" y="27" font-family="'Inter', sans-serif" font-size="8.5" font-weight="500" fill="#000000" text-anchor="middle">Puerto 443</text><text x="80" y="38" font-family="'Fira Code', monospace" font-size="8" fill="#000000" text-anchor="middle">[JSON REST / WebSockets]</text></g>
+            </g>
+            <g id="conn-server-db">
+              <line x1="1164" y1="360" x2="1440" y2="360" stroke="#000000" stroke-width="2" />
+              <circle cx="1164" cy="360" r="3" fill="#000000" /><circle cx="1440" cy="360" r="3" fill="#000000" />
+              <g transform="translate(1210, 308)"><rect x="0" y="0" width="180" height="44" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="90" y="14" font-family="'Fira Code', monospace" font-size="9" font-weight="600" fill="#000000" text-anchor="middle">&laquo;protocol&raquo; TCP / IP</text><text x="90" y="26" font-family="'Inter', sans-serif" font-size="8.5" font-weight="500" fill="#000000" text-anchor="middle">Puerto 3306 / 1433</text><text x="90" y="38" font-family="'Fira Code', monospace" font-size="8" fill="#000000" text-anchor="middle">[JDBC / Conexión Encriptada]</text></g>
+            </g>
+          </g>
+          <g id="depNodesGroup">
+            <g id="node-client" transform="translate(60, 120)">
+              <polygon points="0,0 20,-16 390,-16 370,0" fill="#ffffff" stroke="#000000" stroke-width="1.6" stroke-linejoin="round" />
+              <polygon points="370,0 390,-16 390,464 370,480" fill="#ffffff" stroke="#000000" stroke-width="1.6" stroke-linejoin="round" />
+              <rect x="0" y="0" width="370" height="480" fill="#ffffff" stroke="#000000" stroke-width="1.6" />
+              <g transform="translate(185, 26)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="10.5" fill="#000000" text-anchor="middle">&laquo;device&raquo;</text><text x="0" y="16" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Dispositivo Usuario</text><text x="0" y="30" font-family="'Inter', sans-serif" font-size="9" fill="#000000" text-anchor="middle">{OS: Windows / Linux / macOS / Android}</text></g>
+              <line x1="0" y1="64" x2="370" y2="64" stroke="#000000" stroke-width="1.2" />
+              <g transform="translate(20, 80)">
+                <rect width="330" height="375" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.3" />
+                <use href="#umlArtifactIcon" x="298" y="12" />
+                <text x="16" y="22" font-family="'Fira Code', monospace" font-size="10" fill="#000000">&laquo;artifact&raquo;</text><text x="16" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#000000">Navegador Web</text>
+                <g transform="translate(15, 68)">
+                  <rect width="300" height="290" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.4" />
+                  <use href="#umlComponentIcon" x="268" y="14" />
+                  <text x="16" y="24" font-family="'Fira Code', monospace" font-size="9.5" fill="#000000">&laquo;component&raquo;</text><text x="16" y="40" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#000000">SPA Cliente Autogestión</text><text x="16" y="54" font-family="'Fira Code', monospace" font-size="8.5" fill="#000000">React 18 + Vite / Tailwind CSS</text>
+                  <line x1="10" y1="62" x2="290" y2="62" stroke="#000000" stroke-width="1" />
+                  <g transform="translate(14, 78)">
+                    <g transform="translate(0, 0)"><rect x="0" y="0" width="272" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Inter', sans-serif" font-weight="600" font-size="9.5" fill="#000000">Módulo Registro Inasistencias</text><text x="10" y="28" font-family="'Inter', sans-serif" font-size="8.5" fill="#000000">Planilla nominal diaria, tardanzas y cómputo</text></g>
+                    <g transform="translate(0, 46)"><rect x="0" y="0" width="272" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Inter', sans-serif" font-weight="600" font-size="9.5" fill="#000000">Módulo Actas y Seguimiento TEA</text></g>
+                    <g transform="translate(0, 92)"><rect x="0" y="0" width="272" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Inter', sans-serif" font-weight="600" font-size="9.5" fill="#000000">Cliente HTTP / REST Consumer</text></g>
+                    <g transform="translate(0, 138)"><rect x="0" y="0" width="272" height="38" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Inter', sans-serif" font-weight="600" font-size="9.5" fill="#000000">Gestor de Estado de Sesión</text></g>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g id="node-server" transform="translate(680, 90)">
+              <polygon points="0,0 24,-18 484,-18 460,0" fill="#ffffff" stroke="#000000" stroke-width="1.6" stroke-linejoin="round" />
+              <polygon points="460,0 484,-18 484,522 460,540" fill="#ffffff" stroke="#000000" stroke-width="1.6" stroke-linejoin="round" />
+              <rect x="0" y="0" width="460" height="540" fill="#ffffff" stroke="#000000" stroke-width="1.6" />
+              <g transform="translate(230, 26)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="10.5" fill="#000000" text-anchor="middle">&laquo;execution environment&raquo;</text><text x="0" y="16" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Servidor de Aplicaciones Web / API</text><text x="0" y="30" font-family="'Inter', sans-serif" font-size="9" fill="#000000" text-anchor="middle">{Plataforma: Node.js Runtime v20.x LTS / Express / .NET 8}</text></g>
+              <line x1="0" y1="64" x2="460" y2="64" stroke="#000000" stroke-width="1.2" />
+              <g transform="translate(20, 78)">
+                <rect width="420" height="442" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.3" />
+                <use href="#umlArtifactIcon" x="388" y="12" />
+                <text x="16" y="22" font-family="'Fira Code', monospace" font-size="10" fill="#000000">&laquo;artifact&raquo;</text><text x="16" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#000000">API REST Backend (backend_proa_api.bundle)</text>
+                <g transform="translate(15, 52)">
+                  <g transform="translate(0, 0)"><rect width="390" height="88" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.3" /><use href="#umlComponentIcon" x="360" y="12" /><text x="14" y="20" font-family="'Fira Code', monospace" font-size="9" fill="#000000">&laquo;component&raquo;</text><text x="14" y="36" font-family="'Inter', sans-serif" font-weight="700" font-size="11.5" fill="#000000">Controlador de Asistencia y Lógica de Negocio</text><g transform="translate(14, 52)"><text x="0" y="0" font-family="'Inter', sans-serif" font-size="8.8" fill="#000000">&bull; Cómputo fraccionario: 0.25 (demora &le; 20m), 0.50 (&lt; 40m), 1.00 (&ge; 40m)</text><text x="0" y="14" font-family="'Inter', sans-serif" font-size="8.8" fill="#000000">&bull; Evaluación de umbrales normativos: Acta (10 y 20) y Pase TEA (&ge; 25)</text></g></g>
+                  <g transform="translate(0, 98)"><rect width="390" height="78" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.3" /><use href="#umlComponentIcon" x="360" y="12" /><text x="14" y="20" font-family="'Fira Code', monospace" font-size="9" fill="#000000">&laquo;component&raquo;</text><text x="14" y="36" font-family="'Inter', sans-serif" font-weight="700" font-size="11.5" fill="#000000">Servicio de Autenticación JWT y Control de Roles</text></g>
+                  <g transform="translate(0, 186)"><rect width="390" height="78" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.3" /><use href="#umlComponentIcon" x="360" y="12" /><text x="14" y="20" font-family="'Fira Code', monospace" font-size="9" fill="#000000">&laquo;component&raquo;</text><text x="14" y="36" font-family="'Inter', sans-serif" font-weight="700" font-size="11.5" fill="#000000">Capa de Persistencia ORM y Pool de Conexiones</text></g>
+                </g>
+              </g>
+            </g>
+            <g id="node-db" transform="translate(1440, 120)">
+              <polygon points="0,0 20,-16 410,-16 390,0" fill="#ffffff" stroke="#000000" stroke-width="1.6" stroke-linejoin="round" />
+              <polygon points="390,0 410,-16 410,464 390,480" fill="#ffffff" stroke="#000000" stroke-width="1.6" stroke-linejoin="round" />
+              <rect x="0" y="0" width="390" height="480" fill="#ffffff" stroke="#000000" stroke-width="1.6" />
+              <g transform="translate(195, 26)"><text x="0" y="0" font-family="'Fira Code', monospace" font-size="10.5" fill="#000000" text-anchor="middle">&laquo;device&raquo;</text><text x="0" y="16" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#000000" text-anchor="middle">Servidor de Base de Datos</text><text x="0" y="30" font-family="'Inter', sans-serif" font-size="9" fill="#000000" text-anchor="middle">{Hardware: Servidor Dedicado / Storage SSD NVMe}</text></g>
+              <line x1="0" y1="64" x2="390" y2="64" stroke="#000000" stroke-width="1.2" />
+              <g transform="translate(20, 80)">
+                <rect width="350" height="375" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.3" />
+                <use href="#umlDbIcon" x="316" y="12" />
+                <text x="16" y="22" font-family="'Fira Code', monospace" font-size="10" fill="#000000">&laquo;database system&raquo;</text><text x="16" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#000000">DBMS Relacional (MySQL / SQL Server)</text>
+                <g transform="translate(15, 68)">
+                  <rect width="320" height="290" rx="3" fill="#ffffff" stroke="#000000" stroke-width="1.4" />
+                  <use href="#umlArtifactIcon" x="288" y="14" />
+                  <text x="16" y="22" font-family="'Fira Code', monospace" font-size="9.5" fill="#000000">&laquo;artifact&raquo;</text><text x="16" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#000000">DB_ProA_Academico.sql</text>
+                  <line x1="10" y1="60" x2="310" y2="60" stroke="#000000" stroke-width="1" />
+                  <g transform="translate(14, 74)">
+                    <g transform="translate(0, 0)"><rect x="0" y="0" width="292" height="42" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Fira Code', monospace" font-weight="600" font-size="9.5" fill="#000000">tabla: Estudiantes</text></g>
+                    <g transform="translate(0, 48)"><rect x="0" y="0" width="292" height="42" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Fira Code', monospace" font-weight="600" font-size="9.5" fill="#000000">tabla: Inasistencias_Diarias</text></g>
+                    <g transform="translate(0, 96)"><rect x="0" y="0" width="292" height="42" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Fira Code', monospace" font-weight="600" font-size="9.5" fill="#000000">tabla: Actas_Responsabilizacion</text></g>
+                    <g transform="translate(0, 144)"><rect x="0" y="0" width="292" height="42" rx="2" fill="#ffffff" stroke="#000000" stroke-width="1" /><text x="10" y="16" font-family="'Fira Code', monospace" font-weight="600" font-size="9.5" fill="#000000">tabla: Bitacora</text></g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- TAB 5: COMPONENTES (DATOS ORIGINALES CON EL DISEÑO DE LA IMAGEN) -->
+      <div id="view-components" class="diagram-tab-pane absolute inset-0 w-full h-full hidden">
+        <svg id="componentsDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1100" class="w-full h-full transform origin-top-left transition-transform duration-75 block">
+          <defs>
+            <marker id="compArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" />
+            </marker>
+          </defs>
+
+          <!-- Título del diagrama -->
+          <text x="600" y="45" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#000000" text-anchor="middle">Diagrama de Componentes - Sistema Escolar ProA La Falda</text>
+
+          <!-- Capa 1: Presentación / Clientes -->
+          <g transform="translate(180, 100)">
+            <rect x="0" y="0" width="340" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="170" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Interfaz Web Móvil (PWA)</text>
+            <text x="170" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(Preceptoría en Pasillos)</text>
+          </g>
+
+          <g transform="translate(680, 100)">
+            <rect x="0" y="0" width="340" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="170" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Panel de Administración</text>
+            <text x="170" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(Dirección / Coordinación)</text>
+          </g>
+
+          <!-- Conexión HTTP/JSON hacia Capa de Servicios -->
+          <line x1="350" y1="175" x2="350" y2="290" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+          <rect x="300" y="218" width="100" height="20" fill="#ffffff" />
+          <text x="350" y="233" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">HTTPS / JSON</text>
+
+          <line x1="850" y1="175" x2="850" y2="290" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+          <rect x="800" y="218" width="100" height="20" fill="#ffffff" />
+          <text x="850" y="233" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">HTTPS / JSON</text>
+
+          <!-- Capa 2: Servicios de Lógica de Negocio -->
+          <g transform="translate(100, 290)">
+            <rect x="0" y="0" width="300" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="150" y="43" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Servicio Asistencia</text>
+          </g>
+
+          <g transform="translate(450, 290)">
+            <rect x="0" y="0" width="300" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="150" y="43" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Servicio Bitácora</text>
+          </g>
+
+          <g transform="translate(800, 290)">
+            <rect x="0" y="0" width="300" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="150" y="43" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Servicio Notas</text>
+          </g>
+
+          <!-- Conexiones internas de servicios hacia Motor de Reglas y Módulo SGE -->
+          <line x1="250" y1="365" x2="415" y2="460" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+          <line x1="600" y1="365" x2="415" y2="460" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+          <line x1="600" y1="365" x2="785" y2="460" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+
+          <!-- Componentes de Procesamiento / Negocio -->
+          <g transform="translate(250, 460)">
+            <rect x="0" y="0" width="330" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="165" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Motor de Reglas</text>
+            <text x="165" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(TEA / Alertas)</text>
+          </g>
+
+          <g transform="translate(620, 460)">
+            <rect x="0" y="0" width="330" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="165" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Módulo de Exportación SGE</text>
+            <text x="165" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(Sistema de Gestión Escolar)</text>
+          </g>
+
+          <!-- Conexión hacia Base de Datos -->
+          <line x1="415" y1="535" x2="600" y2="650" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+          <rect x="450" y="578" width="95" height="20" fill="#ffffff" />
+          <text x="497" y="593" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">ORM / JDBC</text>
+
+          <!-- Cylinder SVG shape para Base de Datos -->
+          <g transform="translate(360, 650)">
+            <path d="M 0 25 L 0 110 A 240 25 0 0 0 480 110 L 480 25 Z" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+            <ellipse cx="240" cy="25" rx="240" ry="25" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+            <ellipse cx="240" cy="110" rx="240" ry="25" fill="none" stroke="#000000" stroke-width="1.8" />
+            <text x="240" y="52" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Base de Datos Relacional</text>
+            <text x="240" y="72" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(PostgreSQL / MySQL)</text>
+            <text x="240" y="92" font-family="'Fira Code', monospace" font-size="11" fill="#000000" text-anchor="middle">Tablas: Personas, Asistencias, Bitácoras, Calificaciones</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Simulator Dock -->
+      <div id="simulatorDock" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2.5 rounded border border-slate-700 shadow-xl z-20 flex flex-wrap items-center gap-3 text-xs font-mono">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+          <span id="simCurrentStateLabel" class="text-slate-200">Estado: [Regular] (0 faltas)</span>
+        </div>
+        <div class="h-4 w-px bg-slate-700"></div>
+        <div class="flex items-center gap-1.5 font-sans">
+          <button id="simAddAbsenceBtn" type="button" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">+1 Falta</button>
+          <button id="simJumpCritBtn" type="button" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">10 Faltas (Acta)</button>
+          <button id="simJumpTeaBtn" type="button" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">25 Faltas (TEA)</button>
+          <button id="simPassTeaBtn" type="button" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition disabled:opacity-30 disabled:cursor-not-allowed">Acreditar TEA (&ge; 6)</button>
+          <button id="simDropBtn" type="button" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition disabled:opacity-30 disabled:cursor-not-allowed">Desvincular</button>
+          <button id="simResetCycleBtn" type="button" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition" title="Reiniciar Ciclo">&circlearrowright;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Drawer -->
+    <aside id="infoPanel" class="w-84 bg-white border-l border-slate-300 flex flex-col z-20 transition-all duration-200 transform translate-x-0 custom-scroll overflow-y-auto hidden">
+      <div class="p-3 border-b border-slate-300 bg-slate-100 flex items-center justify-between">
+        <h2 id="infoPanelTitle" class="font-bold text-xs uppercase tracking-wider text-slate-900">Especificación Formal UML</h2>
+        <button id="closeInfoBtn" type="button" class="text-slate-500 hover:text-slate-800 p-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+      
+      <div id="statesInfoContent" class="p-3 text-xs space-y-4 text-slate-700 font-sans leading-relaxed">
+        <div class="p-2.5 rounded border border-slate-300 bg-slate-50">
+          <div class="font-bold text-slate-900 mb-1">Fundamento Normativo (Estados Detallados):</div>
+          <p class="text-slate-600 text-[11px]">Resolución Ministerial N.° 190/18 (Córdoba). Regula la permanencia, el régimen de faltas y el dispositivo pedagógico TEA.</p>
+        </div>
+      </div>
+
+      <div id="cycleInfoContent" class="p-3 text-xs space-y-4 text-slate-700 font-sans leading-relaxed hidden">
+        <div class="p-2.5 rounded border border-slate-300 bg-slate-50">
+          <div class="font-bold text-slate-900 mb-1">Ciclo de Vida de Regularidad:</div>
+          <p class="text-slate-600 text-[11px]">Diagrama de alto nivel mostrando el ciclo completo del estado del alumno y los caminos posibles de regularidad y deserción.</p>
+        </div>
+      </div>
+      
+      <div id="activitiesInfoContent" class="p-3 text-xs space-y-4 text-slate-700 font-sans leading-relaxed hidden">
+        <div class="p-2.5 rounded border border-slate-300 bg-slate-50">
+          <div class="font-bold text-slate-900 mb-1">Modelado de Proceso de Negocio:</div>
+          <p class="text-slate-600 text-[11px]">Flujo: <strong>Registro de Asistencia Diaria y Cómputo de Faltas</strong> (SP4 / UML 2.5 - RUP).</p>
+        </div>
+      </div>
+      
+      <div id="sequenceInfoContent" class="p-3 text-xs space-y-4 text-slate-700 font-sans leading-relaxed hidden">
+        <div class="p-2.5 rounded border border-slate-300 bg-slate-50">
+          <div class="font-bold text-slate-900 mb-1">Interacción de Sistema:</div>
+          <p class="text-slate-600 text-[11px]">Flujo: <strong>Registro y Publicación de Bitácora Pedagógica</strong>. Muestra el intercambio de mensajes entre el Docente, la Interfaz (UI), el Controlador y la Base de Datos.</p>
+        </div>
+      </div>
+      
+      <div id="deploymentInfoContent" class="p-3 text-xs space-y-4 text-slate-700 font-sans leading-relaxed hidden">
+        <div class="p-2.5 rounded border border-slate-300 bg-slate-50">
+          <div class="font-bold text-slate-900 mb-1">Arquitectura Física y Despliegue:</div>
+          <p class="text-slate-600 text-[11px]">Modelado SP5 / UML 2.5 - RUP para la topología de red y distribución física del Sistema Web.</p>
+        </div>
+      </div>
+
+      <div id="componentsInfoContent" class="p-3 text-xs space-y-4 text-slate-700 font-sans leading-relaxed hidden">
+        <div class="p-2.5 rounded border border-slate-300 bg-slate-50">
+          <div class="font-bold text-slate-900 mb-1">Arquitectura Lógica de Software:</div>
+          <p class="text-slate-600 text-[11px]">Diseño basado en componentes para el sistema ProA La Falda. Presenta las tarjetas redondeadas y la base de datos cilíndrica según la estética solicitada.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    (function() {
+      const viewportContainer = document.getElementById('viewportContainer');
+      
+      const viewStates = document.getElementById('view-states');
+      const viewCycle = document.getElementById('view-cycle');
+      const viewActivities = document.getElementById('view-activities');
+      const viewSequence = document.getElementById('view-sequence');
+      const viewDeployment = document.getElementById('view-deployment');
+      const viewComponents = document.getElementById('view-components');
+      
+      const statesSvg = document.getElementById('umlDiagramSvg');
+      const cycleSvg = document.getElementById('cycleDiagramSvg');
+      const activitySvg = document.getElementById('activityDiagramSvg');
+      const sequenceSvg = document.getElementById('sequenceDiagramSvg');
+      const deploymentSvg = document.getElementById('deploymentDiagramSvg');
+      const componentsSvg = document.getElementById('componentsDiagramSvg');
+      
+      const headerActiveViewLabel = document.getElementById('headerActiveViewLabel');
+      
+      const tabStatesBtn = document.getElementById('tabStatesBtn');
+      const tabCycleBtn = document.getElementById('tabCycleBtn');
+      const tabActivitiesBtn = document.getElementById('tabActivitiesBtn');
+      const tabSequenceBtn = document.getElementById('tabSequenceBtn');
+      const tabDeploymentBtn = document.getElementById('tabDeploymentBtn');
+      const tabComponentsBtn = document.getElementById('tabComponentsBtn');
+      
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const resetViewBtn = document.getElementById('resetViewBtn');
+      const zoomLevelText = document.getElementById('zoomLevelText');
+      const toggleInfoBtn = document.getElementById('toggleInfoBtn');
+      const closeInfoBtn = document.getElementById('closeInfoBtn');
+      
+      const infoPanel = document.getElementById('infoPanel');
+      const infoPanelTitle = document.getElementById('infoPanelTitle');
+      
+      const statesInfoContent = document.getElementById('statesInfoContent');
+      const cycleInfoContent = document.getElementById('cycleInfoContent');
+      const activitiesInfoContent = document.getElementById('activitiesInfoContent');
+      const sequenceInfoContent = document.getElementById('sequenceInfoContent');
+      const deploymentInfoContent = document.getElementById('deploymentInfoContent');
+      const componentsInfoContent = document.getElementById('componentsInfoContent');
+      
+      const toggleSimulatorBtn = document.getElementById('toggleSimulatorBtn');
+      const simulatorDock = document.getElementById('simulatorDock');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastText = document.getElementById('toastText');
+      const toastIcon = document.getElementById('toastIcon');
+      
+      const simCurrentStateLabel = document.getElementById('simCurrentStateLabel');
+      const simAddAbsenceBtn = document.getElementById('simAddAbsenceBtn');
+      const simJumpCritBtn = document.getElementById('simJumpCritBtn');
+      const simJumpTeaBtn = document.getElementById('simJumpTeaBtn');
+      const simPassTeaBtn = document.getElementById('simPassTeaBtn');
+      const simDropBtn = document.getElementById('simDropBtn');
+      const simResetCycleBtn = document.getElementById('simResetCycleBtn');
+      
+      const exportSvgBtn = document.getElementById('exportSvgBtn');
+      const exportPngBtn = document.getElementById('exportPngBtn');
+
+      let activeTab = 'states';
+
+      const DIAGRAM_CONFIGS = {
+        states: { width: 1750, height: 540, viewBoxX: 20, viewBoxY: 90, label: 'Máquina de Estados', exportName: 'Diagrama_Estados_B-N' },
+        cycle: { width: 1600, height: 650, viewBoxX: 0, viewBoxY: 0, label: 'Ciclo de Regularidad', exportName: 'Diagrama_Ciclo_Regularidad_B-N' },
+        activities: { width: 1440, height: 1660, viewBoxX: 0, viewBoxY: 0, label: 'Actividades (Diseño)', exportName: 'Diagrama_Actividades_B-N' },
+        sequence: { width: 1200, height: 950, viewBoxX: 0, viewBoxY: 0, label: 'Secuencia (Bitácora)', exportName: 'Diagrama_Secuencia_B-N' },
+        deployment: { width: 1960, height: 720, viewBoxX: 0, viewBoxY: 0, label: 'Despliegue Físico (SP5)', exportName: 'Diagrama_Despliegue_B-N' },
+        components: { width: 1200, height: 1100, viewBoxX: 0, viewBoxY: 0, label: 'Componentes del Sistema', exportName: 'Diagrama_Componentes_B-N' }
+      };
+
+      function getActiveSvg() {
+        if (activeTab === 'states') return statesSvg;
+        if (activeTab === 'cycle') return cycleSvg;
+        if (activeTab === 'activities') return activitySvg;
+        if (activeTab === 'sequence') return sequenceSvg;
+        if (activeTab === 'components') return componentsSvg;
+        return deploymentSvg;
+      }
+
+      function getActiveConfig() { return DIAGRAM_CONFIGS[activeTab]; }
+
+      const transforms = {
+        states: { scale: 1.0, panX: 0, panY: 0 },
+        cycle: { scale: 1.0, panX: 0, panY: 0 },
+        activities: { scale: 1.0, panX: 0, panY: 0 },
+        sequence: { scale: 1.0, panX: 0, panY: 0 },
+        deployment: { scale: 1.0, panX: 0, panY: 0 },
+        components: { scale: 1.0, panX: 0, panY: 0 }
+      };
+
+      let isDragging = false;
+      let startX = 0, startY = 0, toastTimeout = null;
+
+      function showToast(text, icon = '&bull;', duration = 2500) {
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastText.textContent = text; toastIcon.innerHTML = icon;
+        toastMessage.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+        toastMessage.classList.add('opacity-100', 'translate-y-0');
+        toastTimeout = setTimeout(() => {
+          toastMessage.classList.remove('opacity-100', 'translate-y-0');
+          toastMessage.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+        }, duration);
+      }
+
+      function updateTransform() {
+        const svg = getActiveSvg();
+        const t = transforms[activeTab];
+        svg.style.transform = `translate(${t.panX}px, ${t.panY}px) scale(${t.scale})`;
+        zoomLevelText.textContent = `${Math.round(t.scale * 100)}%`;
+      }
+
+      function zoom(delta, clientX = null, clientY = null) {
+        const t = transforms[activeTab];
+        const oldScale = t.scale;
+        const newScale = Math.min(Math.max(t.scale + delta, 0.15), 3.0);
+        if (newScale === oldScale) return;
+        if (clientX !== null && clientY !== null) {
+          const rect = viewportContainer.getBoundingClientRect();
+          const mouseX = clientX - rect.left;
+          const mouseY = clientY - rect.top;
+          t.panX = mouseX - ((mouseX - t.panX) * (newScale / oldScale));
+          t.panY = mouseY - ((mouseY - t.panY) * (newScale / oldScale));
+        }
+        t.scale = newScale;
+        updateTransform();
+      }
+
+      function fitToScreen() {
+        const rect = viewportContainer.getBoundingClientRect();
+        const cfg = getActiveConfig();
+        const availableW = rect.width - 32;
+        const availableH = rect.height - 40;
+        const scaleX = availableW / cfg.width;
+        const scaleY = availableH / cfg.height;
+        const fittedScale = Math.min(scaleX, scaleY, 1.0);
+        const t = transforms[activeTab];
+        t.scale = fittedScale;
+        t.panX = Math.max(10, (rect.width - cfg.width * fittedScale) / 2 - cfg.viewBoxX * fittedScale);
+        t.panY = Math.max(10, (rect.height - cfg.height * fittedScale) / 2 - cfg.viewBoxY * fittedScale);
+        updateTransform();
+      }
+
+      function switchTab(newTab) {
+        activeTab = newTab;
+        
+        viewStates.style.display = (activeTab === 'states') ? 'block' : 'none';
+        viewCycle.style.display = (activeTab === 'cycle') ? 'block' : 'none';
+        viewActivities.style.display = (activeTab === 'activities') ? 'block' : 'none';
+        viewSequence.style.display = (activeTab === 'sequence') ? 'block' : 'none';
+        viewDeployment.style.display = (activeTab === 'deployment') ? 'block' : 'none';
+        viewComponents.style.display = (activeTab === 'components') ? 'block' : 'none';
+
+        const activeClass = 'px-3 py-1 rounded text-xs font-medium transition bg-slate-700 text-white shadow-sm flex items-center gap-1.5 whitespace-nowrap';
+        const inactiveClass = 'px-3 py-1 rounded text-xs font-medium transition text-slate-400 hover:text-slate-200 flex items-center gap-1.5 whitespace-nowrap';
+
+        tabStatesBtn.className = (activeTab === 'states') ? activeClass : inactiveClass;
+        tabCycleBtn.className = (activeTab === 'cycle') ? activeClass : inactiveClass;
+        tabActivitiesBtn.className = (activeTab === 'activities') ? activeClass : inactiveClass;
+        tabSequenceBtn.className = (activeTab === 'sequence') ? activeClass : inactiveClass;
+        tabDeploymentBtn.className = (activeTab === 'deployment') ? activeClass : inactiveClass;
+        tabComponentsBtn.className = (activeTab === 'components') ? activeClass : inactiveClass;
+
+        const cfg = getActiveConfig();
+        headerActiveViewLabel.innerHTML = `VISTA: <span class="text-slate-200 font-semibold">${cfg.label}</span>`;
+
+        if (activeTab === 'states') {
+          toggleSimulatorBtn.style.display = 'flex';
+          simulatorDock.style.display = 'flex';
+        } else {
+          toggleSimulatorBtn.style.display = 'none';
+          simulatorDock.style.display = 'none';
+        }
+
+        statesInfoContent.classList.toggle('hidden', activeTab !== 'states');
+        cycleInfoContent.classList.toggle('hidden', activeTab !== 'cycle');
+        activitiesInfoContent.classList.toggle('hidden', activeTab !== 'activities');
+        sequenceInfoContent.classList.toggle('hidden', activeTab !== 'sequence');
+        deploymentInfoContent.classList.toggle('hidden', activeTab !== 'deployment');
+        componentsInfoContent.classList.toggle('hidden', activeTab !== 'components');
+        
+        const titleMap = { 
+          states: 'UML (Estados Detallado)', 
+          cycle: 'UML (Ciclo Regularidad)',
+          activities: 'UML (Actividades)', 
+          sequence: 'UML (Secuencia)', 
+          deployment: 'UML (Despliegue)',
+          components: 'UML (Componentes)'
+        };
+        infoPanelTitle.textContent = titleMap[activeTab];
+        requestAnimationFrame(() => fitToScreen());
+      }
+
+      tabStatesBtn.addEventListener('click', () => switchTab('states'));
+      tabCycleBtn.addEventListener('click', () => switchTab('cycle'));
+      tabActivitiesBtn.addEventListener('click', () => switchTab('activities'));
+      tabSequenceBtn.addEventListener('click', () => switchTab('sequence'));
+      tabDeploymentBtn.addEventListener('click', () => switchTab('deployment'));
+      tabComponentsBtn.addEventListener('click', () => switchTab('components'));
+
+      viewportContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        zoom(e.deltaY < 0 ? 0.08 : -0.08, e.clientX, e.clientY);
+      }, { passive: false });
+
+      viewportContainer.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        const t = transforms[activeTab];
+        startX = e.clientX - t.panX;
+        startY = e.clientY - t.panY;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const t = transforms[activeTab];
+        t.panX = e.clientX - startX;
+        t.panY = e.clientY - startY;
+        updateTransform();
+      });
+
+      window.addEventListener('mouseup', () => { isDragging = false; });
+      zoomInBtn.addEventListener('click', () => zoom(0.15));
+      zoomOutBtn.addEventListener('click', () => zoom(-0.15));
+      resetViewBtn.addEventListener('click', fitToScreen);
+
+      toggleInfoBtn.addEventListener('click', () => {
+        infoPanel.classList.toggle('hidden');
+        setTimeout(fitToScreen, 150);
+      });
+
+      closeInfoBtn.addEventListener('click', () => {
+        infoPanel.classList.add('hidden');
+        setTimeout(fitToScreen, 150);
+      });
+
+      toggleSimulatorBtn.addEventListener('click', () => {
+        simulatorDock.style.display = simulatorDock.style.display === 'none' ? 'flex' : 'none';
+      });
+
+      // Simulation Logic
+      const SimulationState = { REGULAR: 'regular', ALERTA: 'alert', CRITICO: 'critical', TEA: 'tea', REINCORPORADO: 'reinc', FINAL: 'final' };
+      let currentSimState = SimulationState.REGULAR;
+      let currentAbsences = 0;
+
+      const stateElements = {
+        [SimulationState.REGULAR]: document.getElementById('node-regular'),
+        [SimulationState.ALERTA]: document.getElementById('node-alert'),
+        [SimulationState.CRITICO]: document.getElementById('node-critical'),
+        [SimulationState.TEA]: document.getElementById('node-tea'),
+        [SimulationState.REINCORPORADO]: document.getElementById('node-reinc'),
+        [SimulationState.FINAL]: document.getElementById('node-final')
+      };
+
+      const pathElements = {
+        'reg-alert': document.getElementById('path-reg-alert'),
+        'alert-crit': document.getElementById('path-alert-crit'),
+        'crit-tea': document.getElementById('path-crit-tea'),
+        'tea-reinc': document.getElementById('path-tea-reinc'),
+        'reinc-reg': document.getElementById('path-reinc-reg'),
+        'tea-final': document.getElementById('path-tea-final'),
+        'init-reg': document.getElementById('path-init-reg')
+      };
+
+      function highlightPath(pathKey) {
+        Object.values(pathElements).forEach(p => { if (p) p.classList.remove('active-path'); });
+        if (pathElements[pathKey]) pathElements[pathKey].classList.add('active-path');
+      }
+
+      function updateSimulationUI() {
+        Object.values(stateElements).forEach(el => { if (el) el.classList.remove('active-state'); });
+        if (stateElements[currentSimState]) stateElements[currentSimState].classList.add('active-state');
+
+        simPassTeaBtn.disabled = currentSimState !== SimulationState.TEA;
+        simDropBtn.disabled = currentSimState !== SimulationState.TEA;
+
+        const stateNames = {
+          [SimulationState.REGULAR]: 'Regular', [SimulationState.ALERTA]: 'Alerta',
+          [SimulationState.CRITICO]: 'Crítico', [SimulationState.TEA]: 'TEA',
+          [SimulationState.REINCORPORADO]: 'Reincorporado', [SimulationState.FINAL]: 'Final'
+        };
+        simCurrentStateLabel.textContent = `Estado: [${stateNames[currentSimState]}] (${currentAbsences} faltas)`;
+      }
+
+      simAddAbsenceBtn.addEventListener('click', () => {
+        if (currentSimState === SimulationState.FINAL) { showToast('Estudiante desvinculado.'); return; }
+        currentAbsences++;
+        if (currentAbsences < 3) { currentSimState = SimulationState.REGULAR; highlightPath('init-reg'); }
+        else if (currentAbsences < 10) { currentSimState = SimulationState.ALERTA; highlightPath('reg-alert'); }
+        else if (currentAbsences < 25) { currentSimState = SimulationState.CRITICO; highlightPath('alert-crit'); }
+        else { currentSimState = SimulationState.TEA; highlightPath('crit-tea'); }
+        updateSimulationUI();
+      });
+
+      simJumpCritBtn.addEventListener('click', () => {
+        currentAbsences = 10; currentSimState = SimulationState.CRITICO; highlightPath('alert-crit'); updateSimulationUI();
+      });
+
+      simJumpTeaBtn.addEventListener('click', () => {
+        currentAbsences = 25; currentSimState = SimulationState.TEA; highlightPath('crit-tea'); updateSimulationUI();
+      });
+
+      simPassTeaBtn.addEventListener('click', () => {
+        if (currentSimState !== SimulationState.TEA) return;
+        currentSimState = SimulationState.REINCORPORADO; highlightPath('tea-reinc'); updateSimulationUI();
+        setTimeout(() => {
+          if (currentSimState === SimulationState.REINCORPORADO) {
+            currentSimState = SimulationState.REGULAR; currentAbsences = 0; highlightPath('reinc-reg'); updateSimulationUI();
+          }
+        }, 2200);
+      });
+
+      simDropBtn.addEventListener('click', () => {
+        if (currentSimState !== SimulationState.TEA) return;
+        currentSimState = SimulationState.FINAL; highlightPath('tea-final'); updateSimulationUI();
+      });
+
+      simResetCycleBtn.addEventListener('click', () => {
+        currentSimState = SimulationState.REGULAR; currentAbsences = 0; highlightPath('init-reg'); updateSimulationUI();
+      });
+
+      exportSvgBtn.addEventListener('click', () => {
+        try {
+          const targetSvg = getActiveSvg();
+          const cfg = getActiveConfig();
+          const cloneSvg = targetSvg.cloneNode(true);
+          cloneSvg.removeAttribute('style');
+          cloneSvg.setAttribute('width', cfg.width);
+          cloneSvg.setAttribute('height', cfg.height);
+          cloneSvg.setAttribute('viewBox', `${cfg.viewBoxX} ${cfg.viewBoxY} ${cfg.width} ${cfg.height}`);
+          cloneSvg.querySelectorAll('.active-path').forEach(p => p.classList.remove('active-path'));
+          cloneSvg.querySelectorAll('.active-state').forEach(s => s.classList.remove('active-state'));
+
+          const serializer = new XMLSerializer();
+          let svgString = serializer.serializeToString(cloneSvg);
+          const styleElement = `<style>@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;600;700&display=swap'); text { font-family: 'Inter', sans-serif; }</style>`;
+          svgString = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + svgString.replace('<defs>', `<defs>${styleElement}`);
+
+          const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const downloadLink = document.createElement('a');
+          downloadLink.href = url; downloadLink.download = `${cfg.exportName}.svg`;
+          document.body.appendChild(downloadLink); downloadLink.click();
+          document.body.removeChild(downloadLink); URL.revokeObjectURL(url);
+          showToast(`Archivo SVG generado.`);
+        } catch (err) { console.error(err); }
+      });
+
+      exportPngBtn.addEventListener('click', () => {
+        showToast('Renderizando PNG a 300 DPI...');
+        try {
+          const targetSvg = getActiveSvg();
+          const cfg = getActiveConfig();
+          const cloneSvg = targetSvg.cloneNode(true);
+          cloneSvg.removeAttribute('style');
+          cloneSvg.setAttribute('width', cfg.width);
+          cloneSvg.setAttribute('height', cfg.height);
+          cloneSvg.setAttribute('viewBox', `${cfg.viewBoxX} ${cfg.viewBoxY} ${cfg.width} ${cfg.height}`);
+          cloneSvg.querySelectorAll('.active-path').forEach(p => p.classList.remove('active-path'));
+          cloneSvg.querySelectorAll('.active-state').forEach(s => s.classList.remove('active-state'));
+
+          const serializer = new XMLSerializer();
+          const svgString = serializer.serializeToString(cloneSvg);
+          const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+          const URLObj = window.URL || window.webkitURL || window;
+          const blobURL = URLObj.createObjectURL(svgBlob);
+
+          const img = new Image();
+          img.onload = function() {
+            const scaleFactor = 3.125; 
+            const targetWidth = Math.round(cfg.width * scaleFactor);
+            const targetHeight = Math.round(cfg.height * scaleFactor);
+            const canvas = document.createElement('canvas');
+            canvas.width = targetWidth; canvas.height = targetHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+            ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, targetWidth, targetHeight);
+            ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+            canvas.toBlob((pngBlob) => {
+              if (!pngBlob) return;
+              const pngUrl = URLObj.createObjectURL(pngBlob);
+              const downloadLink = document.createElement('a');
+              downloadLink.href = pngUrl; downloadLink.download = `${cfg.exportName}.png`;
+              document.body.appendChild(downloadLink); downloadLink.click();
+              document.body.removeChild(downloadLink);
+              URLObj.revokeObjectURL(pngUrl); URLObj.revokeObjectURL(blobURL);
+              showToast(`PNG 300 DPI generado.`);
+            }, 'image/png');
+          };
+          img.src = blobURL;
+        } catch (err) { console.error(err); }
+      });
+
+      window.addEventListener('load', () => { fitToScreen(); updateSimulationUI(); });
+      window.addEventListener('resize', () => { fitToScreen(); });
+
+    })();
+  </script>
+</body>
+</html>
