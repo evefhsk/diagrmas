@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Caso de Uso CU-01 — Registrar Asistencia — Diagramas UML B&N (ProA La Falda)</title>
+  <title>Caso de Uso CU-01 — Registrar Asistencia y Gestionar Alertas — Diagramas UML B&N (ProA La Falda)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -66,8 +66,8 @@
       </div>
       <div class="info-content">
         <div class="info-card">
-          <h3>CU-01 · Registrar asistencia diaria y tardanzas:</h3>
-          <p>Precondición: preceptora autenticada y con turno activo. Flujo: seleccionar curso y división, revisar la nómina, marcar ausencias/tardanzas, confirmar y actualizar el acumulado. Alternativa: registrar retiro anticipado (0,50). Error: si ya existe un registro, ofrecer rectificación. RF-02 indica <=20 min = 0,25; >20 min = 0,50; demora >=40 min = 1,00, por lo que los dos últimos rangos se superponen.</p>
+          <h3>CU-01 · Registrar asistencia y gestionar alertas de regularidad:</h3>
+          <p>Actor principal: Preceptoría; secundaria: Dirección para el seguimiento de alertas y actas. Precondición: sesión autenticada y turno activo. Flujo: seleccionar curso/división, revisar la nómina, registrar ausencias, tardanzas y retiros; confirmar. El sistema calcula la fracción, actualiza el acumulado y notifica los hitos 3, 5, 10 y 20 a Preceptoría y Dirección. Preceptoría revisa las alertas y gestiona las actas precompletadas en 10 y 20; Dirección y tutores participan de la firma presencial. Al alcanzar 25, el sistema deriva a TEA y notifica a Coordinación. Rectificaciones/justificaciones dentro de 48 horas hábiles con auditoría. Regla por validar: hasta 20 min = 0,25; 21–39 = 0,50; desde 40 = 1,00.</p>
         </div>
       </div>
     </aside>

@@ -1,13 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
-  <title id="title">CU-03 Consultar bitacora y clases anteriores</title>
-  <desc id="desc">Diagrama especifico de consulta de clases y recursos por parte del estudiante.</desc>
+  <title id="title">CU-03 Consultar bitacora, tareas, entregas y calificaciones</title>
+  <desc id="desc">Casos de uso del estudiante para consultar clases, tareas, el estado de sus entregas y sus calificaciones.</desc>
   <defs><style>text{font-family:Inter,Arial,sans-serif;fill:#000}.heading{font-size:26px;font-weight:700}.subheading{font-size:15px}.system,.usecase,.maincase{fill:#fff;stroke:#000;stroke-width:2}.label{font-size:16px;font-weight:600;text-anchor:middle}.actor-line{fill:none;stroke:#000;stroke-width:2}.actor-name{font-size:17px;font-weight:600;text-anchor:middle}.note{font-size:14px}</style></defs>
-  <rect width="1400" height="1000" fill="#fff"/><text class="heading" x="700" y="45" text-anchor="middle">CU-03 · Consultar bitácora y clases anteriores</text>
+  <rect width="1400" height="1000" fill="#fff"/><text class="heading" x="700" y="45" text-anchor="middle">CU-03 · Consultar clases y seguimiento académico</text>
   <text class="subheading" x="700" y="72" text-anchor="middle">Actor principal: Estudiante · precondición: sesión autenticada</text>
-  <rect class="system" x="300" y="105" width="1010" height="820" rx="8"/><text x="325" y="138" font-size="15" font-weight="700">Sistema Web</text><path class="actor-line" d="M178 468H500"/>
+  <rect class="system" x="300" y="105" width="1010" height="820" rx="8"/><text x="325" y="138" font-size="15" font-weight="700">Sistema Web</text>
+  <g class="actor-line">
+    <path d="M178 468L550 245"/><path d="M178 468L550 430"/>
+    <path d="M178 468L550 615"/><path d="M178 468L550 800"/>
+  </g>
   <g>
-    <ellipse class="usecase maincase" cx="800" cy="470" rx="300" ry="85"/><text class="label" x="800" y="476">Consultar bitácora y clases anteriores</text>
+    <ellipse class="usecase maincase" cx="800" cy="245" rx="250" ry="58"/><text class="label" x="800" y="251">Consultar bitácora y materiales de clase</text>
+    <ellipse class="usecase" cx="800" cy="430" rx="250" ry="58"/><text class="label" x="800" y="436">Consultar tareas y fechas de entrega</text>
+    <ellipse class="usecase" cx="800" cy="615" rx="250" ry="58"/><text class="label" x="800" y="621">Revisar el estado de sus entregas</text>
+    <ellipse class="usecase" cx="800" cy="800" rx="250" ry="58"/><text class="label" x="800" y="806">Consultar calificaciones y devoluciones</text>
   </g>
   <g transform="translate(155 430)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Estudiante</text></g>
-  <text class="note" x="325" y="955">El estudiante filtra clases por asignatura o fecha y accede al material publicado por el docente.</text>
+  <text class="note" x="325" y="955">Consulta materiales, fechas límite, estado de sus entregas, calificaciones y retroalimentación docente.</text>
 </svg>

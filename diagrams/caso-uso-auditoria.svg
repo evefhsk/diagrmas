@@ -1,14 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
   <title id="title">CU-04 Auditar avance pedagogico y alertas de regularidad</title>
-  <desc id="desc">Diagrama especifico para que Coordinacion Pedagogica y Direccion auditen bitacoras y estados de regularidad.</desc>
+  <desc id="desc">Casos de uso para supervisar bitacoras, entregas, calificaciones y alertas de regularidad.</desc>
   <defs><style>text{font-family:Inter,Arial,sans-serif;fill:#000}.heading{font-size:26px;font-weight:700}.subheading{font-size:15px}.system,.usecase,.maincase{fill:#fff;stroke:#000;stroke-width:2}.label{font-size:16px;font-weight:600;text-anchor:middle}.actor-line{fill:none;stroke:#000;stroke-width:2}.actor-name{font-size:16px;font-weight:600;text-anchor:middle}.note{font-size:14px}</style></defs>
   <rect width="1400" height="1000" fill="#fff"/><text class="heading" x="700" y="45" text-anchor="middle">CU-04 · Auditar avance pedagógico y regularidad</text>
   <text class="subheading" x="700" y="72" text-anchor="middle">Actores principales: Coordinación Pedagógica y Dirección</text>
-  <rect class="system" x="300" y="105" width="1010" height="820" rx="8"/><text x="325" y="138" font-size="15" font-weight="700">Sistema Web</text><path class="actor-line" d="M178 388H574M178 598H639"/>
+  <rect class="system" x="300" y="105" width="1010" height="820" rx="8"/><text x="325" y="138" font-size="15" font-weight="700">Sistema Web</text>
+  <g class="actor-line">
+    <path d="M178 388L560 250"/><path d="M178 388L560 430"/>
+    <path d="M178 388L560 610"/><path d="M178 388L560 790"/>
+    <path d="M178 598L560 250"/><path d="M178 598L560 430"/>
+    <path d="M178 598L560 610"/><path d="M178 598L560 790"/>
+  </g>
   <g>
-    <ellipse class="usecase maincase" cx="800" cy="480" rx="300" ry="140"/><text class="label" x="800" y="476">Auditar avance pedagógico y alertas de regularidad</text>
+    <ellipse class="usecase maincase" cx="850" cy="250" rx="290" ry="58"/><text class="label" x="850" y="256">Supervisar avance pedagógico y regularidad</text>
+    <ellipse class="usecase" cx="850" cy="430" rx="290" ry="58"/><text class="label" x="850" y="436">Controlar bitácoras por asignatura</text>
+    <ellipse class="usecase" cx="850" cy="610" rx="290" ry="58"/><text class="label" x="850" y="616">Detectar entregas pendientes y atrasadas</text>
+    <ellipse class="usecase" cx="850" cy="790" rx="290" ry="58"/><text class="label" x="850" y="796">Consultar calificaciones, alertas y ficha TEA</text>
   </g>
   <g transform="translate(155 350)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Coordinación</text><text class="actor-name" x="0" y="152">Pedagógica</text></g>
   <g transform="translate(155 560)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Dirección</text></g>
-  <text class="note" x="325" y="955">La emisión de la ficha TEA forma parte del flujo descrito; el documento no define un caso de uso independiente.</text>
+  <text class="note" x="325" y="955">Los permisos de Coordinación y Dirección deben quedar definidos en RBAC.</text>
 </svg>
