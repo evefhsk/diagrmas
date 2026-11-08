@@ -162,6 +162,46 @@ PAGES = {
         "info_text": "Diseño basado en componentes para el sistema ProA La Falda. Presenta las tarjetas redondeadas y la base de datos cilíndrica según la estética solicitada.",
         "simulator": False,
     },
+      "useCases": {
+        "file": "casos-uso.html",
+        "title": "Diagrama General de Casos de Uso",
+        "svg": "casos-uso-general.svg",
+        "info_title": "Alcance funcional documentado:",
+        "info_text": "RF-01 a RF-04 corresponden a asistencia, tardanzas, alertas y TEA; CU-02 y CU-03 describen la bitácora; RF-07 documenta registro docente y consulta estudiantil de calificaciones. RF-08 exige archivos para SGE/CiDi, pero el análisis no identifica quién inicia ese caso. Tutores y familias no tienen acceso web en esta etapa.",
+        "simulator": False,
+      },
+      "useCaseAttendance": {
+        "file": "caso-uso-asistencia.html",
+        "title": "Caso de Uso CU-01 — Registrar Asistencia",
+        "svg": "caso-uso-asistencia.svg",
+        "info_title": "CU-01 · Registrar asistencia diaria y tardanzas:",
+        "info_text": "Precondición: preceptora autenticada y con turno activo. Flujo: seleccionar curso y división, revisar la nómina, marcar ausencias/tardanzas, confirmar y actualizar el acumulado. Alternativa: registrar retiro anticipado (0,50). Error: si ya existe un registro, ofrecer rectificación. RF-02 indica <=20 min = 0,25; >20 min = 0,50; demora >=40 min = 1,00, por lo que los dos últimos rangos se superponen.",
+        "simulator": False,
+      },
+      "useCaseLogbook": {
+        "file": "caso-uso-bitacora.html",
+        "title": "Caso de Uso CU-02 — Registrar Bitácora",
+        "svg": "caso-uso-bitacora.svg",
+        "info_title": "CU-02 · Registrar bitácora de clase:",
+        "info_text": "Precondición: docente autenticado y asignado al espacio curricular. Flujo: seleccionar espacio y curso, cargar tema, actividad y enlaces, publicar; el sistema valida y deja la entrada disponible para estudiantes y coordinación. Error: ante campos obligatorios incompletos, solicita completarlos antes de guardar.",
+        "simulator": False,
+      },
+      "useCaseConsultation": {
+        "file": "caso-uso-consulta.html",
+        "title": "Caso de Uso CU-03 — Consultar Bitácora",
+        "svg": "caso-uso-consulta.svg",
+        "info_title": "CU-03 · Consultar bitácora y clases anteriores:",
+        "info_text": "Precondición: estudiante autenticado. Flujo: ingresar a Mis Clases/Bitácora, elegir asignatura o fecha, consultar clases en orden cronológico y abrir o descargar los materiales publicados.",
+        "simulator": False,
+      },
+      "useCaseAudit": {
+        "file": "caso-uso-auditoria.html",
+        "title": "Caso de Uso CU-04 — Auditar Avance y Regularidad",
+        "svg": "caso-uso-auditoria.svg",
+        "info_title": "CU-04 · Auditar avance pedagógico y alertas:",
+        "info_text": "Coordinación Pedagógica y Dirección consultan el semáforo de bitácoras y el listado de estudiantes con alertas. El flujo indica emitir una ficha de intervención al seleccionar un estudiante TEA. RF-03 enumera alertas en 3, 5, 10 y 20 faltas; CU-04 menciona 10, 20 y 25. RF-04/RN-03 fijan el pase a TEA en 25 faltas. La lista RBAC aún no incluye Coordinación ni Dirección.",
+        "simulator": False,
+      },
 }
 
 out_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "pages"))

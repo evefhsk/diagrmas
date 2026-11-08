@@ -1,6 +1,6 @@
 # Diagramas UML B&N — ProA La Falda (repositorio reorganizado)
 
-Reorganización del antiguo `diagrmas.html` monolítico (6 pestañas + ~380 líneas
+Reorganización del antiguo `diagrmas.html` monolítico (11 vistas + ~380 líneas
 de JavaScript + estilos embebidos) en un sitio estático modular: **una página
 por pestaña**, hojas de estilo CSS separadas, scripts separados por
 responsabilidad y los diagramas como archivos SVG independientes.
@@ -16,7 +16,12 @@ responsabilidad y los diagramas como archivos SVG independientes.
 │   ├── actividades.html        # Diagrama de Actividades (swimlanes)
 │   ├── secuencia.html          # Diagrama de Secuencia (Bitácora)
 │   ├── despliegue.html         # Diagrama de Despliegue (SP5)
-│   └── componentes.html        # Diagrama de Componentes
+│   ├── componentes.html        # Diagrama de Componentes
+│   ├── casos-uso.html          # Casos de Uso (vista general)
+│   ├── caso-uso-asistencia.html # CU-01: Asistencia y tardanzas
+│   ├── caso-uso-bitacora.html   # CU-02: Bitácora de clase
+│   ├── caso-uso-consulta.html   # CU-03: Consulta de bitácora
+│   └── caso-uso-auditoria.html  # CU-04: Auditoría y regularidad
 ├── css/
 │   ├── base.css                # Variables del tema, tipografías, utilidades
 │   ├── layout.css              # Header, navegación, viewport, toast, panel lateral
@@ -29,13 +34,18 @@ responsabilidad y los diagramas como archivos SVG independientes.
 │   ├── exporter.js             # Exportación a SVG y PNG 300 DPI
 │   ├── simulator.js            # Simulador de la máquina de estados (faltas → TEA)
 │   └── diagram-page.js         # Controller común de cada página de diagrama
-├── diagrams/                   # Cada SVG extraído del HTML original (standalone)
+├── diagrams/                   # SVGs independientes originales y agregados
 │   ├── estados.svg
 │   ├── ciclo-regularidad.svg
 │   ├── actividades.svg
 │   ├── secuencia.svg
 │   ├── despliegue.svg
-│   └── componentes.svg
+│   ├── componentes.svg
+│   ├── casos-uso-general.svg
+│   ├── caso-uso-asistencia.svg
+│   ├── caso-uso-bitacora.svg
+│   ├── caso-uso-consulta.svg
+│   └── caso-uso-auditoria.svg
 ├── tools/
 │   └── build_pages.py          # Regenera las páginas desde la plantilla común
 └── legacy/
@@ -54,7 +64,7 @@ python3 -m http.server 8000
 
 ## Funcionalidad conservada
 
-- Navegación entre las 6 vistas (ahora son enlaces a páginas separadas; la
+- Navegación entre las 11 vistas (ahora son enlaces a páginas separadas; la
   pestaña activa se resalta según `body[data-diagram]`).
 - Zoom con rueda centrado en el cursor, botones +/−, "Ajustar Vista", paneo
   por arrastre.
@@ -63,6 +73,27 @@ python3 -m http.server 8000
   Acta/TEA, acreditar/desvincular y reinicio del ciclo, con resaltado de
   nodos y transiciones.
 - Exportación del diagrama actual a **SVG** y **PNG a 300 DPI**.
+
+## Revisión de las fuentes
+
+- La notación se contrastó con la especificación formal [OMG UML 2.5.1](https://www.omg.org/spec/UML/2.5.1/), §§18.1.3.2–18.1.4: casos como elipses, sujeto del sistema como rectángulo y actores como figuras de línea. `include` se reserva para comportamiento obligatorio reutilizable; `extend` parte del caso extensor y requiere un punto de extensión.
+- Los diagramas específicos muestran el objetivo del actor en una elipse. Los pasos de flujo y excepciones se conservan en el panel de especificación, no como casos de uso separados.
+- El informe de tesis describe el relevamiento del proceso actual (As-Is). El
+  análisis de la materia especifica el sistema propuesto; los casos de uso de
+  esta app representan ese modelo propuesto, no el proceso vigente.
+- El análisis detalla CU-01 a CU-04. RF-07 (calificaciones) y RF-08 (reportes
+  para SGE/CiDi) aparecen en el diagrama general, pero todavía no tienen casos
+  de uso detallados en el documento.
+- RF-02 superpone los rangos de tardanza: `> 20 min = 0,50` y `>= 40 min =
+  1,00`. Conviene precisar rangos excluyentes antes de cerrar CU-01.
+- RF-03 enumera alertas en 3, 5, 10 y 20 faltas; CU-04 menciona 10, 20 y 25.
+  Debe distinguirse el umbral de alertas del pase a TEA, que RF-04/RN-03 fijan
+  en 25 faltas.
+- Los actores CU-04 (Coordinación y Dirección) no aparecen en la lista RBAC,
+  que solo enumera Administrador, Preceptor, Docente y Estudiante. Unificar los
+  roles con los permisos previstos.
+- Los PDF revisados no contienen una devolución explícita del profesor. Para
+  incorporar sus correcciones puntuales hace falta contar con esa devolución.
 
 ## Cambios respecto del original
 

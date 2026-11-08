@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+  <title id="title">CU-01 Registrar asistencia diaria y tardanzas</title>
+  <desc id="desc">Diagrama especifico con la preceptora y las funciones incluidas en el registro de asistencia.</desc>
+  <defs><style>text{font-family:Inter,Arial,sans-serif;fill:#000}.heading{font-size:26px;font-weight:700}.subheading{font-size:15px}.system,.usecase,.maincase{fill:#fff;stroke:#000;stroke-width:2}.label{font-size:16px;font-weight:600;text-anchor:middle}.actor-line{fill:none;stroke:#000;stroke-width:2}.actor-name{font-size:17px;font-weight:600;text-anchor:middle}.note{font-size:14px}</style></defs>
+  <rect width="1400" height="1000" fill="#fff"/>
+  <text class="heading" x="700" y="45" text-anchor="middle">CU-01 · Registrar asistencia diaria y tardanzas</text>
+  <text class="subheading" x="700" y="72" text-anchor="middle">Actor principal: Preceptora · precondición: sesión autenticada y turno activo</text>
+  <rect class="system" x="300" y="105" width="1010" height="820" rx="8"/><text x="325" y="138" font-size="15" font-weight="700">Sistema Web</text>
+  <path class="actor-line" d="M178 468H500"/>
+  <g>
+    <ellipse class="usecase maincase" cx="800" cy="470" rx="300" ry="85"/><text class="label" x="800" y="476">Registrar asistencia diaria y tardanzas</text>
+  </g>
+  <g transform="translate(155 430)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Preceptora</text></g>
+  <text class="note" x="325" y="955">El detalle del flujo y las reglas de cálculo se documentan en la especificación del caso.</text>
+</svg>

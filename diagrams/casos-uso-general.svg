@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1040" viewBox="0 0 1800 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Diagrama general de casos de uso</title>
+  <desc id="desc">Actores y funciones principales del Sistema Web de Autogestion Academica y Seguimiento Pedagogico.</desc>
+  <defs>
+    <style>
+      text{font-family:Inter,Arial,sans-serif;fill:#000000!important}.heading{font-size:28px;font-weight:700}.subheading{font-size:16px;fill:#000000}.system{fill:#ffffff;stroke:#000000;stroke-width:2}.usecase{fill:#ffffff;stroke:#000000;stroke-width:2}.case-label{font-size:17px;font-weight:600;text-anchor:middle}.case-id{font-size:13px;font-weight:700;fill:#000000;text-anchor:middle}.actor-line{fill:none;stroke:#000000;stroke-width:2}.assoc{fill:none;stroke:#000000;stroke-width:1.6}.actor-name{font-size:16px;font-weight:600;text-anchor:middle}.note{font-size:14px;fill:#000000}.note-box{fill:#ffffff;stroke:#000000;stroke-width:1.4}
+    </style>
+  </defs>
+  <rect width="1800" height="1040" fill="#fff"/>
+  <text class="heading" x="900" y="46" text-anchor="middle">Sistema Web de Autogestión Académica y Seguimiento Pedagógico</text>
+  <text class="subheading" x="900" y="74" text-anchor="middle">Diagrama general de casos de uso · alcance funcional documentado</text>
+
+  <rect class="system" x="300" y="110" width="1200" height="660" rx="8"/>
+  <text x="330" y="145" font-size="16" font-weight="700">Sistema Web</text>
+  <g class="assoc">
+    <path d="M178 273L461 273"/><path d="M1622 273L1353 273"/><path d="M1622 273H1470V610H1375"/>
+    <path d="M178 538L445 430"/><path d="M178 548L425 610"/>
+    <path d="M1622 448L1386 448"/><path d="M1622 688H1470V430H1395"/>
+  </g>
+
+  <g>
+    <ellipse class="usecase" cx="610" cy="250" rx="165" ry="54"/>
+    <text class="case-id" x="610" y="240">CU-01</text><text class="case-label" x="610" y="265">Registrar asistencia diaria y tardanzas</text>
+    <ellipse class="usecase" cx="1190" cy="250" rx="180" ry="54"/>
+    <text class="case-id" x="1190" y="240">CU-02</text><text class="case-label" x="1190" y="265">Registrar bitácora de clase</text>
+    <ellipse class="usecase" cx="610" cy="430" rx="165" ry="54"/>
+    <text class="case-id" x="610" y="420">CU-03</text><text class="case-label" x="610" y="445">Consultar bitácora</text>
+    <ellipse class="usecase" cx="1190" cy="430" rx="205" ry="60"/>
+    <text class="case-id" x="1190" y="418">CU-04</text><text class="case-label" x="1190" y="444">Auditar avance pedagógico y regularidad</text>
+    <ellipse class="usecase" cx="1190" cy="610" rx="185" ry="54"/>
+    <text class="case-id" x="1190" y="600">RF-07</text><text class="case-label" x="1190" y="625">Registrar calificaciones</text>
+    <ellipse class="usecase" cx="610" cy="610" rx="185" ry="54"/>
+    <text class="case-id" x="610" y="600">RF-07</text><text class="case-label" x="610" y="625">Consultar calificaciones</text>
+  </g>
+
+  <g transform="translate(150 235)">
+    <circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/>
+    <text class="actor-name" x="0" y="130">Preceptoría</text>
+  </g>
+  <g transform="translate(1650 235)">
+    <circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/>
+    <text class="actor-name" x="0" y="130">Docente</text>
+  </g>
+  <g transform="translate(150 500)">
+    <circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/>
+    <text class="actor-name" x="0" y="130">Estudiante</text>
+  </g>
+  <g transform="translate(1650 410)">
+    <circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/>
+    <text class="actor-name" x="0" y="130">Coordinación</text><text class="actor-name" x="0" y="151">Pedagógica</text>
+  </g>
+  <g transform="translate(1650 650)">
+    <circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/>
+    <text class="actor-name" x="0" y="130">Dirección</text>
+  </g>
+
+  <rect class="note-box" x="330" y="800" width="1120" height="72" rx="5"/>
+  <text class="note" x="348" y="828">RF-08 exige reportes para carga manual en SGE/CiDi; el documento no identifica quién inicia esa función.</text>
+  <text class="note" x="348" y="852">Tutores y familias no tienen acceso web en esta etapa. RF-07 sí especifica registro docente y consulta estudiantil.</text>
+</svg>

@@ -41,7 +41,7 @@
           <p>${cfg.description}</p>
           <div class="card-actions">
             <a class="card-btn card-btn--primary" href="pages/${cfg.page}">Abrir vista</a>
-            <a class="card-btn" href="${cfg.svgFile}" download="${cfg.exportName}.svg">Descargar SVG</a>
+            <a class="card-btn" href="${cfg.svgFile.replace('../diagrams/', 'diagrams/')}" download="${cfg.exportName}.svg">Descargar SVG</a>
           </div>
         </article>`;
       }).join('');

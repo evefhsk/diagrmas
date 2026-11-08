@@ -28,13 +28,25 @@
   // ----- Render de la barra de navegación (pestañas como enlaces) -----
   function renderNav() {
     const nav = document.getElementById('pageNav');
-    nav.innerHTML = NAV_ORDER.map(key => {
-      const isActive = key === diagramKey;
-      return `<a class="nav-tab${isActive ? ' active' : ''}" href="${DIAGRAM_CONFIGS[key].page}">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">${NAV_ICONS[key]}</svg>
-        <span>${NAV_LABELS[key]}</span>
-      </a>`;
-    }).join('');
+    const groups = [
+      { label: 'Diagramas principales', keys: NAV_ORDER.slice(0, 6) },
+      { label: 'Casos de uso', keys: NAV_ORDER.slice(6) }
+    ];
+    const options = groups.map(group => `
+      <optgroup label="${group.label}">
+        ${group.keys.map(key => `<option value="${DIAGRAM_CONFIGS[key].page}">${NAV_LABELS[key]}</option>`).join('')}
+      </optgroup>`).join('');
+
+    nav.innerHTML = `<label class="nav-picker">
+      <span class="nav-picker-label">Ir a</span>
+      <select class="nav-select" aria-label="Elegir diagrama">${options}</select>
+    </label>`;
+
+    const picker = nav.querySelector('.nav-select');
+    picker.value = config.page;
+    picker.addEventListener('change', () => {
+      window.location.href = picker.value;
+    });
   }
 
   // ----- Carga del SVG del diagrama -----

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+  <title id="title">CU-04 Auditar avance pedagogico y alertas de regularidad</title>
+  <desc id="desc">Diagrama especifico para que Coordinacion Pedagogica y Direccion auditen bitacoras y estados de regularidad.</desc>
+  <defs><style>text{font-family:Inter,Arial,sans-serif;fill:#000}.heading{font-size:26px;font-weight:700}.subheading{font-size:15px}.system,.usecase,.maincase{fill:#fff;stroke:#000;stroke-width:2}.label{font-size:16px;font-weight:600;text-anchor:middle}.actor-line{fill:none;stroke:#000;stroke-width:2}.actor-name{font-size:16px;font-weight:600;text-anchor:middle}.note{font-size:14px}</style></defs>
+  <rect width="1400" height="1000" fill="#fff"/><text class="heading" x="700" y="45" text-anchor="middle">CU-04 · Auditar avance pedagógico y regularidad</text>
+  <text class="subheading" x="700" y="72" text-anchor="middle">Actores principales: Coordinación Pedagógica y Dirección</text>
+  <rect class="system" x="300" y="105" width="1010" height="820" rx="8"/><text x="325" y="138" font-size="15" font-weight="700">Sistema Web</text><path class="actor-line" d="M178 388H574M178 598H639"/>
+  <g>
+    <ellipse class="usecase maincase" cx="800" cy="480" rx="300" ry="140"/><text class="label" x="800" y="476">Auditar avance pedagógico y alertas de regularidad</text>
+  </g>
+  <g transform="translate(155 350)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Coordinación</text><text class="actor-name" x="0" y="152">Pedagógica</text></g>
+  <g transform="translate(155 560)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Dirección</text></g>
+  <text class="note" x="325" y="955">La emisión de la ficha TEA forma parte del flujo descrito; el documento no define un caso de uso independiente.</text>
+</svg>
