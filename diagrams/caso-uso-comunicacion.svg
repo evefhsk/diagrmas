@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+  <title id="title">CU-05 / RF-09 Consulta y respuesta de dudas pedagógicas</title>
+  <desc id="desc">Propuesta de comunicación asincrónica entre estudiantes y docentes dentro de la plataforma.</desc>
+  <defs><style>text{font-family:Inter,Arial,sans-serif;fill:#000}.heading{font-size:26px;font-weight:700}.subheading{font-size:15px}.system,.usecase{fill:#fff;stroke:#000;stroke-width:2}.label{font-size:16px;font-weight:600;text-anchor:middle}.actor-line{fill:none;stroke:#000;stroke-width:2}.actor-name{font-size:17px;font-weight:600;text-anchor:middle}.note{font-size:14px}</style></defs>
+  <rect width="1400" height="1000" fill="#fff"/>
+  <text class="heading" x="700" y="45" text-anchor="middle">CU-05 / RF-09 · Consultas pedagógicas</text>
+  <text class="subheading" x="700" y="72" text-anchor="middle">Propuesta por validar · comunicación asincrónica en la plataforma</text>
+  <rect class="system" x="270" y="110" width="860" height="770" rx="8"/>
+  <text x="295" y="145" font-size="15" font-weight="700">Plataforma de Autogestión</text>
+  <path class="actor-line" d="M178 438H400M1222 438H1000"/>
+  <ellipse class="usecase" cx="700" cy="438" rx="300" ry="92"/>
+  <text class="label" x="700" y="430">Plantear y responder dudas pedagógicas</text>
+  <text class="label" x="700" y="454">vinculadas al curso o actividad</text>
+  <g transform="translate(150 400)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Estudiante</text></g>
+  <g transform="translate(1250 400)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Docente</text></g>
+  <text class="note" x="300" y="930">Las consultas y respuestas quedan dentro del contexto del curso, bitácora o actividad; solo acceden participantes autorizados.</text>
+  <text class="note" x="300" y="955">Definir notificaciones, moderación, retención y auditoría; no exponer datos de contacto personales.</text>
+</svg>

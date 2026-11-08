@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1100" viewBox="0 0 1700 1100" role="img" aria-labelledby="title desc">
+  <title id="title">RF-10 Integración propuesta con Google Classroom</title>
+  <desc id="desc">Docente publica materiales y tareas; la plataforma organiza cursos, sincroniza estados y calificaciones con Google Classroom para su consulta.</desc>
+  <defs><style>text{font-family:Inter,Arial,sans-serif;fill:#000}.heading{font-size:26px;font-weight:700}.subheading{font-size:15px}.system,.usecase{fill:#fff;stroke:#000;stroke-width:2}.label{font-size:16px;font-weight:600;text-anchor:middle}.actor-line{fill:none;stroke:#000;stroke-width:2}.actor-name{font-size:16px;font-weight:600;text-anchor:middle}.note{font-size:14px}</style></defs>
+  <rect width="1700" height="1100" fill="#fff"/>
+  <text class="heading" x="850" y="45" text-anchor="middle">RF-10 · Integración con Google Classroom</text>
+  <text class="subheading" x="850" y="72" text-anchor="middle">Propuesta por validar · no representa una integración ya implementada</text>
+  <rect class="system" x="300" y="105" width="1000" height="870" rx="8"/>
+  <text x="325" y="140" font-size="15" font-weight="700">Plataforma de Autogestión</text>
+  <g class="actor-line">
+    <path d="M178 288H550"/>
+    <path d="M178 288H240V540H550"/>
+    <path d="M178 798H550"/>
+    <path d="M1482 535H1400V280H1050"/>
+    <path d="M1472 573H1015"/>
+  </g>
+  <g>
+    <ellipse class="usecase" cx="800" cy="280" rx="250" ry="65"/>
+    <text class="label" x="800" y="276">Publicar materiales y crear tareas</text>
+    <text class="label" x="800" y="298">desde la plataforma</text>
+    <ellipse class="usecase" cx="800" cy="540" rx="250" ry="65"/>
+    <text class="label" x="800" y="536">Sincronizar estado de entrega</text>
+    <text class="label" x="800" y="558">y calificación</text>
+    <ellipse class="usecase" cx="800" cy="800" rx="250" ry="65"/>
+    <text class="label" x="800" y="796">Organizar y consultar por curso,</text>
+    <text class="label" x="800" y="818">tema, fecha, entrega y nota</text>
+  </g>
+  <g transform="translate(150 250)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Docente</text></g>
+  <g transform="translate(150 760)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Estudiante</text></g>
+  <g transform="translate(1500 535)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Google Classroom</text><text class="actor-name" x="0" y="152">(sistema externo)</text></g>
+  <text class="note" x="325" y="1015">La API permite crear CourseWork y CourseWorkMaterials, y leer envíos/estados/notas según OAuth y permisos del curso.</text>
+  <text class="note" x="325" y="1040">Pendiente: mapear cursos y usuarios; definir si Classroom o la plataforma es la fuente oficial de tareas, entregas y calificaciones.</text>
+</svg>

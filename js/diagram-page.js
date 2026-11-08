@@ -30,7 +30,7 @@
     const nav = document.getElementById('pageNav');
     const groups = [
       { label: 'Diagramas principales', keys: NAV_ORDER.slice(0, 6) },
-      { label: 'Casos de uso', keys: NAV_ORDER.slice(6) }
+      { label: 'Casos de uso y propuestas', keys: NAV_ORDER.slice(6) }
     ];
     const options = groups.map(group => `
       <optgroup label="${group.label}">

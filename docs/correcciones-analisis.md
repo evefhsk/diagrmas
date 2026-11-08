@@ -99,6 +99,8 @@ El diagrama general de casos de uso y los diagramas específicos existentes pued
 - CU-02: [caso-uso-bitacora.svg](../diagrams/caso-uso-bitacora.svg)
 - CU-03: [caso-uso-consulta.svg](../diagrams/caso-uso-consulta.svg)
 - CU-04: [caso-uso-auditoria.svg](../diagrams/caso-uso-auditoria.svg)
+- CU-05 / RF-09 (propuesta): [caso-uso-comunicacion.svg](../diagrams/caso-uso-comunicacion.svg)
+- RF-10 Classroom API (propuesta): [caso-uso-classroom.svg](../diagrams/caso-uso-classroom.svg)
 - Clases revisado: [clases-dominio.svg](../diagrams/clases-dominio.svg)
 
 En el diagrama general, representar RF-05 junto a CU-02 y RF-06 junto a CU-03; mantener RF-07 como registro docente/consulta estudiantil y RF-08 como reporte para SGE/CiDi.
@@ -209,3 +211,63 @@ Antes de comprometer metas, relevar una línea base durante al menos dos semanas
 | Tiempo de detección de riesgo TEA | Mediana de tiempo desde alcanzar el umbral hasta generar alerta visible; comparar línea base y piloto | Logs de asistencia/alertas y registro manual del proceso anterior; por umbral. Meta de reducción 50%: validar durante piloto. |
 
 No reportar estos porcentajes como resultados obtenidos antes del piloto. Diferenciar claramente **meta**, **método**, **resultado medido** y **fecha de validación**.
+
+## 7. Comunicación pedagógica e integración con Classroom
+
+Estos dos objetivos fueron recordados para completar el análisis. Se proponen
+para validación con el profesor y la institución; no deben presentarse como
+funcionalidades ya implementadas ni como acuerdos aprobados.
+
+### RF-09 - Comunicación pedagógica asincrónica (propuesta)
+
+La plataforma debe permitir que un estudiante autenticado plantee una consulta
+pedagógica vinculada a un curso, bitácora o actividad, y que el docente
+correspondiente responda dentro de la plataforma.
+
+**Criterios a validar:** acceso solo para participantes autorizados; contexto
+visible (curso/actividad); fecha y autoría registradas; notificación de respuesta;
+retención y moderación acordadas; no exponer datos de contacto personales. Es un
+canal asincrónico propio de la plataforma, separado de Classroom y de servicios
+de mensajería externos.
+
+**CU-05 propuesto:** estudiante plantea una duda; el sistema la asocia al curso y
+destinatario; el docente responde; la consulta y la respuesta quedan visibles a
+los participantes autorizados y auditables. Definir si se permiten mensajes
+iniciados por docentes, adjuntos, edición/eliminación y escalamiento a
+Coordinación.
+
+### RF-10 - Integración con Google Classroom API (propuesta)
+
+La plataforma debe permitir al docente publicar materiales y tareas en el curso
+correspondiente de Google Classroom. La aplicación organiza bitácoras, enlaces,
+consignas y fechas por curso, espacio curricular, tema y fecha; además consulta
+los estados de entrega y calificaciones autorizados para presentarlos junto al
+seguimiento académico.
+
+**Criterios a validar:** publicar materiales como `CourseWorkMaterial` y tareas
+como `CourseWork`; conservar los identificadores y enlaces de Classroom para
+evitar duplicados; consultar `StudentSubmission.state`, `late`, `assignedGrade` y
+`alternateLink`; mostrar los datos solo a los roles autorizados; registrar los
+resultados/errores de sincronización. Definir cómo se reflejan cambios,
+eliminaciones, entregas tardías y notas corregidas.
+
+La documentación oficial confirma esas operaciones y recursos:
+
+- [Classroom API: CourseWorkMaterials](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWorkMaterials)
+- [Classroom API: CourseWork](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWork)
+- [Classroom API: StudentSubmissions](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWork.studentSubmissions)
+- [Autorización y scopes de Classroom API](https://developers.google.com/workspace/classroom/guides/auth)
+
+La integración requiere OAuth 2.0 y consentimiento según el rol. La API ofrece,
+entre otros, los scopes `classroom.courseworkmaterials`,
+`classroom.coursework.students` y sus variantes de solo lectura; debe solicitarse
+el mínimo necesario y revisarse el proceso de verificación aplicable. La
+plataforma debe mapear los cursos y usuarios institucionales con los
+identificadores de Google, sin guardar tokens en el navegador.
+
+**Decisiones pendientes:** cuál sistema es la fuente oficial de tareas, entregas
+y notas; si la nota se ingresa en Classroom o en la plataforma; cómo resolver
+conflictos y sincronización fallida; qué cursos/cuentas institucionales pueden
+autorizar la app. La API no reemplaza la organización pedagógica de la plataforma:
+el objetivo es presentar materiales y seguimiento ordenados, con enlaces a la
+actividad correspondiente en Classroom.

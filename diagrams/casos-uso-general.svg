@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1040" viewBox="0 0 1800 1040" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1180" viewBox="0 0 2000 1180" role="img" aria-labelledby="title desc">
   <title id="title">Diagrama general de casos de uso</title>
   <desc id="desc">Actores y funciones principales del Sistema Web de Autogestion Academica y Seguimiento Pedagogico.</desc>
   <defs>
@@ -10,14 +10,16 @@
   <text class="heading" x="900" y="46" text-anchor="middle">Sistema Web de Autogestión Académica y Seguimiento Pedagógico</text>
   <text class="subheading" x="900" y="74" text-anchor="middle">Diagrama general de casos de uso · alcance funcional documentado</text>
 
-  <rect class="system" x="300" y="110" width="1200" height="660" rx="8"/>
+  <rect class="system" x="300" y="110" width="1200" height="800" rx="8"/>
   <text x="330" y="145" font-size="16" font-weight="700">Sistema Web</text>
   <g class="assoc">
     <path d="M178 273L435 205"/><path d="M178 273H260V535H435"/>
     <path d="M1622 273L1375 205"/><path d="M1622 273H1545V535H1375"/>
     <path d="M178 538L435 370"/><path d="M178 538L435 700"/>
     <path d="M1622 448L1395 370"/><path d="M1622 688H1470V370H1395"/>
-    <path d="M1622 688L1390 700"/><path d="M1622 688H1550V770H800V535"/>
+    <path d="M1622 688L1390 700"/><path d="M1622 688H1540V596H800V581"/>
+    <path d="M178 538H260V820H420"/><path d="M1622 273H1570V900H800V866"/>
+    <path d="M1622 273H1520V774H1190"/><path d="M1822 878H1700V820H1390"/>
   </g>
 
   <g>
@@ -37,6 +39,10 @@
     <text class="case-id" x="610" y="690">RF-07</text><text class="case-label" x="610" y="715">Consultar calificaciones</text>
     <ellipse class="usecase" cx="1190" cy="700" rx="200" ry="46"/>
     <text class="case-id" x="1190" y="690">RF-08</text><text class="case-label" x="1190" y="715">Generar reporte para SGE/CiDi</text>
+    <ellipse class="usecase" cx="610" cy="820" rx="190" ry="46"/>
+    <text class="case-id" x="610" y="810">CU-05 / RF-09 · propuesta</text><text class="case-label" x="610" y="835">Plantear y responder dudas</text>
+    <ellipse class="usecase" cx="1190" cy="820" rx="200" ry="46"/>
+    <text class="case-id" x="1190" y="808">RF-10 · propuesta</text><text class="case-label" x="1190" y="833">Sincronizar tareas y calificaciones</text>
   </g>
 
   <g transform="translate(150 235)">
@@ -59,9 +65,14 @@
     <circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/>
     <text class="actor-name" x="0" y="130">Dirección</text>
   </g>
+  <g transform="translate(1850 840)">
+    <circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/>
+    <text class="actor-name" x="0" y="130">Google Classroom</text>
+    <text class="actor-name" x="0" y="150">(sistema externo)</text>
+  </g>
 
-  <rect class="note-box" x="330" y="785" width="1120" height="120" rx="5"/>
-  <text class="note" x="348" y="811">RF-03: el sistema alerta en 3, 5, 10 y 20 faltas; Preceptoría revisa el aviso y gestiona el acta precompletada en 10/20.</text>
-  <text class="note" x="348" y="837">Dirección recibe las alertas y participa de la firma presencial del acta; a 25 faltas, el sistema notifica a Coordinación por TEA.</text>
-  <text class="note" x="348" y="863">RF-07: el docente registra y el estudiante consulta calificaciones. RF-08: reporte SGE/CiDi sujeto a permisos RBAC.</text>
+  <rect class="note-box" x="330" y="930" width="1340" height="125" rx="5"/>
+  <text class="note" x="348" y="957">RF-03: alertas en 3, 5, 10 y 20 faltas; actas precompletadas en 10/20. A 25, el sistema notifica a Coordinación por TEA.</text>
+  <text class="note" x="348" y="984">RF-07: registro docente y consulta estudiantil. RF-08: reporte SGE/CiDi. RF-09 y RF-10 son propuestas por validar.</text>
+  <text class="note" x="348" y="1011">RF-09 usa mensajería propia; RF-10 requiere OAuth, permisos de Classroom y definir la fuente de verdad de notas/entregas.</text>
 </svg>

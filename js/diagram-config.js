@@ -79,12 +79,12 @@ const DIAGRAM_CONFIGS = {
     label: 'Casos de Uso (General)',
     title: 'Diagrama General de Casos de Uso',
     infoTitle: 'Alcance funcional documentado:',
-    width: 1800, height: 1040, viewBoxX: 0, viewBoxY: 0,
+    width: 2000, height: 1180, viewBoxX: 0, viewBoxY: 0,
     exportName: 'Diagrama_Casos_de_Uso_General',
     svgFile: '../diagrams/casos-uso-general.svg',
     page: 'casos-uso.html',
     hasSimulator: false,
-    description: 'Actores y funciones del sistema propuesto, con RF-07 y RF-08 identificados como requisitos sin caso detallado.'
+    description: 'Alcance actual y propuestas RF-09 (consultas) y RF-10 (Classroom), pendientes de validación.'
   },
   useCaseAttendance: {
     label: 'CU-01 Asistencia',
@@ -129,6 +129,28 @@ const DIAGRAM_CONFIGS = {
     page: 'caso-uso-auditoria.html',
     hasSimulator: false,
     description: 'Detalle de la supervisión de bitácoras, alertas y emisión de ficha TEA.'
+  },
+  useCaseCommunication: {
+    label: 'CU-05 Consultas',
+    title: 'CU-05 / RF-09 — Comunicación Pedagógica',
+    infoTitle: 'CU-05 / RF-09 · Propuesta de comunicación pedagógica:',
+    width: 1400, height: 1000, viewBoxX: 0, viewBoxY: 0,
+    exportName: 'Diagrama_RF-09_Comunicacion_Pedagogica',
+    svgFile: '../diagrams/caso-uso-comunicacion.svg',
+    page: 'caso-uso-comunicacion.html',
+    hasSimulator: false,
+    description: 'Consultas asincrónicas entre estudiantes y docentes asociadas a un curso o actividad.'
+  },
+  useCaseClassroom: {
+    label: 'RF-10 Classroom',
+    title: 'RF-10 — Integración con Google Classroom',
+    infoTitle: 'RF-10 · Propuesta de integración con Classroom API:',
+    width: 1700, height: 1100, viewBoxX: 0, viewBoxY: 0,
+    exportName: 'Diagrama_RF-10_Integracion_Classroom',
+    svgFile: '../diagrams/caso-uso-classroom.svg',
+    page: 'caso-uso-classroom.html',
+    hasSimulator: false,
+    description: 'Publicación de materiales y tareas, y consulta ordenada de entregas y calificaciones vía API.'
   }
 };
 
@@ -139,7 +161,7 @@ const DIAGRAM_CONFIGS = {
 const DIAGRAM_SVG = {};
 
 /** Orden de las pestañas en la barra de navegación. */
-const NAV_ORDER = ['states', 'cycle', 'activities', 'sequence', 'deployment', 'components', 'useCases', 'useCaseAttendance', 'useCaseLogbook', 'useCaseConsultation', 'useCaseAudit'];
+const NAV_ORDER = ['states', 'cycle', 'activities', 'sequence', 'deployment', 'components', 'useCases', 'useCaseAttendance', 'useCaseLogbook', 'useCaseConsultation', 'useCaseAudit', 'useCaseCommunication', 'useCaseClassroom'];
 
 /** Íconos (Heroicons outline) usados en la navegación entre páginas. */
 const NAV_ICONS = {
@@ -153,7 +175,9 @@ const NAV_ICONS = {
   useCaseAttendance: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l4 4L19 6"/>',
   useCaseLogbook: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
   useCaseConsultation: '<circle cx="10.5" cy="10.5" r="6.5" stroke-width="2"/><path stroke-linecap="round" stroke-width="2" d="M16 16l4 4"/>',
-  useCaseAudit: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/>'
+  useCaseAudit: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/>',
+  useCaseCommunication: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16v11H8l-4 4zM8 9h8m-8 4h5"/>',
+  useCaseClassroom: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h4"/>'
 };
 
 /** Etiquetas cortas para las pestañas de navegación. */
@@ -168,5 +192,7 @@ const NAV_LABELS = {
   useCaseAttendance: 'CU-01 Asistencia',
   useCaseLogbook: 'CU-02 Bitácora',
   useCaseConsultation: 'CU-03 Consulta',
-  useCaseAudit: 'CU-04 Auditoría'
+  useCaseAudit: 'CU-04 Auditoría',
+  useCaseCommunication: 'CU-05 Consultas',
+  useCaseClassroom: 'RF-10 Classroom'
 };

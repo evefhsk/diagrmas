@@ -1,6 +1,6 @@
 # Diagramas UML B&N — ProA La Falda (repositorio reorganizado)
 
-Reorganización del antiguo `diagrmas.html` monolítico (11 vistas + ~380 líneas
+Reorganización del antiguo `diagrmas.html` monolítico (13 vistas + ~380 líneas
 de JavaScript + estilos embebidos) en un sitio estático modular: **una página
 por pestaña**, hojas de estilo CSS separadas, scripts separados por
 responsabilidad y los diagramas como archivos SVG independientes.
@@ -21,7 +21,9 @@ responsabilidad y los diagramas como archivos SVG independientes.
 │   ├── caso-uso-asistencia.html # CU-01: Asistencia y tardanzas
 │   ├── caso-uso-bitacora.html   # CU-02: Bitácora de clase
 │   ├── caso-uso-consulta.html   # CU-03: Consulta de bitácora
-│   └── caso-uso-auditoria.html  # CU-04: Auditoría y regularidad
+│   ├── caso-uso-auditoria.html    # CU-04: Auditoría y regularidad
+│   ├── caso-uso-comunicacion.html # RF-09: Consultas pedagógicas (propuesta)
+│   └── caso-uso-classroom.html    # RF-10: Classroom API (propuesta)
 ├── css/
 │   ├── base.css                # Variables del tema, tipografías, utilidades
 │   ├── layout.css              # Header, navegación, viewport, toast, panel lateral
@@ -45,7 +47,9 @@ responsabilidad y los diagramas como archivos SVG independientes.
 │   ├── caso-uso-asistencia.svg
 │   ├── caso-uso-bitacora.svg
 │   ├── caso-uso-consulta.svg
-│   └── caso-uso-auditoria.svg
+│   ├── caso-uso-auditoria.svg
+│   ├── caso-uso-comunicacion.svg
+│   └── caso-uso-classroom.svg
 ├── tools/
 │   └── build_pages.py          # Regenera las páginas desde la plantilla común
 └── legacy/
@@ -64,8 +68,8 @@ python3 -m http.server 8000
 
 ## Funcionalidad conservada
 
-- Navegación entre las 11 vistas (ahora son enlaces a páginas separadas; la
-  pestaña activa se resalta según `body[data-diagram]`).
+- Navegación entre las 13 vistas, agrupadas en diagramas principales y casos de
+  uso; la opción activa se conserva al cambiar de página.
 - Zoom con rueda centrado en el cursor, botones +/−, "Ajustar Vista", paneo
   por arrastre.
 - Panel lateral "Especificación" con el texto propio de cada diagrama.
@@ -81,11 +85,10 @@ python3 -m http.server 8000
 - El informe de tesis describe el relevamiento del proceso actual (As-Is). El
   análisis de la materia especifica el sistema propuesto; los casos de uso de
   esta app representan ese modelo propuesto, no el proceso vigente.
-- El análisis detalla CU-01 a CU-04. RF-07 (calificaciones) y RF-08 (reportes
-  para SGE/CiDi) aparecen en el diagrama general, pero todavía no tienen casos
-  de uso detallados en el documento.
-- RF-02 superpone los rangos de tardanza: `> 20 min = 0,50` y `>= 40 min =
-  1,00`. Conviene precisar rangos excluyentes antes de cerrar CU-01.
+- El análisis detalla CU-01 a CU-04. RF-07 queda asociado al registro docente y
+  la consulta estudiantil; CU-04 incluye la generación de reportes RF-08.
+- El RF-02 original superpone `> 20 min = 0,50` con `>= 40 min = 1,00`. La
+  corrección propone 21–39 min para 0,50, pendiente de aprobación de Dirección.
 - RF-03 enumera alertas en 3, 5, 10 y 20 faltas; CU-04 menciona 10, 20 y 25.
   Debe distinguirse el umbral de alertas del pase a TEA, que RF-04/RN-03 fijan
   en 25 faltas.
@@ -94,6 +97,11 @@ python3 -m http.server 8000
   roles con los permisos previstos.
 - Los PDF revisados no contienen una devolución explícita del profesor. Para
   incorporar sus correcciones puntuales hace falta contar con esa devolución.
+- RF-09 (consultas pedagógicas) y RF-10 (sincronización con Classroom) se
+  incorporaron como propuestas recordadas, pendientes de validación.
+- La API oficial de Classroom permite publicar materiales/tareas y consultar
+  envíos/calificaciones con OAuth. La fuente oficial de las notas y el mapeo de
+  cursos/usuarios deben acordarse antes de diseñar la integración definitiva.
 
 ## Cambios respecto del original
 

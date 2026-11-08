@@ -167,7 +167,7 @@ PAGES = {
         "title": "Diagrama General de Casos de Uso",
         "svg": "casos-uso-general.svg",
         "info_title": "Alcance funcional documentado:",
-        "info_text": "RF-01 a RF-04 corresponden a asistencia, tardanzas, alertas y TEA; CU-02 y CU-03 describen la bitácora; RF-07 documenta registro docente y consulta estudiantil de calificaciones. RF-08 exige archivos para SGE/CiDi, pero el análisis no identifica quién inicia ese caso. Tutores y familias no tienen acceso web en esta etapa.",
+        "info_text": "El alcance documentado incluye CU-01 a CU-04 y RF-05 a RF-08. RF-09 (consultas pedagógicas) y RF-10 (sincronización con Classroom) son objetivos propuestos para validar. RF-08 genera reportes para SGE/CiDi. Tutores y familias no tienen acceso web en esta etapa.",
         "simulator": False,
       },
       "useCaseAttendance": {
@@ -200,6 +200,22 @@ PAGES = {
         "svg": "caso-uso-auditoria.svg",
         "info_title": "CU-04 · Auditar avance pedagógico, seguimiento de entregas y regularidad:",
         "info_text": "Actores: Coordinación Pedagógica y Dirección, con permisos por definir en RBAC. Flujo: consultar el semáforo de bitácoras por asignatura, el estado de entregas pendientes o atrasadas y resúmenes de calificaciones para detectar necesidades de acompañamiento; revisar estudiantes con alertas de regularidad y emitir una ficha de intervención al seleccionar un estudiante TEA. El CU fuente enumera 10, 20 y 25 inasistencias; RF-04/RN-03 fijan el pase a TEA en 25. Esta vista es de supervisión y no reemplaza la carga de calificaciones a cargo del docente.",
+        "simulator": False,
+      },
+      "useCaseCommunication": {
+        "file": "caso-uso-comunicacion.html",
+        "title": "CU-05 / RF-09 — Comunicación Pedagógica",
+        "svg": "caso-uso-comunicacion.svg",
+        "info_title": "CU-05 / RF-09 · Propuesta de comunicación pedagógica:",
+        "info_text": "Estudiante autenticado plantea una duda vinculada al curso, bitácora o actividad; el docente correspondiente responde dentro de la plataforma. Propuesta asincrónica, con acceso limitado a participantes autorizados y auditoría. Definir notificaciones, moderación, retención y permisos antes de aprobar el requisito. La mensajería es propia de la plataforma, independiente de Classroom.",
+        "simulator": False,
+      },
+      "useCaseClassroom": {
+        "file": "caso-uso-classroom.html",
+        "title": "RF-10 — Integración con Google Classroom",
+        "svg": "caso-uso-classroom.svg",
+        "info_title": "RF-10 · Propuesta de integración con Classroom API:",
+        "info_text": "La plataforma propone crear CourseWorkMaterials y CourseWork en Classroom, organizar los enlaces por curso/tema/fecha y consultar estado de entrega, atraso y calificación mediante StudentSubmissions. La integración requiere OAuth 2.0, autorización docente, mapeo de cursos/usuarios y definir si Classroom o esta plataforma es la fuente oficial de tareas y notas. No está implementada.",
         "simulator": False,
       },
 }
