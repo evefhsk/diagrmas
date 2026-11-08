@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
   <title id="title">CU-01 Registrar asistencia y gestionar alertas de regularidad</title>
-  <desc id="desc">Preceptoría registra asistencia, tardanzas y rectificaciones, revisa alertas automáticas y gestiona actas precompletadas.</desc>
+  <desc id="desc">Preceptoría registra asistencia, filtra estudiantes ausentes para facilitar su carga manual en el sistema provincial y gestiona alertas y actas.</desc>
   <defs><style>text{font-family:Inter,Arial,sans-serif;fill:#000}.heading{font-size:26px;font-weight:700}.subheading{font-size:15px}.system,.usecase,.maincase{fill:#fff;stroke:#000;stroke-width:2}.label{font-size:16px;font-weight:600;text-anchor:middle}.actor-line{fill:none;stroke:#000;stroke-width:2}.actor-name{font-size:17px;font-weight:600;text-anchor:middle}.note{font-size:14px}</style></defs>
   <rect width="1400" height="1000" fill="#fff"/>
   <text class="heading" x="700" y="45" text-anchor="middle">CU-01 · Registrar asistencia y gestionar alertas</text>
@@ -9,7 +9,7 @@
   <g class="actor-line">
     <path d="M178 468L550 200"/><path d="M178 468L550 350"/>
     <path d="M178 468L550 500"/><path d="M178 468L550 650"/>
-    <path d="M178 468L550 800"/>
+    <path d="M178 468L550 800"/><path d="M178 468L550 880"/>
     <path d="M1322 648H1050"/>
   </g>
   <g>
@@ -18,8 +18,9 @@
     <ellipse class="usecase" cx="800" cy="500" rx="250" ry="50"/><text class="label" x="800" y="506">Consultar alertas de faltas (3, 5, 10 y 20)</text>
     <ellipse class="usecase" cx="800" cy="650" rx="250" ry="50"/><text class="label" x="800" y="656">Gestionar actas precompletadas (10 y 20)</text>
     <ellipse class="usecase" cx="800" cy="800" rx="250" ry="50"/><text class="label" x="800" y="806">Rectificar o justificar dentro de 48 h hábiles</text>
+    <ellipse class="usecase" cx="800" cy="880" rx="250" ry="35"/><text class="label" x="800" y="886">Filtrar ausentes para carga manual</text>
   </g>
   <g transform="translate(155 430)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Preceptoría</text></g>
   <g transform="translate(1340 610)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Dirección</text></g>
-  <text class="note" x="325" y="955">El sistema calcula faltas y genera alertas/actas; Preceptoría revisa y gestiona el seguimiento, con auditoría de rectificaciones.</text>
+  <text class="note" x="325" y="955">La lista filtrada facilita la transcripción en el sistema provincial; no hay envío automático ni formato de importación supuesto.</text>
 </svg>

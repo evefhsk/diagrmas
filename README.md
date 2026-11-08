@@ -5,25 +5,32 @@ de JavaScript + estilos embebidos) en un sitio estático modular: **una página
 por pestaña**, hojas de estilo CSS separadas, scripts separados por
 responsabilidad y los diagramas como archivos SVG independientes.
 
+Este repositorio es un visor de diagramas UML y un simulador conceptual de
+estados. La aplicación operativa de asistencia y la integración propuesta con
+Classroom se describen en los modelos, pero no están implementadas aquí.
+
 ## Estructura
 
 ```
 .
 ├── index.html                  # Página de índice: selector de diagramas
-├── pages/                      # Una página por pestaña original
+├── pages/                      # Una página por diagrama
 │   ├── estados.html            # Máquina de Estados (+ simulador interactivo)
 │   ├── ciclo-regularidad.html  # Ciclo de Regularidad Escolar
 │   ├── actividades.html        # Diagrama de Actividades (swimlanes)
-│   ├── secuencia.html          # Diagrama de Secuencia (Bitácora)
+│   ├── secuencia.html          # CU-02: publicación de bitácora por Docente
+│   ├── secuencia-consulta.html # CU-03: consulta personal por Estudiante
+│   ├── secuencia-ausentes.html # RF-08: filtro y transcripción manual
 │   ├── despliegue.html         # Diagrama de Despliegue (SP5)
 │   ├── componentes.html        # Diagrama de Componentes
+│   ├── clases-dominio.html     # Modelo del dominio académico
 │   ├── casos-uso.html          # Casos de Uso (vista general)
 │   ├── caso-uso-asistencia.html # CU-01: Asistencia y tardanzas
 │   ├── caso-uso-bitacora.html   # CU-02: Bitácora de clase
 │   ├── caso-uso-consulta.html   # CU-03: Consulta de bitácora
 │   ├── caso-uso-auditoria.html    # CU-04: Auditoría y regularidad
 │   ├── caso-uso-comunicacion.html # RF-09: Consultas pedagógicas (propuesta)
-│   └── caso-uso-classroom.html    # RF-10: Classroom API (propuesta)
+│   └── caso-uso-classroom.html    # RF-10: portal complementario de Classroom
 ├── css/
 │   ├── base.css                # Variables del tema, tipografías, utilidades
 │   ├── layout.css              # Header, navegación, viewport, toast, panel lateral
@@ -43,6 +50,9 @@ responsabilidad y los diagramas como archivos SVG independientes.
 │   ├── secuencia.svg
 │   ├── despliegue.svg
 │   ├── componentes.svg
+│   ├── clases-dominio.svg
+│   ├── secuencia-consulta.svg
+│   └── secuencia-ausentes.svg
 │   ├── casos-uso-general.svg
 │   ├── caso-uso-asistencia.svg
 │   ├── caso-uso-bitacora.svg
@@ -68,14 +78,13 @@ python3 -m http.server 8000
 
 ## Funcionalidad conservada
 
-- Navegación entre las 13 vistas, agrupadas en diagramas principales y casos de
-  uso; la opción activa se conserva al cambiar de página.
+- Navegación entre las 16 vistas, agrupadas en diagramas principales, vistas por
+  actor/dominio y casos de uso; la opción activa se conserva al cambiar de página.
 - Zoom con rueda centrado en el cursor, botones +/−, "Ajustar Vista", paneo
   por arrastre.
 - Panel lateral "Especificación" con el texto propio de cada diagrama.
 - Simulador de estados (solo en `pages/estados.html`): +1 falta, saltos a
-  Acta/TEA, acreditar/desvincular y reinicio del ciclo, con resaltado de
-  nodos y transiciones.
+  Acta/TEA y reinicio de la simulación, con resaltado de nodos y transiciones.
 - Exportación del diagrama actual a **SVG** y **PNG a 300 DPI**.
 
 ## Revisión de las fuentes
@@ -86,7 +95,8 @@ python3 -m http.server 8000
   análisis de la materia especifica el sistema propuesto; los casos de uso de
   esta app representan ese modelo propuesto, no el proceso vigente.
 - El análisis detalla CU-01 a CU-04. RF-07 queda asociado al registro docente y
-  la consulta estudiantil; CU-04 incluye la generación de reportes RF-08.
+  la consulta estudiantil; RF-08 queda en CU-01 como filtro de ausentes para
+  carga manual, sin transferencia automática a SGE/CiDi.
 - El RF-02 original superpone `> 20 min = 0,50` con `>= 40 min = 1,00`. La
   corrección propone 21–39 min para 0,50, pendiente de aprobación de Dirección.
 - RF-03 enumera alertas en 3, 5, 10 y 20 faltas; CU-04 menciona 10, 20 y 25.
@@ -97,11 +107,12 @@ python3 -m http.server 8000
   roles con los permisos previstos.
 - Los PDF revisados no contienen una devolución explícita del profesor. Para
   incorporar sus correcciones puntuales hace falta contar con esa devolución.
-- RF-09 (consultas pedagógicas) y RF-10 (sincronización con Classroom) se
-  incorporaron como propuestas recordadas, pendientes de validación.
-- La API oficial de Classroom permite publicar materiales/tareas y consultar
-  envíos/calificaciones con OAuth. La fuente oficial de las notas y el mapeo de
-  cursos/usuarios deben acordarse antes de diseñar la integración definitiva.
+- RF-09 (consultas pedagógicas) es propuesta por validar. RF-10 propone un portal
+  complementario de lectura/enlaces: Classroom conserva tareas, entregas y notas
+  oficiales; una entrega se abre en Classroom y no se sincroniza desde el portal.
+- La API de Classroom permite consultar tareas y estados propios autorizados con
+  OAuth. La disponibilidad depende de los permisos de Workspace y de la
+  autorización/verificación aplicable.
 
 ## Cambios respecto del original
 

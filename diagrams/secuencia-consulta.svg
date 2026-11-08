@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="920" viewBox="0 0 1200 920" role="img" aria-labelledby="title desc">
+  <title id="title">Secuencia CU-03 Consulta de bitácora y Classroom</title>
+  <desc id="desc">El portal combina bitácoras propias con tareas y estado personal leídos de Classroom; la entrega se realiza en Classroom.</desc>
+  <defs>
+    <marker id="seqArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.5L9 5L0 8.5z" fill="#000"/></marker>
+    <marker id="seqReturn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#000" stroke-width="1.5"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#111}.title{font-size:20px;font-weight:700}.actor{font-size:13px;font-weight:700;text-anchor:middle}.msg{font-size:11px;text-anchor:middle}.note{font-size:12px;font-weight:600}.life{stroke:#333;stroke-width:1.2;stroke-dasharray:7 4}.head{fill:#fff;stroke:#222;stroke-width:1.5}.msgline{stroke:#111;stroke-width:1.5}.return{stroke-dasharray:6 4}</style>
+  </defs>
+  <rect width="1200" height="920" fill="#fff"/>
+  <text class="title" x="600" y="34" text-anchor="middle">CU-03 · Portal complementario y acceso a tareas</text>
+  <g>
+    <rect class="head" x="35" y="58" width="130" height="42"/><text class="actor" x="100" y="84">Estudiante</text><line class="life" x1="100" y1="100" x2="100" y2="830"/>
+    <rect class="head" x="245" y="58" width="160" height="42"/><text class="actor" x="325" y="84">Interfaz Web</text><line class="life" x1="325" y1="100" x2="325" y2="830"/>
+    <rect class="head" x="470" y="58" width="180" height="42"/><text class="actor" x="560" y="84">Servicio del portal</text><line class="life" x1="560" y1="100" x2="560" y2="830"/>
+    <rect class="head" x="730" y="58" width="140" height="42"/><text class="actor" x="800" y="84">BD del portal</text><line class="life" x1="800" y1="100" x2="800" y2="830"/>
+    <rect class="head" x="940" y="58" width="220" height="42"/><text class="actor" x="1050" y="84">Google Classroom API</text><line class="life" x1="1050" y1="100" x2="1050" y2="830"/>
+  </g>
+  <g class="msgline" marker-end="url(#seqArrow)">
+    <line x1="100" y1="145" x2="319" y2="145"/><line x1="337" y1="200" x2="554" y2="200"/>
+    <line x1="566" y1="255" x2="794" y2="255"/><line x1="566" y1="365" x2="1044" y2="365"/>
+    <line x1="566" y1="475" x2="1044" y2="475"/><line x1="100" y1="695" x2="1044" y2="695"/>
+    <line x1="100" y1="750" x2="319" y2="750"/>
+  </g>
+  <g class="msgline return" marker-end="url(#seqReturn)">
+    <line x1="794" y1="310" x2="566" y2="310"/><line x1="1044" y1="420" x2="566" y2="420"/>
+    <line x1="1044" y1="530" x2="566" y2="530"/><line x1="554" y1="585" x2="337" y2="585"/>
+    <line x1="319" y1="640" x2="106" y2="640"/>
+  </g>
+  <g class="msg">
+    <text x="210" y="137">1. Abrir portal y elegir curso</text><text x="435" y="192">2. solicitar bitácoras y enlaces</text>
+    <text x="680" y="247">3. leer bitácoras y valoración formativa local</text><text x="680" y="302">4. devolver datos y enlaces</text>
+    <text x="808" y="357">5. listCourseWork(courseId) · solo lectura</text><text x="808" y="412">6. Tareas publicadas + alternateLink</text>
+    <text x="808" y="467">7. listStudentSubmissions(userId=me) · lectura</text><text x="808" y="522">8. Estado y nota propios, si están permitidos</text>
+    <text x="445" y="577">9. Unir resultados sin copiar entregas/notas</text><text x="210" y="632">10. Mostrar agenda y acceso a Classroom</text>
+    <text x="572" y="687">11. Estudiante ve instrucciones y entrega en Classroom</text><text x="210" y="742">12. Abrir enlace oficial en nueva pestaña</text>
+  </g>
+  <rect x="160" y="790" width="880" height="56" rx="4" fill="#fff" stroke="#333" stroke-width="1.2"/>
+  <text class="note" x="600" y="814" text-anchor="middle">Classroom mantiene tareas, entregas y calificaciones oficiales.</text>
+  <text class="note" x="600" y="832" text-anchor="middle">Si OAuth/API no está habilitada, el portal conserva solo el enlace y no inventa estados.</text>
+</svg>

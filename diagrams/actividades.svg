@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Diagrama UML B&N — ProA La Falda: actividades -->
-        <svg width="1440" height="1660" id="activityDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1660">
+        <svg width="1440" height="1700" id="activityDiagramSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1700">
           <defs>
             <marker id="actArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" /></marker>
           </defs>
@@ -54,7 +54,10 @@
             <path d="M 365 1342 L 365 1370 L 1025 1370 L 1033 1390" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
             <path d="M 1260 1342 L 1260 1390 L 1065 1390 L 1057 1390" fill="none" stroke="#000000" stroke-width="1.6" />
             <path d="M 1045 1402 L 1045 1438" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
-            <path d="M 1045 1500 L 1045 1546" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1045 1500 L 1045 1510" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1015 1530 H 640 V 1520 H 600" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 1075 1530 H 1140 V 1600 H 1061" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
+            <path d="M 375 1549 V 1570 H 1045 V 1584" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#actArrow)" />
           </g>
           <g id="actNodesGroup">
             <g transform="translate(375, 128)"><circle cx="0" cy="0" r="14" fill="#000000" stroke="#000000" stroke-width="1" /><text x="0" y="-20" font-family="'Inter', sans-serif" font-weight="700" font-size="10.5" fill="#000000" text-anchor="middle">Inicio</text></g>
@@ -77,6 +80,10 @@
             <g transform="translate(1140, 1278)"><rect width="240" height="64" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="120" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="11" fill="#000000" text-anchor="middle">Registrar pase a condición TEA</text></g>
             <g transform="translate(1045, 1390)"><polygon points="0,-12 18,0 0,12 -18,0" fill="#ffffff" stroke="#000000" stroke-width="1.6" /></g>
             <g transform="translate(875, 1438)"><rect width="340" height="62" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="170" y="28" font-family="'Inter', sans-serif" font-weight="600" font-size="11.5" fill="#000000" text-anchor="middle">Persistir registros en la base de datos</text></g>
-            <g transform="translate(1045, 1566)"><circle cx="0" cy="0" r="16" fill="#ffffff" stroke="#000000" stroke-width="2"/><circle cx="0" cy="0" r="9" fill="#000000" /><text x="0" y="32" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#000000" text-anchor="middle">Fin de Actividad</text></g>
+            <g transform="translate(1045, 1530)"><polygon points="0,-20 30,0 0,20 -30,0" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="0" y="-29" font-family="'Inter', sans-serif" font-weight="700" font-size="10" fill="#000000" text-anchor="middle">¿Preparar carga manual?</text></g>
+            <text x="820" y="1514" font-family="'Fira Code', monospace" font-size="9" font-weight="600" fill="#000000" text-anchor="middle">[Sí]</text>
+            <text x="1120" y="1514" font-family="'Fira Code', monospace" font-size="9" font-weight="600" fill="#000000" text-anchor="middle">[No]</text>
+            <g transform="translate(150, 1491)"><rect width="450" height="58" rx="14" fill="#ffffff" stroke="#000000" stroke-width="1.8"/><text x="225" y="24" font-family="'Inter', sans-serif" font-weight="600" font-size="10.8" fill="#000000" text-anchor="middle">Consultar lista filtrada de ausentes</text><text x="225" y="42" font-family="'Inter', sans-serif" font-size="9.5" fill="#000000" text-anchor="middle">Solo lectura; no modifica ni transmite los registros</text></g>
+            <g transform="translate(1045, 1600)"><circle cx="0" cy="0" r="16" fill="#ffffff" stroke="#000000" stroke-width="2"/><circle cx="0" cy="0" r="9" fill="#000000" /><text x="0" y="32" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#000000" text-anchor="middle">Fin de Actividad</text></g>
           </g>
         </svg>

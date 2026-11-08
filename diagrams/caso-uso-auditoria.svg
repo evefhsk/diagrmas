@@ -14,10 +14,10 @@
   <g>
     <ellipse class="usecase maincase" cx="850" cy="250" rx="290" ry="58"/><text class="label" x="850" y="256">Supervisar avance pedagógico y regularidad</text>
     <ellipse class="usecase" cx="850" cy="430" rx="290" ry="58"/><text class="label" x="850" y="436">Controlar bitácoras por asignatura</text>
-    <ellipse class="usecase" cx="850" cy="610" rx="290" ry="58"/><text class="label" x="850" y="616">Detectar entregas pendientes y atrasadas</text>
+    <ellipse class="usecase" cx="850" cy="610" rx="290" ry="58"/><text class="label" x="850" y="616">Consultar resumen de tareas de Classroom</text>
     <ellipse class="usecase" cx="850" cy="790" rx="290" ry="58"/><text class="label" x="850" y="796">Consultar calificaciones, alertas y ficha TEA</text>
   </g>
   <g transform="translate(155 350)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Coordinación</text><text class="actor-name" x="0" y="152">Pedagógica</text></g>
   <g transform="translate(155 560)"><circle class="actor-line" cx="0" cy="0" r="18"/><path class="actor-line" d="M0 18V68M-28 38H28M0 68L-24 104M0 68L24 104"/><text class="actor-name" x="0" y="132">Dirección</text></g>
-  <text class="note" x="325" y="955">Los permisos de Coordinación y Dirección deben quedar definidos en RBAC.</text>
+  <text class="note" x="325" y="955">Consulta externa de solo lectura y sujeta a permisos; Classroom conserva entregas y notas oficiales.</text>
 </svg>

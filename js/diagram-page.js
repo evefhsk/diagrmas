@@ -30,7 +30,8 @@
     const nav = document.getElementById('pageNav');
     const groups = [
       { label: 'Diagramas principales', keys: NAV_ORDER.slice(0, 6) },
-      { label: 'Casos de uso y propuestas', keys: NAV_ORDER.slice(6) }
+      { label: 'Vistas por actor y dominio', keys: NAV_ORDER.slice(6, 9) },
+      { label: 'Casos de uso y propuestas', keys: NAV_ORDER.slice(9) }
     ];
     const options = groups.map(group => `
       <optgroup label="${group.label}">
@@ -133,8 +134,6 @@
         addAbsenceBtn: document.getElementById('simAddAbsenceBtn'),
         jumpCritBtn: document.getElementById('simJumpCritBtn'),
         jumpTeaBtn: document.getElementById('simJumpTeaBtn'),
-        passTeaBtn: document.getElementById('simPassTeaBtn'),
-        dropBtn: document.getElementById('simDropBtn'),
         resetBtn: document.getElementById('simResetCycleBtn'),
         toast: toast
       });

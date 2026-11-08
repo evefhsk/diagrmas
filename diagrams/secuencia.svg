@@ -10,6 +10,8 @@
             </marker>
           </defs>
 
+          <text x="600" y="32" font-family="'Inter', sans-serif" font-weight="700" font-size="18" fill="#000000" text-anchor="middle">CU-02 · Publicación de bitácora por Docente</text>
+
           <!-- Lifeline Labels & Headers -->
           <g transform="translate(150, 60)">
             <rect x="-60" y="0" width="120" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
@@ -59,29 +61,29 @@
           <text x="597" y="302" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">5. Renderizar selector</text>
 
           <line x1="150" y1="410" x2="440" y2="410" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
-          <text x="295" y="402" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">6. Carga tema, fecha y recursos</text>
+          <text x="295" y="402" font-family="'Inter', sans-serif" font-size="11.5" font-weight="500" fill="#000000" text-anchor="middle">6. Carga curso, módulo, tema, recursos y enlace a Classroom</text>
 
           <line x1="150" y1="460" x2="440" y2="460" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
           <text x="295" y="452" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">7. Clic "Publicar"</text>
 
           <line x1="455" y1="520" x2="740" y2="520" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
-          <text x="597" y="512" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">8. registrar(datos)</text>
+          <text x="597" y="512" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">8. validar y registrar(datos)</text>
 
           <line x1="755" y1="570" x2="1040" y2="570" stroke="#000000" stroke-width="1.5" marker-end="url(#seqArrow)" />
-          <text x="897" y="562" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">9. INSERT Bitacora</text>
+          <text x="897" y="562" font-family="'Fira Code', monospace" font-size="11.5" font-weight="600" fill="#000000" text-anchor="middle">9. INSERT Bitacora y referencia al enlace</text>
 
           <line x1="1040" y1="600" x2="760" y2="600" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
-          <text x="897" y="592" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">10. Confirmación</text>
+          <text x="897" y="592" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">10. Confirmación de persistencia</text>
 
           <!-- ALT Fragment -->
           <g transform="translate(130, 640)">
             <rect x="0" y="0" width="670" height="180" fill="none" stroke="#000000" stroke-width="1.5" />
             <path d="M 0 0 L 40 0 L 40 20 L 30 30 L 0 30 Z" fill="#ffffff" stroke="#000000" stroke-width="1.5" />
             <text x="8" y="18" font-family="'Fira Code', monospace" font-size="11" font-weight="600" fill="#000000">alt</text>
-            <text x="50" y="20" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Guardado OK</text>
+            <text x="50" y="20" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Guardado OK: publicar</text>
 
             <line x1="0" y1="90" x2="670" y2="90" stroke="#000000" stroke-width="1.5" stroke-dasharray="8 4" />
-            <text x="10" y="110" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Error de campos</text>
+            <text x="10" y="110" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#000000">Error de datos o URL: no persistir</text>
           </g>
 
           <line x1="740" y1="690" x2="460" y2="690" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
@@ -91,8 +93,8 @@
           <text x="295" y="707" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">12. Muestra msj confirmación</text>
 
           <line x1="740" y1="770" x2="460" y2="770" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
-          <text x="597" y="762" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">14. Alerta validación</text>
+          <text x="597" y="762" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">13. Alerta de validación</text>
 
           <line x1="440" y1="800" x2="160" y2="800" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#seqReturnArrow)" />
-          <text x="295" y="792" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">13. Muestra error</text>
+          <text x="295" y="792" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">14. Docente corrige los datos</text>
         </svg>

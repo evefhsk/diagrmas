@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">Secuencia RF-08 Filtro de ausentes para carga manual</title>
+  <desc id="desc">Preceptoría consulta solo asistencias confirmadas con estado ausente y transcribe manualmente la lista al sistema provincial.</desc>
+  <defs>
+    <marker id="seqArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.5L9 5L0 8.5z" fill="#000"/></marker>
+    <marker id="seqReturn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#000" stroke-width="1.5"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#111}.title{font-size:20px;font-weight:700}.actor{font-size:13px;font-weight:700;text-anchor:middle}.msg{font-size:11px;text-anchor:middle}.note{font-size:12px;font-weight:600}.life{stroke:#333;stroke-width:1.2;stroke-dasharray:7 4}.head{fill:#fff;stroke:#222;stroke-width:1.5}.msgline{stroke:#111;stroke-width:1.5}.return{stroke-dasharray:6 4}</style>
+  </defs>
+  <rect width="1400" height="860" fill="#fff"/>
+  <text class="title" x="700" y="34" text-anchor="middle">RF-08 · Consultar ausentes para carga manual</text>
+  <g>
+    <rect class="head" x="45" y="58" width="190" height="42"/><text class="actor" x="140" y="84">Preceptoría</text><line class="life" x1="140" y1="100" x2="140" y2="730"/>
+    <rect class="head" x="305" y="58" width="170" height="42"/><text class="actor" x="390" y="84">Interfaz Web</text><line class="life" x1="390" y1="100" x2="390" y2="730"/>
+    <rect class="head" x="555" y="58" width="170" height="42"/><text class="actor" x="640" y="84">Servicio Asistencia</text><line class="life" x1="640" y1="100" x2="640" y2="730"/>
+    <rect class="head" x="805" y="58" width="170" height="42"/><text class="actor" x="890" y="84">Base de datos</text><line class="life" x1="890" y1="100" x2="890" y2="730"/>
+    <rect class="head" x="1090" y="58" width="220" height="42"/><text class="actor" x="1200" y="84">Sistema provincial</text><line class="life" x1="1200" y1="100" x2="1200" y2="730"/>
+  </g>
+  <g class="msgline" marker-end="url(#seqArrow)">
+    <line x1="140" y1="145" x2="384" y2="145"/><line x1="140" y1="200" x2="384" y2="200"/>
+    <line x1="396" y1="255" x2="634" y2="255"/><line x1="646" y1="310" x2="884" y2="310"/>
+    <line x1="140" y1="585" x2="1190" y2="585"/>
+  </g>
+  <g class="msgline return" marker-end="url(#seqReturn)">
+    <line x1="884" y1="365" x2="646" y2="365"/><line x1="634" y1="420" x2="396" y2="420"/>
+    <line x1="384" y1="475" x2="146" y2="475"/>
+  </g>
+  <g class="msg">
+    <text x="262" y="137">1. Seleccionar curso, división y fecha</text><text x="262" y="192">2. Aplicar filtro «Ausentes»</text>
+    <text x="515" y="247">3. consultarAusentes(curso, división, fecha)</text><text x="765" y="302">4. Buscar registros confirmados con estado AUSENTE</text>
+    <text x="765" y="357">5. Lista de ausentes y total</text><text x="515" y="412">6. Devolver resultados de solo lectura</text>
+    <text x="262" y="467">7. Mostrar nombres y total; permitir quitar filtro</text><text x="670" y="577">8. Preceptoría transcribe manualmente la lista</text>
+  </g>
+  <rect x="145" y="635" width="1110" height="74" rx="4" fill="#fff" stroke="#333" stroke-width="1.2"/>
+  <text class="note" x="700" y="661" text-anchor="middle">La consulta no modifica asistencia ni transmite información desde la plataforma.</text>
+  <text class="note" x="700" y="684" text-anchor="middle">El sistema provincial queda fuera de la integración; no se presupone API ni formato importable.</text>
+</svg>

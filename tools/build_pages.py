@@ -106,9 +106,7 @@ SIM_DOCK = """
           <button id="simAddAbsenceBtn" type="button" class="sim-btn">+1 Falta</button>
           <button id="simJumpCritBtn" type="button" class="sim-btn">10 Faltas (Acta)</button>
           <button id="simJumpTeaBtn" type="button" class="sim-btn">25 Faltas (TEA)</button>
-          <button id="simPassTeaBtn" type="button" class="sim-btn">Acreditar TEA (&ge; 6)</button>
-          <button id="simDropBtn" type="button" class="sim-btn sim-btn--muted">Desvincular</button>
-          <button id="simResetCycleBtn" type="button" class="sim-btn sim-btn--reset" title="Reiniciar Ciclo">&circlearrowright;</button>
+          <button id="simResetCycleBtn" type="button" class="sim-btn sim-btn--reset" title="Reiniciar simulación">&circlearrowright;</button>
         </div>
       </div>
 """
@@ -146,6 +144,22 @@ PAGES = {
         "info_text": "Flujo: Registro y Publicación de Bitácora Pedagógica. Muestra el intercambio de mensajes entre el Docente, la Interfaz (UI), el Controlador y la Base de Datos.",
         "simulator": False,
     },
+      "sequenceConsultation": {
+        "file": "secuencia-consulta.html",
+        "title": "Secuencia CU-03 — Consulta de Bitácora",
+        "svg": "secuencia-consulta.svg",
+        "info_title": "CU-03 · Consulta del Estudiante:",
+        "info_text": "El portal combina bitácoras locales autorizadas con tareas y estados propios leídos desde Classroom cuando la API está disponible. El estudiante abre el enlace oficial para ver instrucciones y entregar en Classroom. La consulta no modifica tareas, entregas o notas oficiales.",
+        "simulator": False,
+      },
+      "sequenceAbsences": {
+        "file": "secuencia-ausentes.html",
+        "title": "Secuencia RF-08 — Filtro de Ausentes",
+        "svg": "secuencia-ausentes.svg",
+        "info_title": "RF-08 · Consulta de Preceptoría:",
+        "info_text": "Preceptoría consulta asistencias confirmadas por curso, división y fecha y filtra estado Ausente. La consulta es de solo lectura y facilita la transcripción manual en el sistema provincial; no hay transmisión, API ni formato de importación supuesto.",
+        "simulator": False,
+      },
     "deployment": {
         "file": "despliegue.html",
         "title": "Diagrama de Despliegue",
@@ -162,12 +176,20 @@ PAGES = {
         "info_text": "Diseño basado en componentes para el sistema ProA La Falda. Presenta las tarjetas redondeadas y la base de datos cilíndrica según la estética solicitada.",
         "simulator": False,
     },
+      "domainClasses": {
+        "file": "clases-dominio.html",
+        "title": "Diagrama de Clases del Dominio",
+        "svg": "clases-dominio.svg",
+        "info_title": "Modelo de dominio y control:",
+        "info_text": "Incluye persona y cuenta de acceso RBAC, asistencia, bitácoras, referencias externas de Classroom, estados propios consultados como vista API, valoraciones formativas locales, alertas, ficha TEA y auditoría. El portal no guarda tareas ni archivos de entrega oficiales.",
+        "simulator": False,
+      },
       "useCases": {
         "file": "casos-uso.html",
         "title": "Diagrama General de Casos de Uso",
         "svg": "casos-uso-general.svg",
         "info_title": "Alcance funcional documentado:",
-        "info_text": "El alcance documentado incluye CU-01 a CU-04 y RF-05 a RF-08. RF-09 (consultas pedagógicas) y RF-10 (sincronización con Classroom) son objetivos propuestos para validar. RF-08 genera reportes para SGE/CiDi. Tutores y familias no tienen acceso web en esta etapa.",
+        "info_text": "El alcance documentado incluye CU-01 a CU-04 y RF-05 a RF-08. RF-09 (consultas pedagógicas) y RF-10 (portal complementario de Classroom) son propuestas por validar. RF-10 organiza tareas y enlaza a Classroom; allí se realizan las entregas y se mantienen las notas oficiales. RF-08 filtra ausentes para carga manual, sin envío automático a SGE/CiDi.",
         "simulator": False,
       },
       "useCaseAttendance": {
@@ -175,7 +197,7 @@ PAGES = {
         "title": "Caso de Uso CU-01 — Registrar Asistencia y Gestionar Alertas",
         "svg": "caso-uso-asistencia.svg",
         "info_title": "CU-01 · Registrar asistencia y gestionar alertas de regularidad:",
-        "info_text": "Actor principal: Preceptoría; secundaria: Dirección para el seguimiento de alertas y actas. Precondición: sesión autenticada y turno activo. Flujo: seleccionar curso/división, revisar la nómina, registrar ausencias, tardanzas y retiros; confirmar. El sistema calcula la fracción, actualiza el acumulado y notifica los hitos 3, 5, 10 y 20 a Preceptoría y Dirección. Preceptoría revisa las alertas y gestiona las actas precompletadas en 10 y 20; Dirección y tutores participan de la firma presencial. Al alcanzar 25, el sistema deriva a TEA y notifica a Coordinación. Rectificaciones/justificaciones dentro de 48 horas hábiles con auditoría. Regla por validar: hasta 20 min = 0,25; 21–39 = 0,50; desde 40 = 1,00.",
+        "info_text": "Actor principal: Preceptoría; secundaria: Dirección para el seguimiento de alertas y actas. Precondición: sesión autenticada y turno activo. Flujo: seleccionar curso/división, revisar la nómina, registrar ausencias, tardanzas y retiros; confirmar. El sistema calcula la fracción, actualiza el acumulado y notifica los hitos 3, 5, 10 y 20 a Preceptoría y Dirección. Preceptoría puede filtrar la asistencia confirmada por fecha y mostrar solo ausentes para facilitar la transcripción manual en el sistema provincial; no hay envío automático ni formato de importación supuesto. Preceptoría revisa las alertas y gestiona las actas precompletadas en 10 y 20; Dirección y tutores participan de la firma presencial. Al alcanzar 25, el sistema deriva a TEA y notifica a Coordinación. Rectificaciones/justificaciones dentro de 48 horas hábiles con auditoría. Regla por validar: hasta 20 min = 0,25; 21–39 = 0,50; desde 40 = 1,00.",
         "simulator": False,
       },
       "useCaseLogbook": {
@@ -183,7 +205,7 @@ PAGES = {
         "title": "Caso de Uso CU-02 — Gestionar Bitácora y Evaluaciones",
         "svg": "caso-uso-bitacora.svg",
         "info_title": "CU-02 · Registrar bitácora y hacer seguimiento de actividades y evaluaciones:",
-        "info_text": "Precondición: docente autenticado y asignado al espacio curricular. Flujo: seleccionar espacio y curso; publicar fecha, tema, actividad, recursos y tareas con fecha límite; consultar por actividad quién entregó, quién tiene entregas pendientes y quién está atrasado; registrar calificaciones cuantitativas o cualitativas y devoluciones. Para una entrega desaprobada, la retroalimentación es obligatoria; el sistema permite consultar promedios provisionales (RF-07). Error: ante campos obligatorios incompletos, solicita completarlos antes de guardar.",
+        "info_text": "Precondición: docente autenticado y asignado al espacio curricular. Flujo: seleccionar espacio y curso; publicar fecha, tema, actividades, recursos y enlaces a tareas oficiales de Classroom; registrar valoraciones formativas locales cuantitativas o cualitativas y devoluciones. Para una valoración desaprobada, la retroalimentación es obligatoria. Las tareas, entregas y notas oficiales permanecen en Classroom; el portal no las crea ni modifica.",
         "simulator": False,
       },
       "useCaseConsultation": {
@@ -191,7 +213,7 @@ PAGES = {
         "title": "Caso de Uso CU-03 — Consultar Bitácora y Seguimiento Académico",
         "svg": "caso-uso-consulta.svg",
         "info_title": "CU-03 · Consultar clases, entregas y calificaciones:",
-        "info_text": "Precondición: estudiante autenticado. Flujo: ingresar a Mis Clases/Bitácora, filtrar por asignatura, fecha o actividad; consultar clases y materiales, las fechas límite y el estado de sus entregas (entregada, pendiente o atrasada); revisar las calificaciones cuantitativas o cualitativas, la retroalimentación docente y los promedios provisionales disponibles.",
+        "info_text": "Precondición: estudiante autenticado. Flujo: ingresar a Mis Clases/Bitácora y filtrar por asignatura, fecha o tema; consultar clases, recursos y tareas organizadas por curso/fecha. Cuando la API lo permite, muestra únicamente el estado y la nota propios de Classroom en modo de lectura. El enlace abre Classroom para ver instrucciones, entregar y consultar la nota oficial.",
         "simulator": False,
       },
       "useCaseAudit": {
@@ -199,7 +221,7 @@ PAGES = {
         "title": "Caso de Uso CU-04 — Auditar Avance y Regularidad",
         "svg": "caso-uso-auditoria.svg",
         "info_title": "CU-04 · Auditar avance pedagógico, seguimiento de entregas y regularidad:",
-        "info_text": "Actores: Coordinación Pedagógica y Dirección, con permisos por definir en RBAC. Flujo: consultar el semáforo de bitácoras por asignatura, el estado de entregas pendientes o atrasadas y resúmenes de calificaciones para detectar necesidades de acompañamiento; revisar estudiantes con alertas de regularidad y emitir una ficha de intervención al seleccionar un estudiante TEA. El CU fuente enumera 10, 20 y 25 inasistencias; RF-04/RN-03 fijan el pase a TEA en 25. Esta vista es de supervisión y no reemplaza la carga de calificaciones a cargo del docente.",
+        "info_text": "Actores: Coordinación Pedagógica y Dirección, con permisos por definir en RBAC. Flujo: consultar bitácoras, valoraciones formativas y alertas; si Classroom está autorizado, consultar indicadores de tareas en modo de lectura; revisar estudiantes TEA y emitir ficha de intervención. El estado oficial de tareas/entregas/calificaciones reside en Classroom. El filtro de ausentes para carga manual en el sistema provincial pertenece a CU-01/RF-08; no hay integración directa con SGE/CiDi.",
         "simulator": False,
       },
       "useCaseCommunication": {
@@ -212,10 +234,10 @@ PAGES = {
       },
       "useCaseClassroom": {
         "file": "caso-uso-classroom.html",
-        "title": "RF-10 — Integración con Google Classroom",
+        "title": "RF-10 — Portal complementario de Classroom",
         "svg": "caso-uso-classroom.svg",
-        "info_title": "RF-10 · Propuesta de integración con Classroom API:",
-        "info_text": "La plataforma propone crear CourseWorkMaterials y CourseWork en Classroom, organizar los enlaces por curso/tema/fecha y consultar estado de entrega, atraso y calificación mediante StudentSubmissions. La integración requiere OAuth 2.0, autorización docente, mapeo de cursos/usuarios y definir si Classroom o esta plataforma es la fuente oficial de tareas y notas. No está implementada.",
+        "info_title": "RF-10 · Consulta de solo lectura y acceso oficial:",
+        "info_text": "El portal organiza tareas publicadas por curso y fecha; cuando OAuth, permisos y API están habilitados, consulta tareas y datos propios del estudiante en modo de lectura. El enlace abre la tarea oficial en Classroom para entregar. Classroom sigue siendo la fuente de verdad; este portal no crea tareas, adjunta archivos ni modifica estados o notas.",
         "simulator": False,
       },
 }

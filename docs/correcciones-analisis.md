@@ -14,11 +14,23 @@ El sistema debe permitir al docente autenticado, asignado a un espacio curricula
 
 ### RF-06 - Consulta asincrónica de clases y actividades
 
-El sistema debe permitir al estudiante autenticado consultar las bitácoras y recursos de sus cursos, incluso después de una inasistencia, y localizar la información por espacio curricular, fecha o tema. Debe mostrar las consignas y fechas límite publicadas para las actividades, junto con su estado de entrega cuando exista una entrega asociada.
+El sistema debe permitir al estudiante autenticado consultar las bitácoras y recursos de sus cursos, incluso después de una inasistencia, y localizar la información por espacio curricular, fecha o tema. Para las tareas publicadas en Google Classroom, el portal podrá mostrar título, curso, fecha límite, enlace oficial y el estado/calificación propia cuando la API y la autorización del centro lo permitan. La entrega del trabajo se realiza en Classroom, que mantiene el registro oficial.
 
 **Criterios de aceptación:** solo se muestran cursos y datos autorizados para el estudiante; resultados ordenados por fecha; materiales y consignas accesibles desde la consulta; se distingue entre actividad pendiente, entregada y atrasada según fecha límite y registro de entrega.
 
-RF-07 mantiene el asentamiento y consulta de calificaciones formativas. RF-08 mantiene la exportación de reportes consolidados para SGE/CiDi.
+**Límite de alcance:** la vista del portal es de consulta y acceso; no crea, modifica ni entrega tareas de Classroom. Si no se autoriza la API o esta no devuelve los datos, el portal ofrece el acceso al Classroom del curso sin inventar ni guardar estados de entrega.
+
+RF-07 mantiene el asentamiento y consulta de calificaciones formativas. RF-08 se redefine como preparación de una vista filtrable de asistencia para facilitar la carga manual en el sistema provincial que corresponda. No implica transmisión, sincronización ni importación automática a SGE/CiDi.
+
+### RF-08 - Filtrar asistencias para carga manual en el sistema provincial
+
+El sistema debe permitir a Preceptoría consultar la asistencia confirmada por curso, división y fecha, y filtrar la nómina para mostrar únicamente estudiantes ausentes. La vista debe facilitar la transcripción de esos registros en el sistema provincial de destino, sin enviar datos automáticamente ni presuponer que exista un formato de importación.
+
+**Criterios de aceptación:** el filtro muestra solo estudiantes con estado ausente para el curso, división y fecha seleccionados; permite volver a la nómina completa; muestra un total que coincide con los resultados; no modifica registros al filtrar; restringe la consulta a roles autorizados y registra las acciones de consulta/exportación que se acuerden. Un eventual archivo descargable y sus campos/formato requieren validación previa con la institución y no se consideran importables por SGE/CiDi hasta que exista una especificación oficial.
+
+**Supuesto a validar:** según lo informado para este análisis, no se dispone de una API o publicación de código abierto de SGE/CiDi utilizable para esta integración. La revisión exploratoria del [portal público de CiDi](https://cidi.cba.gov.ar/portal-publico/) y del [sitio de SGE](https://sge.cba.gov.ar/) no permitió localizar documentación pública de desarrolladores para asistencia; esto no demuestra que no exista una interfaz privada o documentación institucional. Confirmar con el Ministerio/institución el nombre del sistema de destino, el procedimiento vigente, los permisos y cualquier mecanismo oficial antes de cerrar el alcance.
+
+CiDi debe mencionarse como mecanismo de identidad/acceso solo si la institución confirma que aplica al acceso a SGE; no tratar “SGE” y “CiDi” como nombres equivalentes de un mismo sistema.
 
 ## 2. Profundidad de los casos de uso
 
@@ -26,7 +38,7 @@ RF-07 mantiene el asentamiento y consulta de calificaciones formativas. RF-08 ma
 
 **Actor principal:** Preceptoría. **Actor secundario:** Dirección, por la recepción de alertas y la firma/seguimiento de actas. **Precondición:** Preceptoría autenticada con turno activo.
 
-**Flujo principal:** Preceptoría selecciona curso y división; revisa la nómina; marca ausencias, ingresa minutos de tardanza o registra un retiro anticipado; confirma la planilla. El sistema calcula la fracción y actualiza el acumulado. Al alcanzar 3, 5, 10 o 20 faltas, el sistema emite la alerta para Preceptoría y Dirección. Preceptoría revisa el caso; en 10 y 20 faltas el sistema precompleta el acta y Preceptoría gestiona el seguimiento y la convocatoria presencial junto con Dirección/tutores. Al alcanzar 25 faltas, el sistema cambia a TEA y notifica a Coordinación Pedagógica para la ficha de acompañamiento.
+**Flujo principal:** Preceptoría selecciona curso y división; revisa la nómina; marca ausencias, ingresa minutos de tardanza o registra un retiro anticipado; confirma la planilla. El sistema calcula la fracción y actualiza el acumulado. Para facilitar la carga posterior, Preceptoría puede filtrar la nómina confirmada por fecha y estado “Ausente”; esta consulta no transmite datos a otro sistema. Al alcanzar 3, 5, 10 o 20 faltas, el sistema emite la alerta para Preceptoría y Dirección. Preceptoría revisa el caso; en 10 y 20 faltas el sistema precompleta el acta y Preceptoría gestiona el seguimiento y la convocatoria presencial junto con Dirección/tutores. Al alcanzar 25 faltas, el sistema cambia a TEA y notifica a Coordinación Pedagógica para la ficha de acompañamiento.
 
 **Alternativas:** A1, retiro anticipado: Preceptoría registra el retiro y el sistema computa 0,50 falta. A2, asistencia ya confirmada: Preceptoría rectifica o justifica el registro dentro de las 48 horas hábiles; el sistema guarda usuario, fecha y motivo en la auditoría.
 
@@ -42,17 +54,17 @@ RF-07 mantiene el asentamiento y consulta de calificaciones formativas. RF-08 ma
 1. Selecciona curso, espacio curricular y módulo horario.
 2. El sistema propone la fecha y muestra la bitácora pendiente de completar, si existe.
 3. Registra tema, descripción de actividades, recursos y consignas.
-4. Para cada actividad evaluable, indica título, tipo y fecha límite.
+4. Asocia enlaces a recursos y, cuando corresponda, al curso o tarea oficial de Classroom; las tareas y sus fechas se crean y mantienen en Classroom.
 5. Publica la bitácora; el sistema valida, fecha y asocia la autoría, y la deja visible al curso.
-6. El docente abre el seguimiento de una actividad y consulta quién entregó, quién tiene una entrega pendiente y quién está atrasado.
-7. Registra para cada entrega una valoración cuantitativa o cualitativa y, cuando corresponda, una devolución. Una entrega desaprobada no puede guardarse sin retroalimentación.
-8. El sistema guarda la calificación con fecha y autor, actualiza el promedio provisional y la hace visible al estudiante correspondiente.
+6. El docente registra en el portal las valoraciones formativas que pertenecen al seguimiento pedagógico local, diferenciadas de las calificaciones oficiales de Classroom.
+7. El portal conserva fecha, autor y devolución de la valoración formativa; una valoración desaprobada requiere retroalimentación.
+8. El estudiante consulta la bitácora desde el portal y abre Classroom para ver, entregar o revisar la tarea oficial.
 
-**Alternativas:** A1, el docente guarda un borrador y lo publica más tarde; A2, una actividad no requiere entrega, por lo que no se genera estado de entrega; A3, el docente corrige una calificación y el sistema conserva auditoría del valor anterior y del usuario que la modificó.
+**Alternativas:** A1, el docente guarda un borrador de bitácora y lo publica más tarde; A2, si la API de Classroom no está habilitada, el docente deja el enlace al curso y el estudiante consulta allí las tareas; A3, el docente corrige una valoración formativa local y el sistema conserva auditoría del valor anterior y del usuario que la modificó.
 
-**Errores:** E1, datos obligatorios incompletos; E2, enlace con esquema inválido; E3, intento de calificar una entrega desaprobada sin devolución; E4, el usuario no está asignado al curso. En todos los casos el sistema informa el problema y no persiste un registro inválido.
+**Errores:** E1, datos obligatorios incompletos; E2, enlace con esquema inválido; E3, valoración formativa desaprobada sin devolución; E4, el usuario no está asignado al curso; E5, falla de lectura de Classroom, que no debe mostrarse como tarea sincronizada. En todos los casos el sistema informa el problema y no persiste un registro inválido.
 
-**Postcondiciones:** bitácora publicada y/o actividad, entrega y valoración persistidas con sus relaciones, autoría y fechas; datos visibles únicamente para roles autorizados.
+**Postcondiciones:** bitácora y valoración formativa local publicadas con autoría y fechas; las tareas, entregas y calificaciones oficiales continúan en Classroom. Los datos se muestran solo a roles autorizados.
 
 ### CU-03 - Consultar bitácora, actividades y calificaciones
 
@@ -61,15 +73,15 @@ RF-07 mantiene el asentamiento y consulta de calificaciones formativas. RF-08 ma
 **Flujo principal:**
 1. Ingresa a “Mis Clases / Bitácora”.
 2. Filtra por espacio curricular, fecha o tema.
-3. Consulta las bitácoras en orden cronológico, con actividades, recursos y fechas límite.
-4. Abre una actividad y consulta su estado personal: pendiente, entregada o atrasada.
-5. Consulta sus valoraciones, devoluciones y promedios provisionales disponibles.
+3. Consulta las bitácoras en orden cronológico, con recursos y enlaces a las tareas oficiales de Classroom.
+4. Si el acceso está autorizado, el portal consulta y muestra el estado/calificación propios de Classroom como datos de solo lectura.
+5. Abre el enlace oficial para ver o entregar la tarea en Classroom; consulta en el portal las valoraciones formativas locales y sus devoluciones.
 
-**Alternativas:** A1, si no hay filtros, el sistema muestra las clases más recientes; A2, si todavía no existe una calificación, muestra “Sin calificar” sin inferir una nota; A3, si no hay una entrega requerida, informa que la actividad no solicita entrega.
+**Alternativas:** A1, si no hay filtros, el sistema muestra las clases más recientes; A2, si la API no está disponible, se ofrece el enlace a Classroom y no se presenta un estado de entrega; A3, si no existe valoración formativa local, muestra “Sin valoración” sin inferir una nota.
 
 **Errores:** E1, no hay resultados para los filtros elegidos; E2, el recurso ya no está disponible; E3, se solicita un curso ajeno al estudiante. El sistema informa el resultado y no expone datos de otros estudiantes.
 
-**Postcondiciones:** ninguna modificación de datos académicos; quedan visibles solo bitácoras, entregas y calificaciones propias o de acceso público para el curso.
+**Postcondiciones:** ninguna modificación de tareas, entregas ni calificaciones de Classroom; el estudiante ve únicamente sus datos personales, las bitácoras autorizadas y las valoraciones formativas locales.
 
 ### CU-04 - Auditar avance pedagógico, alertas y reportes
 
@@ -78,15 +90,15 @@ RF-07 mantiene el asentamiento y consulta de calificaciones formativas. RF-08 ma
 **Flujo principal:**
 1. Abre el panel de supervisión y selecciona período, curso o espacio curricular.
 2. Consulta el semáforo de bitácoras actualizadas y pendientes.
-3. Consulta indicadores agregados de actividades publicadas, entregas pendientes/atrasadas y calificaciones cargadas, sin alterar registros docentes.
+3. Consulta indicadores agregados de bitácoras y valoraciones formativas locales; si hay acceso de lectura a Classroom, puede ver los estados agregados de tareas sin alterar entregas ni calificaciones oficiales.
 4. Revisa alertas de inasistencia en los umbrales vigentes y selecciona un caso TEA para emitir o consultar la ficha de intervención.
-5. Genera el reporte de asistencia y calificaciones para facilitar la carga en SGE/CiDi (RF-08).
+5. Consulta indicadores agregados de asistencia. La preparación de la nómina filtrada de ausentes para su carga manual en el sistema provincial corresponde a Preceptoría y se describe en CU-01/RF-08; no hay envío automático desde la plataforma.
 
-**Alternativas:** A1, el filtro no devuelve datos y el panel presenta el estado vacío; A2, el período está incompleto y se genera un reporte parcial identificado como tal.
+**Alternativas:** A1, el filtro no devuelve datos y el panel presenta el estado vacío; A2, Classroom no responde o la API no está autorizada y el panel conserva bitácoras y enlaces locales sin inventar estados externos.
 
-**Errores:** E1, intento de acceso sin permiso; E2, falla al generar el reporte, que no debe presentarse como descargado; E3, no hay información suficiente para emitir una ficha TEA. El sistema informa el error y conserva la auditoría.
+**Errores:** E1, intento de acceso sin permiso; E2, falla al consultar Classroom, que no debe presentarse como información actualizada; E3, no hay información suficiente para emitir una ficha TEA. El sistema informa el error y conserva la auditoría.
 
-**Postcondiciones:** las consultas no modifican datos de asistencia, bitácora o calificaciones; la generación de reportes y fichas queda auditada.
+**Postcondiciones:** las consultas no modifican datos de asistencia, bitácora o calificaciones; la emisión de fichas queda auditada.
 
 **Ajuste de seguridad:** el documento limita actualmente RBAC a Administrador, Preceptor, Docente y Estudiante, pero CU-04 asigna funciones a Coordinación y Dirección. Agregar esos roles y definir permisos explícitos de lectura, exportación y emisión de ficha antes de afirmar que RBAC cubre todos los actores.
 
@@ -103,7 +115,7 @@ El diagrama general de casos de uso y los diagramas específicos existentes pued
 - RF-10 Classroom API (propuesta): [caso-uso-classroom.svg](../diagrams/caso-uso-classroom.svg)
 - Clases revisado: [clases-dominio.svg](../diagrams/clases-dominio.svg)
 
-En el diagrama general, representar RF-05 junto a CU-02 y RF-06 junto a CU-03; mantener RF-07 como registro docente/consulta estudiantil y RF-08 como reporte para SGE/CiDi.
+En el diagrama general, representar RF-05 junto a CU-02 y RF-06 junto a CU-03; mantener RF-07 como registro docente/consulta estudiantil y RF-08 como filtro de ausentes para carga manual, sin actor ni conexión directa con SGE/CiDi.
 
 ## 4. Continuidad operativa y copias de seguridad
 
@@ -155,32 +167,32 @@ Completar la sección de pruebas con entradas, pasos y resultados esperados. La 
 - **Esperado:** en 24 permanece Regular; al alcanzar 25 cambia a TEA, se notifica a Coordinación y se habilita la ficha. Las modificaciones quedan auditadas.
 - **Obtenido:** Pendiente de ejecución UAT.
 
-### CP-006 - Publicación de bitácora
+### CP-006 - Publicación de bitácora con enlace a Classroom
 
-- **Entrada:** docente asignado, módulo horario, tema, actividad y URL HTTPS válida; segundo intento con tema vacío y tercero con URL inválida.
+- **Entrada:** docente asignado, módulo horario, tema y URL HTTPS a una tarea o recurso de Classroom; segundo intento con tema vacío y tercero con URL inválida.
 - **Pasos:** guardar el caso válido; consultar como estudiante del curso; repetir con cada dato inválido.
 - **Esperado:** la bitácora válida aparece con fecha y autor; los intentos inválidos reciben validación y no se publican.
 - **Obtenido:** Pendiente de ejecución UAT.
 
-### CP-007 - Consulta asincrónica
+### CP-007 - Consulta asincrónica y acceso a tareas
 
-- **Entrada:** bitácoras de dos fechas y dos espacios curriculares, incluyendo recursos disponibles y una actividad.
-- **Pasos:** iniciar sesión como estudiante; filtrar por cada espacio y fecha; abrir un material; consultar actividad y estado propio.
-- **Esperado:** resultados cronológicos y filtrados correctamente; material accesible; no aparecen cursos ni datos personales de otros estudiantes.
+- **Entrada:** bitácoras de dos fechas y dos espacios curriculares, enlaces a tareas publicadas en Classroom y, si está autorizada la API, estado de entrega de prueba del estudiante.
+- **Pasos:** iniciar sesión como estudiante; filtrar por espacio/fecha; consultar la tarea y su enlace; comparar estado propio con Classroom; repetir con API sin autorización.
+- **Esperado:** resultados cronológicos; el enlace abre Classroom; solo se muestra el estado propio autorizado; sin API, el portal informa que no pudo consultarlo y no modifica ni crea estados de entrega.
 - **Obtenido:** Pendiente de ejecución UAT.
 
-### CP-008 - Calificación y retroalimentación
+### CP-008 - Valoración formativa local y retroalimentación
 
-- **Entrada:** entrega aprobada y desaprobada; nota cuantitativa/cualitativa; intento de desaprobar sin devolución.
+- **Entrada:** valoración formativa local cuantitativa/cualitativa aprobada y desaprobada; intento de desaprobar sin devolución.
 - **Pasos:** registrar ambos tipos de valoración; intentar guardar desaprobación sin feedback; agregar feedback y guardar; consultar como estudiante y docente.
-- **Esperado:** se aceptan valores válidos; se rechaza la desaprobación sin devolución; nota, fecha y feedback quedan asociados a la entrega y solo visibles a roles autorizados; promedio provisional recalculado.
+- **Esperado:** se aceptan valores válidos; se rechaza la desaprobación sin devolución; valoración, fecha y feedback quedan asociados al estudiante y docente y solo visibles a roles autorizados. No se modifican notas ni entregas oficiales de Classroom.
 - **Obtenido:** Pendiente de ejecución UAT.
 
-### CP-009 - Reporte para SGE/CiDi
+### CP-009 - Filtro de ausentes para carga manual
 
-- **Entrada:** conjunto de asistencia y calificaciones con caracteres acentuados, campos vacíos permitidos y varios cursos.
-- **Pasos:** seleccionar período; generar CSV y PDF; abrirlos con herramientas compatibles; comparar filas y totales con la fuente.
-- **Esperado:** formatos descargables, estructura acordada, totales coincidentes y codificación legible; error explícito si falla la generación.
+- **Entrada:** nóminas de asistencia confirmadas de varios cursos/divisiones y fechas, con estados presentes, ausentes y tardanzas.
+- **Pasos:** seleccionar curso, división y fecha; aplicar el filtro de ausentes; comparar la lista y el total con los registros fuente. Si se aprueba una descarga, validar solo el formato acordado por la institución.
+- **Esperado:** la vista facilita la transcripción manual y coincide con los registros; no se presupone archivo importable ni comunicación automática con SGE/CiDi.
 - **Obtenido:** Pendiente de ejecución UAT.
 
 ### CP-010 - Control de acceso por rol
@@ -195,6 +207,13 @@ Completar la sección de pruebas con entradas, pasos y resultados esperados. La 
 - **Entrada:** entorno de prueba documentado, 30 registros de asistencia y carga concurrente representativa de usuarios institucionales.
 - **Pasos:** medir al menos 30 consultas y cargas; registrar latencia mediana y percentil 95; repetir durante horario de carga acordado.
 - **Esperado:** consultas por debajo de 1,5 s y carga de lista completa por debajo de 30 s; adjuntar resultados crudos y configuración del entorno.
+- **Obtenido:** Pendiente de ejecución UAT.
+
+### CP-012 - Filtro de estudiantes ausentes
+
+- **Entrada:** asistencia confirmada de un curso/división y fecha con estudiantes presentes, ausentes y tardanzas.
+- **Pasos:** abrir la nómina confirmada; seleccionar curso, división y fecha; aplicar el filtro “Ausentes”; comparar nombres y total con los registros fuente; volver a la nómina completa.
+- **Esperado:** se muestran exclusivamente estudiantes cuyo estado sea ausente en esa fecha; el total coincide con la lista; cambiar el filtro no modifica ni transmite registros; solo acceden roles autorizados.
 - **Obtenido:** Pendiente de ejecución UAT.
 
 Agregar también casos para copia de seguridad y restauración una vez aprobados RNF-03/RNF-04; por ejemplo, restaurar una copia en entorno aislado y comparar conteos, integridad referencial y registros recientes.
@@ -236,38 +255,44 @@ los participantes autorizados y auditables. Definir si se permiten mensajes
 iniciados por docentes, adjuntos, edición/eliminación y escalamiento a
 Coordinación.
 
-### RF-10 - Integración con Google Classroom API (propuesta)
+### RF-10 - Consulta y acceso unificado a Google Classroom (propuesta)
 
-La plataforma debe permitir al docente publicar materiales y tareas en el curso
-correspondiente de Google Classroom. La aplicación organiza bitácoras, enlaces,
-consignas y fechas por curso, espacio curricular, tema y fecha; además consulta
-los estados de entrega y calificaciones autorizados para presentarlos junto al
-seguimiento académico.
+El portal debe facilitar que el estudiante encuentre las tareas publicadas en
+Google Classroom desde una vista organizada por curso, espacio curricular y
+fecha. Cuando la institución autorice la API, el portal consultará en modo de
+solo lectura tareas publicadas y el estado/calificación propios del estudiante;
+al seleccionar una tarea, abrirá su enlace oficial en Classroom para ver las
+instrucciones y realizar la entrega. Classroom seguirá siendo la fuente oficial
+de tareas, entregas y calificaciones. El portal no crea, modifica, sube ni
+entrega trabajos en Classroom y no almacena copias de esos archivos.
 
-**Criterios a validar:** publicar materiales como `CourseWorkMaterial` y tareas
-como `CourseWork`; conservar los identificadores y enlaces de Classroom para
-evitar duplicados; consultar `StudentSubmission.state`, `late`, `assignedGrade` y
-`alternateLink`; mostrar los datos solo a los roles autorizados; registrar los
-resultados/errores de sincronización. Definir cómo se reflejan cambios,
-eliminaciones, entregas tardías y notas corregidas.
+**Criterios a validar:** solicitar solo scopes de lectura necesarios; filtrar
+cursos/tareas según la identidad del usuario; conservar identificadores y enlaces
+para evitar duplicar elementos en la vista; mostrar estado y nota solo si la API
+los autoriza; si la API no está disponible, ofrecer el acceso al curso sin
+presentar información desactualizada como actual. Confirmar autorización del
+administrador de Workspace, tipo de cuenta/licencia y verificación OAuth antes
+de comprometer la integración.
 
-La documentación oficial confirma esas operaciones y recursos:
+La documentación oficial confirma la consulta de tareas y entregas propias; la
+entrega sigue el flujo de Classroom:
 
-- [Classroom API: CourseWorkMaterials](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWorkMaterials)
-- [Classroom API: CourseWork](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWork)
-- [Classroom API: StudentSubmissions](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWork.studentSubmissions)
+- [Listar cursos autorizados](https://developers.google.com/workspace/classroom/reference/rest/v1/courses/list)
+- [Listar tareas publicadas](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWork/list)
+- [Listar materiales de clase](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWorkMaterials/list)
+- [Consultar entregas propias](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWork.studentSubmissions/list)
 - [Autorización y scopes de Classroom API](https://developers.google.com/workspace/classroom/guides/auth)
 
-La integración requiere OAuth 2.0 y consentimiento según el rol. La API ofrece,
-entre otros, los scopes `classroom.courseworkmaterials`,
-`classroom.coursework.students` y sus variantes de solo lectura; debe solicitarse
-el mínimo necesario y revisarse el proceso de verificación aplicable. La
-plataforma debe mapear los cursos y usuarios institucionales con los
-identificadores de Google, sin guardar tokens en el navegador.
+La consulta requiere OAuth 2.0 y consentimiento de usuario. Según los datos
+mostrados, pueden ser necesarios `classroom.courses.readonly`,
+`classroom.coursework.me.readonly`, `classroom.courseworkmaterials.readonly` y
+`classroom.student-submissions.me.readonly`; solicitar únicamente los scopes
+necesarios y revisar la verificación aplicable. La plataforma no persistirá
+tokens, archivos de entrega ni calificaciones oficiales en su base de datos.
 
-**Decisiones pendientes:** cuál sistema es la fuente oficial de tareas, entregas
-y notas; si la nota se ingresa en Classroom o en la plataforma; cómo resolver
-conflictos y sincronización fallida; qué cursos/cuentas institucionales pueden
-autorizar la app. La API no reemplaza la organización pedagógica de la plataforma:
-el objetivo es presentar materiales y seguimiento ordenados, con enlaces a la
-actividad correspondiente en Classroom.
+**Decisiones pendientes:** confirmar con el administrador de Workspace si se
+autoriza la API y OAuth para las cuentas del colegio; determinar si se mostrarán
+estados de entrega/notas o solo enlaces; acordar qué sistema es fuente oficial de
+cada dato. La integración completa de entrega desde el portal queda fuera de este
+alcance, ya que las tareas creadas manualmente en Classroom no necesariamente
+pueden modificarse o entregarse por una aplicación externa.

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Clases del Dominio — Diagramas UML B&N (ProA La Falda)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+</head>
+<body data-diagram="domainClasses">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <div class="brand-badge">UML</div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <div class="brand-title-row">
+          <span class="brand-title">ProA La Falda</span>
+          <span class="brand-tag">SP4 / SP5 &bull; RUP</span>
+        </div>
+        <p id="headerActiveViewLabel" class="header-view-label"></p>
+      </div>
+    </div>
+
+    <!-- Navegación entre páginas (antes: pestañas dentro de un solo archivo) -->
+    <nav id="pageNav" class="page-nav custom-scroll"></nav>
+
+    <!-- Controles -->
+    <div class="header-controls">
+      <div class="zoom-group">
+        <button id="zoomOutBtn" type="button" class="icon-btn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg></button>
+        <span id="zoomLevelText" class="zoom-level">100%</span>
+        <button id="zoomInBtn" type="button" class="icon-btn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg></button>
+        <div class="zoom-divider"></div>
+        <button id="resetViewBtn" type="button" class="text-btn">Ajustar Vista</button>
+      </div>
+      <button id="toggleSimulatorBtn" type="button" class="control-btn hidden"><span>Simulador</span></button>
+      <button id="toggleInfoBtn" type="button" class="control-btn"><span>Especificación</span></button>
+      <button id="exportSvgBtn" type="button" class="control-btn control-btn--svg"><span>SVG</span></button>
+      <button id="exportPngBtn" type="button" class="control-btn control-btn--primary"><span class="btn-strong">PNG 300 DPI</span></button>
+    </div>
+  </header>
+
+  <div class="main-area">
+    <div id="viewportContainer" class="viewport">
+
+      <div id="toastMessage" class="toast">
+        <span data-toast-icon>&bull;</span>
+        <span data-toast-text>Notificación</span>
+      </div>
+
+      <!-- Lienzo del diagrama: el SVG se carga desde ../diagrams/clases-dominio.svg -->
+      <div id="diagramPane" class="diagram-pane"></div>
+
+      <div class="footer-note"><a href="../index.html">&larr; Todas las vistas</a></div>
+    </div>
+
+    <!-- Panel lateral de especificación -->
+    <aside id="infoPanel" class="info-panel custom-scroll hidden">
+      <div class="info-panel-header">
+        <h2 id="infoPanelTitle" class="info-panel-title">Especificación Formal UML</h2>
+        <button id="closeInfoBtn" type="button" class="close-btn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+      <div class="info-content">
+        <div class="info-card">
+          <h3>Modelo de dominio y control:</h3>
+          <p>Incluye persona y cuenta de acceso RBAC, asistencia, bitácoras, referencias externas de Classroom, estados propios consultados como vista API, valoraciones formativas locales, alertas, ficha TEA y auditoría. El portal no guarda tareas ni archivos de entrega oficiales.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Scripts separados -->
+  <script src="../js/diagram-config.js"></script>
+  <script src="../js/toast.js"></script>
+  <script src="../js/viewport.js"></script>
+  <script src="../js/exporter.js"></script>
+  <script src="../js/diagram-page.js"></script>
+</body>
+</html>

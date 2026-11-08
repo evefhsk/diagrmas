@@ -14,23 +14,19 @@
           <g transform="translate(180, 100)">
             <rect x="0" y="0" width="340" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
             <text x="170" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Interfaz Web Móvil (PWA)</text>
-            <text x="170" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(Preceptoría: asistencia, alertas y actas)</text>
+            <text x="170" y="53" font-family="'Inter', sans-serif" font-size="12" fill="#000000" text-anchor="middle">(Docente / Estudiante / Preceptoría)</text>
           </g>
 
           <g transform="translate(680, 100)">
             <rect x="0" y="0" width="340" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
             <text x="170" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Panel de Administración</text>
-            <text x="170" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(Dirección / Coordinación)</text>
+            <text x="170" y="53" font-family="'Inter', sans-serif" font-size="12" fill="#000000" text-anchor="middle">(Dirección / Coordinación / Admin.)</text>
           </g>
 
           <!-- Conexión HTTP/JSON hacia Capa de Servicios -->
-          <line x1="350" y1="175" x2="350" y2="290" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
-          <rect x="300" y="218" width="100" height="20" fill="#ffffff" />
-          <text x="350" y="233" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">HTTPS / JSON</text>
+          <line x1="350" y1="175" x2="470" y2="190" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
 
-          <line x1="850" y1="175" x2="850" y2="290" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
-          <rect x="800" y="218" width="100" height="20" fill="#ffffff" />
-          <text x="850" y="233" font-family="'Inter', sans-serif" font-size="12" font-weight="500" fill="#000000" text-anchor="middle">HTTPS / JSON</text>
+          <line x1="850" y1="175" x2="730" y2="190" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
 
           <!-- Capa 2: Servicios de Lógica de Negocio -->
           <g transform="translate(100, 290)">
@@ -48,10 +44,13 @@
             <text x="150" y="43" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Servicio Notas</text>
           </g>
 
-          <!-- Conexiones internas de servicios hacia Motor de Reglas y Módulo SGE -->
+          <!-- Conexiones internas de servicios hacia Motor de Reglas y preparación de reportes -->
           <line x1="250" y1="365" x2="415" y2="460" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
-          <line x1="600" y1="365" x2="415" y2="460" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
-          <line x1="600" y1="365" x2="785" y2="460" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+          <line x1="250" y1="365" x2="785" y2="460" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
+          <path d="M 950 500 H 1050 V 660 H 700 V 665" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#compArrow)" />
+          <path d="M 600 365 V 550 H 620 V 592" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#compArrow)" />
+          <path d="M 600 365 V 665" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#compArrow)" />
+          <path d="M 950 365 H 1180 V 650 H 840 V 675" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#compArrow)" />
 
           <!-- Componentes de Procesamiento / Negocio -->
           <g transform="translate(250, 460)">
@@ -62,9 +61,31 @@
 
           <g transform="translate(620, 460)">
             <rect x="0" y="0" width="330" height="75" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
-            <text x="165" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Módulo de Exportación SGE</text>
-            <text x="165" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(Sistema de Gestión Escolar)</text>
+            <text x="165" y="33" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Consulta de asistencia</text>
+            <text x="165" y="53" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(filtro de ausentes; solo lectura)</text>
           </g>
+
+          <g transform="translate(620, 560)">
+            <rect x="0" y="0" width="260" height="65" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="130" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#000000" text-anchor="middle">Adaptador Classroom</text>
+            <text x="130" y="46" font-family="'Inter', sans-serif" font-size="11" fill="#000000" text-anchor="middle">OAuth · consulta de solo lectura</text>
+          </g>
+          <g transform="translate(930, 560)">
+            <rect x="0" y="0" width="230" height="65" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" stroke-dasharray="6 4" />
+            <text x="115" y="27" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#000000" text-anchor="middle">Google Classroom</text>
+            <text x="115" y="46" font-family="'Inter', sans-serif" font-size="11" fill="#000000" text-anchor="middle">Sistema oficial externo</text>
+          </g>
+          <line x1="880" y1="592" x2="930" y2="592" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#compArrow)" />
+          <path d="M 750 365 V 430 H 740 V 560" fill="none" stroke="#000000" stroke-width="1.5" marker-end="url(#compArrow)" />
+
+          <g transform="translate(450, 190)">
+            <rect x="0" y="0" width="300" height="70" fill="#ffffff" stroke="#000000" stroke-width="1.8" rx="8" />
+            <text x="150" y="29" font-family="'Inter', sans-serif" font-weight="600" font-size="14" fill="#000000" text-anchor="middle">Autenticación y RBAC</text>
+            <text x="150" y="49" font-family="'Inter', sans-serif" font-size="11.5" fill="#000000" text-anchor="middle">Acceso y trazabilidad para los roles</text>
+          </g>
+          <path d="M 470 260 V 275 H 250 V 290" fill="none" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#compArrow)" />
+          <path d="M 600 260 V 290" fill="none" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#compArrow)" />
+          <path d="M 730 260 V 275 H 950 V 290" fill="none" stroke="#000000" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#compArrow)" />
 
           <!-- Conexión hacia Base de Datos -->
           <line x1="415" y1="535" x2="600" y2="650" stroke="#000000" stroke-width="1.8" marker-end="url(#compArrow)" />
@@ -73,11 +94,12 @@
 
           <!-- Cylinder SVG shape para Base de Datos -->
           <g transform="translate(360, 650)">
-            <path d="M 0 25 L 0 110 A 240 25 0 0 0 480 110 L 480 25 Z" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
+            <path d="M 0 25 L 0 185 A 240 25 0 0 0 480 185 L 480 25 Z" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
             <ellipse cx="240" cy="25" rx="240" ry="25" fill="#ffffff" stroke="#000000" stroke-width="1.8" />
-            <ellipse cx="240" cy="110" rx="240" ry="25" fill="none" stroke="#000000" stroke-width="1.8" />
-            <text x="240" y="52" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Base de Datos Relacional</text>
-            <text x="240" y="72" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(PostgreSQL / MySQL)</text>
-            <text x="240" y="92" font-family="'Fira Code', monospace" font-size="11" fill="#000000" text-anchor="middle">Tablas: Personas, Asistencias, Bitácoras, Calificaciones</text>
+            <ellipse cx="240" cy="185" rx="240" ry="25" fill="none" stroke="#000000" stroke-width="1.8" />
+            <text x="240" y="70" font-family="'Inter', sans-serif" font-weight="600" font-size="15" fill="#000000" text-anchor="middle">Base de Datos Relacional</text>
+            <text x="240" y="90" font-family="'Inter', sans-serif" font-size="13" fill="#000000" text-anchor="middle">(PostgreSQL / MySQL)</text>
+            <text x="240" y="116" font-family="'Fira Code', monospace" font-size="9.8" fill="#000000" text-anchor="middle">Tablas: Personas/Roles, Asistencias, Bitácoras</text>
+            <text x="240" y="136" font-family="'Fira Code', monospace" font-size="9.8" fill="#000000" text-anchor="middle">Valoraciones formativas, Alertas, Fichas y Auditoría</text>
           </g>
         </svg>

@@ -17,7 +17,8 @@
     <path d="M1622 273L1375 205"/><path d="M1622 273H1545V535H1375"/>
     <path d="M178 538L435 370"/><path d="M178 538L435 700"/>
     <path d="M1622 448L1395 370"/><path d="M1622 688H1470V370H1395"/>
-    <path d="M1622 688L1390 700"/><path d="M1622 688H1540V596H800V581"/>
+    <path d="M1622 688H1540V596H800V581"/>
+    <path d="M178 273H260V700H990"/>
     <path d="M178 538H260V820H420"/><path d="M1622 273H1570V900H800V866"/>
     <path d="M1622 273H1520V774H1190"/><path d="M1822 878H1700V820H1390"/>
   </g>
@@ -34,15 +35,15 @@
     <ellipse class="usecase" cx="610" cy="535" rx="190" ry="46"/>
     <text class="case-id" x="610" y="525">RF-03</text><text class="case-label" x="610" y="550">Revisar alertas y gestionar actas</text>
     <ellipse class="usecase" cx="1190" cy="535" rx="185" ry="46"/>
-    <text class="case-id" x="1190" y="525">RF-07</text><text class="case-label" x="1190" y="550">Registrar calificaciones</text>
+    <text class="case-id" x="1190" y="525">RF-07</text><text class="case-label" x="1190" y="550">Registrar valoración formativa local</text>
     <ellipse class="usecase" cx="610" cy="700" rx="185" ry="46"/>
-    <text class="case-id" x="610" y="690">RF-07</text><text class="case-label" x="610" y="715">Consultar calificaciones</text>
+    <text class="case-id" x="610" y="690">RF-07</text><text class="case-label" x="610" y="715">Consultar valoración formativa</text>
     <ellipse class="usecase" cx="1190" cy="700" rx="200" ry="46"/>
-    <text class="case-id" x="1190" y="690">RF-08</text><text class="case-label" x="1190" y="715">Generar reporte para SGE/CiDi</text>
+    <text class="case-id" x="1190" y="690">RF-08</text><text class="case-label" x="1190" y="715">Filtrar ausentes para carga manual</text>
     <ellipse class="usecase" cx="610" cy="820" rx="190" ry="46"/>
     <text class="case-id" x="610" y="810">CU-05 / RF-09 · propuesta</text><text class="case-label" x="610" y="835">Plantear y responder dudas</text>
     <ellipse class="usecase" cx="1190" cy="820" rx="200" ry="46"/>
-    <text class="case-id" x="1190" y="808">RF-10 · propuesta</text><text class="case-label" x="1190" y="833">Sincronizar tareas y calificaciones</text>
+    <text class="case-id" x="1190" y="808">RF-10 · propuesta</text><text class="case-label" x="1190" y="833">Consultar tareas y abrir Classroom</text>
   </g>
 
   <g transform="translate(150 235)">
@@ -73,6 +74,6 @@
 
   <rect class="note-box" x="330" y="930" width="1340" height="125" rx="5"/>
   <text class="note" x="348" y="957">RF-03: alertas en 3, 5, 10 y 20 faltas; actas precompletadas en 10/20. A 25, el sistema notifica a Coordinación por TEA.</text>
-  <text class="note" x="348" y="984">RF-07: registro docente y consulta estudiantil. RF-08: reporte SGE/CiDi. RF-09 y RF-10 son propuestas por validar.</text>
-  <text class="note" x="348" y="1011">RF-09 usa mensajería propia; RF-10 requiere OAuth, permisos de Classroom y definir la fuente de verdad de notas/entregas.</text>
+  <text class="note" x="348" y="984">RF-07: registro docente y consulta estudiantil. RF-08: filtro de ausentes para carga manual; no hay envío automático a SGE/CiDi.</text>
+  <text class="note" x="348" y="1011">RF-09 usa mensajería propia; RF-10 es lectura/enlace: Classroom conserva tareas, entregas y notas oficiales.</text>
 </svg>
