@@ -113,6 +113,16 @@ python3 -m http.server 8000
 - La API de Classroom permite consultar tareas y estados propios autorizados con
   OAuth. La disponibilidad depende de los permisos de Workspace y de la
   autorización/verificación aplicable.
+- La [documentación de Algebraix](https://www.algebraix.com/faq) anuncia la
+  importación de actividades y calificaciones desde Classroom; el [aviso de
+  privacidad de SISGA](https://www.sisga.com.co/PoliticaPrivacidad.html) declara
+  el uso de APIs de Google para Classroom y Drive. Ninguna fuente identifica los
+  scopes OAuth ni las llamadas REST concretas. No atribuirles `courses.list` o
+  `courseWork.list` sin evidencia de producto.
+- La [guía de Google para integraciones SIS](https://developers.google.com/workspace/classroom/sis-integrations/validate-your-SIS)
+  describe otra vía basada en OneRoster 1.2 y pruebas de conformidad. Esto no
+  demuestra compatibilidad del SGE/CiDi de Córdoba ni que Algebraix o SISGA usen
+  esa vía.
 
 ## Cambios respecto del original
 

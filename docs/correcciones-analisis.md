@@ -283,12 +283,25 @@ entrega sigue el flujo de Classroom:
 - [Consultar entregas propias](https://developers.google.com/workspace/classroom/reference/rest/v1/courses.courseWork.studentSubmissions/list)
 - [Autorización y scopes de Classroom API](https://developers.google.com/workspace/classroom/guides/auth)
 
-La consulta requiere OAuth 2.0 y consentimiento de usuario. Según los datos
-mostrados, pueden ser necesarios `classroom.courses.readonly`,
-`classroom.coursework.me.readonly`, `classroom.courseworkmaterials.readonly` y
-`classroom.student-submissions.me.readonly`; solicitar únicamente los scopes
-necesarios y revisar la verificación aplicable. La plataforma no persistirá
-tokens, archivos de entrega ni calificaciones oficiales en su base de datos.
+La consulta propuesta requiere autorización OAuth 2.0 y consentimiento de
+usuario. Los scopes deben verificarse contra la referencia de cada método:
+`courses.list` requiere permiso de lectura de cursos; `courseWork.list` y
+`studentSubmissions.list` documentan permisos de lectura de trabajos para el
+usuario o para estudiantes administrados. Consultar materiales requiere un
+scope adicional solo si esa operación forma parte del alcance. Solicitar el
+conjunto mínimo y revisar la verificación aplicable. La plataforma no copiará
+archivos de entrega ni persistirá calificaciones oficiales.
+
+**Antecedentes y límites de evidencia:** [Algebraix anuncia](https://www.algebraix.com/faq)
+la importación de actividades y calificaciones desde Classroom. El [aviso de
+privacidad de SISGA](https://www.sisga.com.co/PoliticaPrivacidad.html) declara
+el uso de APIs de Google para Classroom y Drive y que solicita autorización
+para integrar esos servicios. Las fuentes públicas revisadas no identifican el
+flujo OAuth 2.0, los scopes ni los endpoints usados por esos productos; por eso
+no deben citarse como evidencia de llamadas a `courses.list` o `courseWork.list`.
+La [ruta SIS que Google documenta](https://developers.google.com/workspace/classroom/sis-integrations/validate-your-SIS)
+mediante OneRoster 1.2 es distinta de la consulta por API de Classroom y no
+acredita compatibilidad del SGE/CiDi provincial.
 
 **Decisiones pendientes:** confirmar con el administrador de Workspace si se
 autoriza la API y OAuth para las cuentas del colegio; determinar si se mostrarán

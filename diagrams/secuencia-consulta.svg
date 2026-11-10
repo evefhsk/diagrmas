@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="920" viewBox="0 0 1200 920" role="img" aria-labelledby="title desc">
   <title id="title">Secuencia CU-03 Consulta de bitácora y Classroom</title>
-  <desc id="desc">El portal combina bitácoras propias con tareas y estado personal leídos de Classroom; la entrega se realiza en Classroom.</desc>
+  <desc id="desc">El portal consulta cursos, tareas publicadas y el estado propio mediante OAuth 2.0; la entrega se realiza en Classroom.</desc>
   <defs>
     <marker id="seqArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.5L9 5L0 8.5z" fill="#000"/></marker>
     <marker id="seqReturn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#000" stroke-width="1.5"/></marker>
@@ -29,12 +29,12 @@
   <g class="msg">
     <text x="210" y="137">1. Abrir portal y elegir curso</text><text x="435" y="192">2. solicitar bitácoras y enlaces</text>
     <text x="680" y="247">3. leer bitácoras y valoración formativa local</text><text x="680" y="302">4. devolver datos y enlaces</text>
-    <text x="808" y="357">5. listCourseWork(courseId) · solo lectura</text><text x="808" y="412">6. Tareas publicadas + alternateLink</text>
-    <text x="808" y="467">7. listStudentSubmissions(userId=me) · lectura</text><text x="808" y="522">8. Estado y nota propios, si están permitidos</text>
+    <text x="925" y="357">5. GET /courses/{id}/courseWork · OAuth</text><text x="808" y="412">6. Tareas publicadas + alternateLink</text>
+    <text x="925" y="467">7. GET .../studentSubmissions?userId=me</text><text x="808" y="522">8. Estado y nota propios, si están permitidos</text>
     <text x="445" y="577">9. Unir resultados sin copiar entregas/notas</text><text x="210" y="632">10. Mostrar agenda y acceso a Classroom</text>
     <text x="572" y="687">11. Estudiante ve instrucciones y entrega en Classroom</text><text x="210" y="742">12. Abrir enlace oficial en nueva pestaña</text>
   </g>
   <rect x="160" y="790" width="880" height="56" rx="4" fill="#fff" stroke="#333" stroke-width="1.2"/>
   <text class="note" x="600" y="814" text-anchor="middle">Classroom mantiene tareas, entregas y calificaciones oficiales.</text>
-  <text class="note" x="600" y="832" text-anchor="middle">Si OAuth/API no está habilitada, el portal conserva solo el enlace y no inventa estados.</text>
+  <text class="note" x="600" y="832" text-anchor="middle">Requiere OAuth 2.0 y scopes autorizados; sin acceso a la API, solo se conserva el enlace.</text>
 </svg>
